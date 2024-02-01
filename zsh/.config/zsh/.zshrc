@@ -52,6 +52,9 @@ export GNU_FINDUTILS_BIN_PATH="${HOMEBREW_PREFIX}/opt/findutils/libexec/gnubin"
 
 # diffutils: already link to homebrew prefix, use it directly
 
+# gnu-sed <g>
+export GNU_SED_BIN_PATH="${HOMEBREW_PREFIX}/opt/gnu-sed/libexec/gnubin"
+
 # z.lua
 export _ZL_DATA="${HOME}/.config/zlua/.zlua"
 eval "$(lua "$(brew --prefix z.lua)"/share/z.lua/z.lua --init zsh fzf enhanced once)"
@@ -86,8 +89,9 @@ alias objdump="$GNU_BINUTILS_BIN_PATH/objdump"
 # --color=auto: only colorize the output when stdout is connected to a tty
 alias ls='gls --color=auto' # use `auto` instead of undocumented `tty`
 
-# GNU find, locate, updatedb, xargs
+# GNU find, locate, updatedb, xargs; sed
 export PATH="$GNU_FINDUTILS_BIN_PATH:$PATH"
+export PATH="$GNU_SED_BIN_PATH:$PATH"
 
 # brew install x86_64-elf-gdb
 alias gdb='x86_64-elf-gdb'
