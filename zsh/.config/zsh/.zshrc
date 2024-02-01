@@ -56,8 +56,9 @@ export GNU_FINDUTILS_BIN_PATH="${HOMEBREW_PREFIX}/opt/findutils/libexec/gnubin"
 export GNU_SED_BIN_PATH="${HOMEBREW_PREFIX}/opt/gnu-sed/libexec/gnubin"
 
 # z.lua
+ZLUA_PATH="$(brew --prefix z.lua)/share/z.lua/z.lua"
 export _ZL_DATA="${HOME}/.config/zlua/.zlua"
-eval "$(lua "$(brew --prefix z.lua)"/share/z.lua/z.lua --init zsh fzf enhanced once)"
+eval "$(lua "${ZLUA_PATH}" --init zsh fzf enhanced once)"
 
 # jd-gui (cask)
 alias jd-gui='java -jar /Applications/JD-GUI.app/Contents/Resources/Java/jd-gui-1.6.6-min.jar >& /dev/null &|'
@@ -158,6 +159,12 @@ alias rm=trash
 # pipx
 export PATH="${HOME}/.local/bin:$PATH"
 
+# nnn
+alias nnn='nnn -e' # always open text files in the terminal
+export NNN_PLUG="p:preview-tui;z:autojump"
+export NNN_FIFO="/tmp/nnn.fifo"
+export NNN_ZLUA="${ZLUA_PATH}"
+
 # TODO: iterm2
 
 #################### Routines ##############################
@@ -233,6 +240,8 @@ editz() {
 }
 
 ################### General Configurations #################
+
+export PATH="$HOME/bin:$PATH"
 
 # allow comments when interactive
 setopt interactivecomments
