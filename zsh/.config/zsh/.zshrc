@@ -222,7 +222,6 @@ _fzf_setup() {
     export FZF_ALT_C_COMMAND="fd --type d --strip-cwd-prefix"
     # print tree structure in the preview window
     export FZF_ALT_C_OPTS="--preview 'tree -C {}'"
-    unset FZF_BASE
 }
 _fzf_compgen_dir() {
   fd --type d --hidden --follow --exclude ".git" . "$1"
@@ -355,7 +354,7 @@ zstyle ':completion:*' completer _extensions _complete _approximate
 # facility: progressively increases the number of errors
 zstyle ':completion:*' max-errors 2
 
-# show a message of completer 
+# show a message of completer
 zstyle ':completion:*' show-completer  true
 
 # case insensitive and allow
