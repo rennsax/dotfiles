@@ -1,0 +1,9 @@
+# used by antidote plugin manager
+
+ohmyzsh/ohmyzsh path:lib/git.zsh
+ohmyzsh/ohmyzsh path:plugins/tmux
+
+## Aloxaf/fzf-tab
+
+zsh-users/zsh-syntax-highlighting
+zsh-users/zsh-autosuggestions

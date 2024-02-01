@@ -1,0 +1,4 @@
+# cross compilation
+# https://clang.llvm.org/docs/CrossCompilation.html#general-cross-compilation-options-in-clang
+clang -target=<triple> -fuse-ld=<ld-path> hello.c -o hello
+clang -target=x86_64-unknown-linux-gnu -fuse-ld=$(which ld.lld) ...

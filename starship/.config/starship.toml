@@ -1,0 +1,154 @@
+[aws]
+symbol = "  "
+disabled = true
+
+[buf]
+symbol = " "
+
+[c]
+symbol = " "
+commands = [['clang', '--version']]
+detect_extensions = ['c', 'h', 'cpp', 'cc']
+
+[kotlin]
+disabled = true
+
+[conda]
+symbol = " "
+
+[dart]
+symbol = " "
+
+[directory]
+read_only = " 󰌾"
+
+[docker_context]
+symbol = " "
+
+[elixir]
+symbol = " "
+
+[elm]
+symbol = " "
+
+[fossil_branch]
+symbol = " "
+
+[git_branch]
+symbol = " "
+
+[golang]
+symbol = " "
+
+[guix_shell]
+symbol = " "
+
+[haskell]
+symbol = " "
+
+[haxe]
+symbol = " "
+
+[hg_branch]
+symbol = " "
+
+[hostname]
+ssh_symbol = " "
+
+[java]
+symbol = " "
+
+[julia]
+symbol = " "
+
+[lua]
+symbol = " "
+
+[memory_usage]
+symbol = "󰍛 "
+
+[meson]
+symbol = "󰔷 "
+
+[nim]
+symbol = "󰆥 "
+
+[nix_shell]
+symbol = " "
+
+[nodejs]
+symbol = " "
+
+# [os.symbols]
+# Alpaquita = " "
+# Alpine = " "
+# Amazon = " "
+# Android = " "
+# Arch = " "
+# Artix = " "
+# CentOS = " "
+# Debian = " "
+# DragonFly = " "
+# Emscripten = " "
+# EndeavourOS = " "
+# Fedora = " "
+# FreeBSD = " "
+# Garuda = "󰛓 "
+# Gentoo = " "
+# HardenedBSD = "󰞌 "
+# Illumos = "󰈸 "
+# Linux = " "
+# Mabox = " "
+# Macos = " "
+# Manjaro = " "
+# Mariner = " "
+# MidnightBSD = " "
+# Mint = " "
+# NetBSD = " "
+# NixOS = " "
+# OpenBSD = "󰈺 "
+# openSUSE = " "
+# OracleLinux = "󰌷 "
+# Pop = " "
+# Raspbian = " "
+# Redhat = " "
+# RedHatEnterprise = " "
+# Redox = "󰀘 "
+# Solus = "󰠳 "
+# SUSE = " "
+# Ubuntu = " "
+# Unknown = " "
+# Windows = "󰍲 "
+
+[package]
+symbol = "󰏗 "
+
+[python]
+symbol = " "
+
+[ruby]
+symbol = " "
+
+[rust]
+symbol = " "
+
+[git_status]
+conflicted = '🤺'
+ahead = '🚀'
+behind = '🐌'
+diverged = '😵'
+up_to_date = '✓'
+untracked = '❓'
+stashed = '📦'
+modified = '📝'
+staged = '[++\($count\)](green)'
+renamed = '🔧'
+deleted = '🚮'
+
+[os.symbols]
+Macos = " "
+
+[os]
+disabled = false
+format = "[$symbol]($style)"
+

@@ -1,0 +1,2 @@
+# disassemble in 16-bit mode (usually for MBR)
+objdump -D -bbinary -mi8086 example.img

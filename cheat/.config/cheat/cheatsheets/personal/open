@@ -1,0 +1,2 @@
+# open a new **instance** of app
+open -n /Applications/iTerm2.app
