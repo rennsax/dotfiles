@@ -435,8 +435,8 @@ if [ -z "$DEBUG_ZSH" ]; then
     ZSH_TMUX_AUTOCONNECT=false # never try to connect to previous session
 
     for plugin ($plugins); do
-        if [[ -s "$ZDOTDIR/plugins/$plugin/$plugin.plugin.zsh" ]]; then
-            \. "$ZDOTDIR/plugins/$plugin/$plugin.plugin.zsh"
+        if [[ -s "$ZDOTDIR/.zsh-plugins/$plugin/$plugin.plugin.zsh" ]]; then
+            \. "$ZDOTDIR/.zsh-plugins/$plugin/$plugin.plugin.zsh"
         else
             echo "zsh: plugin $plugin not found"
         fi
