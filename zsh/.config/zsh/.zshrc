@@ -275,17 +275,13 @@ alias history='fc -i -l 1'
 # if a directory is placed as "command", `cd` to it
 setopt autocd
 
-# `pushd` old pwd automatically
-setopt autopushd pushdignoredups
-
-# quickly `cd` to these directories
-# DEPRECATED: use `//` (expand to `/*/`) instead
-## export CDPATH=".:$HOME/codeplace"
-
-# TODO: replace with REMEMBERING RECENT DIRECTORIES
-# alias from cd +1 to cd +4 (trace back at most 4 directories)
-# NOTE: add `{}` to sublist in case that SHORT_LOOPS is unset
-for ((i=1; i<5; i+=1)) { alias $i="builtin cd +$i" }; unset i
+# remember recent directories
+autoload -Uz chpwd_recent_dirs cdr add-zsh-hook
+add-zsh-hook chpwd chpwd_recent_dirs
+zstyle ':completion:*:*:cdr:*:*' menu selection
+# Is '/tmp(|*)' a valid pattern? Why the doc use it as the example?
+zstyle ':chpwd:*' recent-dirs-prune 'pattern:/tmp*'
+for ((i=1;i<=9;i+=1)); do alias $i="cdr $i"; done; unset i
 
 # use GNU ls (included in coreutils) and set color
 # generated via https://geoff.greer.fm/lscolors
