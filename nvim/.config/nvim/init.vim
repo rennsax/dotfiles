@@ -9,7 +9,7 @@ nnoremap <silent> <M-u> :nohl<CR>
 nnoremap <silent> g* :let @/ = expand("<cword>")<CR>:set hlsearch<CR>
 " nnoremap <Leader>d dd
 nnoremap <Leader>ek :vs $HOME/.config/nvim/init.vim<CR>
-nnoremap ∂ g^dg$g^
+nnoremap <M-d> g^dg$g^
 nnoremap <Up> gk
 nnoremap <Down> gj
 xnoremap Y "+y
@@ -25,12 +25,12 @@ augroup END
 
 augroup ReloadYabai
     autocmd!
-    autocmd BufWritePost ~/.config/yabai/yabairc !rm /tmp/yabai_$USER*.log; yabai --restart-service
+    autocmd BufWritePost yabairc !rm /tmp/yabai_$USER*.log; yabai --restart-service
 augroup END
 
 augroup ReloadSkhd
     autocmd!
-    autocmd BufWritePost ~/.config/skhd/skhdrc !skhd --reload
+    autocmd BufWritePost skhdrc !skhd --reload
 augroup END
 
 "augroup RestoreCursorAfterExit
