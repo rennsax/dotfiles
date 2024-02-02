@@ -424,12 +424,23 @@ _fzf_setup $FZF_BASE
 # brew install starship
 eval "$(starship init zsh)" # starship theme
 
-if [ -z "$DEBUG_ZSH" ]; then
-    # use mattmc3/antidote plugin manager
-    # brew install antidote
-    source ${HOMEBREW_PREFIX}/opt/antidote/share/antidote/antidote.zsh
+plugins=(
+    tmux
+    git
+    zsh-syntax-highlighting
+    zsh-autosuggestions
+)
 
+if [ -z "$DEBUG_ZSH" ]; then
     ZSH_TMUX_AUTOCONNECT=false # never try to connect to previous session
-    antidote load
+
+    for plugin ($plugins); do
+        if [[ -s "$ZDOTDIR/plugins/$plugin/$plugin.plugin.zsh" ]]; then
+            \. "$ZDOTDIR/plugins/$plugin/$plugin.plugin.zsh"
+        else
+            echo "zsh: plugin $plugin not found"
+        fi
+    done
+    unset plugin plugins
 fi
 
