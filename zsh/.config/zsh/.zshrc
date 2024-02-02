@@ -60,7 +60,7 @@ export GNU_TAR_BIN_PATH="${HOMEBREW_PREFIX}/opt/gnu-tar/libexec/gnubin"
 
 # z.lua
 ZLUA_PATH="$(brew --prefix z.lua)/share/z.lua/z.lua"
-export _ZL_DATA="${HOME}/.config/zlua/.zlua"
+export _ZL_DATA="${XDG_CONFIG_HOME:-$HOME/.config}/zlua/.zlua"
 eval "$(lua "${ZLUA_PATH}" --init zsh fzf enhanced once)"
 
 # jd-gui (cask)
@@ -179,7 +179,7 @@ __load_nvm() {
         echo "invalid nvm base path" >&2
         return 1
     fi
-    export NVM_DIR="$XDG_CACHE_HOME/nvm"
+    export NVM_DIR="${XDG_DATA_HOME:-$HOME/.local/share}/nvm"
     builtin source "$nvm_sh"
     builtin source "$nvm_completion"
 }
