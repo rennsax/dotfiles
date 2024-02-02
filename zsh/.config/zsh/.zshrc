@@ -160,9 +160,6 @@ alias cat='bat'
 # trash
 alias rm=trash
 
-# pipx
-export PATH="${HOME}/.local/bin:$PATH"
-
 # nnn
 alias nnn='nnn -e' # always open text files in the terminal
 export NNN_PLUG="p:preview-tui;z:autojump"
@@ -245,8 +242,6 @@ editz() {
 }
 
 ################### General Configurations #################
-
-export PATH="$HOME/bin:$PATH"
 
 # allow comments when interactive
 setopt interactivecomments
