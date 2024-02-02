@@ -204,7 +204,7 @@ loadconda() {
 # Setup completion, keybindings for fzf.
 # The funtion is defered until completion system is inited.
 # PARAMS: FZF_BASE
-_fzf_setup() {
+__fzf_setup() {
     emulate -L zsh
     setopt err_return
     local fzf_base="$1"
@@ -220,14 +220,14 @@ _fzf_setup() {
     export FZF_ALT_C_COMMAND="fd --type d --strip-cwd-prefix"
     # print tree structure in the preview window
     export FZF_ALT_C_OPTS="--preview 'tree -C {}'"
-}
-_fzf_compgen_dir() {
-    # cd **<TAB>
-    fd --type d --hidden --follow --exclude ".git" --exclude "node_modules" . "$1"
-}
-_fzf_compgen_path() {
-    # vim **<TAB>
-    fd --hidden --follow --exclude ".git" --exclude "node_modules" . "$1"
+    _fzf_compgen_dir() {
+        # cd **<TAB>
+        fd --type d --hidden --follow --exclude ".git" --exclude "node_modules" . "$1"
+    }
+    _fzf_compgen_path() {
+        # vim **<TAB>
+        fd --hidden --follow --exclude ".git" --exclude "node_modules" . "$1"
+    }
 }
 
 grab_can() {
@@ -414,7 +414,7 @@ bindkey -M listscroll '^n' down-line-or-history
 autoload -Uz compinit && compinit
 
 # fzf rebind TAB (^I), so it must be inited after `compinit`
-_fzf_setup $FZF_BASE
+__fzf_setup $FZF_BASE
 
 # also show hidden files
 ## _comp_options+=(globdots)
