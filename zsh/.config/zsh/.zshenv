@@ -1,7 +1,5 @@
 # very important setup
 
-## export PATH="$HOME/bin:$PATH"
-
 # redirect shouldn't overwrite a existing file
 setopt noclobber
 

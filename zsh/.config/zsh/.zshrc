@@ -83,6 +83,9 @@ fi
 # We must source it.
 ## source "${HOMEBREW_COMPLETIONS}/_pipx"
 
+# https://docs.brew.sh/Shell-Completion#configuring-completions-in-zsh
+FPATH="${HOMEBREW_COMPLETIONS}:${FPATH}"
+
 #################### Linuxify (MacOS) ######################
 
 # most Linux distro has a separate utility `hd`
@@ -230,10 +233,6 @@ __fzf_setup() {
     }
 }
 
-grab_can() {
-    bash -c "cd ~/codeplace/github/canvas_grab && ./canvas_grab.sh"
-}
-
 curl_github() {
     curl -sSLO "https://raw.githubusercontent.com/$1"
 }
@@ -318,15 +317,16 @@ bindkey -M emacs '^J' accept-and-hold
 autoload -U edit-command-line
 zle -N edit-command-line
 bindkey '^X^E' edit-command-line
-zstyle ':zle:edit-command-line' editor "$EDITOR" -c 'set ft=zsh'
+if [[ "$EDITOR" = *vi* ]]; then
+    zstyle ':zle:edit-command-line' editor "$EDITOR" -c 'set ft=zsh'
+else
+    zstyle ':zle:edit-command-line' editor "$EDITOR"
+fi
 
 # magic-space: perform history expansion and insert a space
 bindkey ' ' magic-space
 
 ################### ZSH Completions #######################
-
-# https://docs.brew.sh/Shell-Completion#configuring-completions-in-zsh
-FPATH="${HOMEBREW_COMPLETIONS}:${FPATH}"
 
 # these two options allow completions start when the cursor is within the word
 # and after completion, the cursor moves to the end of the word
