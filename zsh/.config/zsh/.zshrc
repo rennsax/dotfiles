@@ -157,14 +157,15 @@ export REPO_URL='https://mirrors.tuna.tsinghua.edu.cn/git/git-repo'
 export BAT_THEME="gruvbox-dark"
 alias cat='bat'
 
-# trash
-alias rm=trash
+# trash-cli
+alias rm='echo "This is not the command you are looking for."; false'
 
 # nnn
 alias nnn='nnn -e' # always open text files in the terminal
 export NNN_PLUG="p:preview-tui;z:autojump"
 export NNN_FIFO="/tmp/nnn.fifo"
 export NNN_ZLUA="${ZLUA_PATH}"
+export NNN_TRASH=1
 
 # TODO: iterm2
 
