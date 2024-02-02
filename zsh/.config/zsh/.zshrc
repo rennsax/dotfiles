@@ -224,10 +224,12 @@ _fzf_setup() {
     export FZF_ALT_C_OPTS="--preview 'tree -C {}'"
 }
 _fzf_compgen_dir() {
-  fd --type d --hidden --follow --exclude ".git" . "$1"
+    # cd **<TAB>
+    fd --type d --hidden --follow --exclude ".git" --exclude "node_modules" . "$1"
 }
 _fzf_compgen_path() {
-  fd --hidden --follow --exclude ".git" . "$1"
+    # vim **<TAB>
+    fd --hidden --follow --exclude ".git" --exclude "node_modules" . "$1"
 }
 
 grab_can() {
