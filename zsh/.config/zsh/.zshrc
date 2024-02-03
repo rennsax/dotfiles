@@ -170,6 +170,9 @@ export NNN_FIFO="/tmp/nnn.fifo"
 export NNN_ZLUA="${ZLUA_PATH}"
 export NNN_TRASH=1
 
+# rbenv
+eval "$(rbenv init - zsh)"
+
 # TODO: iterm2
 
 #################### Routines ##############################
