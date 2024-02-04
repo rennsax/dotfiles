@@ -46,6 +46,8 @@ yabai -m config                                 \
     mouse_action2                resize         \
     mouse_drop_action            swap
 
+yabai -m config --space 5 layout float
+
 # add some apps that you don't want yabai to manage
 unmanaged_apps=(
     '^System Settings$'
@@ -56,12 +58,22 @@ unmanaged_apps=(
     '^App Store$'
     '^Finder$'
     '^Mail$'
+    '^Font Book$'
+    '^Rocket$'
+    '^TextEdit$'
+    '^VMware Fusion$'
+    '^jBox$'
+    '^Activity Monitor$'
+    '^Archive Utility$'
+    '^BetterTouchTool$'
 )
 space5_apps=(
-    '^Clash Verge$' 
-    '^WeChat$' 
+    '^Clash Verge$'
+    '^WeChat$'
     '^Telegram$'
-    '^Jitsi Meet$' 
+    '^Jitsi Meet$'
+    '^不背单词$'
+    '^TencentMeeting$'
 )
 for app in ${unmanaged_apps}; do
     yabai -m rule --add app=${app} manage=off
@@ -81,6 +93,8 @@ focus_under_cursor() {
 yabai -m signal --add event=window_destroyed \
     action="${functions[focus_under_cursor]}" active=yes
 yabai -m signal --add event=application_terminated \
+    action="${functions[focus_under_cursor]}" active=yes
+yabai -m signal --add event=space_changed \
     action="${functions[focus_under_cursor]}" active=yes
 
 borders active_color=0xffff7c5c width=10.0 inactive_color=0xff494d64 width=5.0 &
