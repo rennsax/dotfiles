@@ -34,6 +34,8 @@ HOMEBREW_COMPLETIONS="${HOMEBREW_PREFIX}/share/zsh/site-functions"
 # llvm
 export LLVM_BIN_PATH="${HOMEBREW_PREFIX}/opt/llvm/bin"
 export PATH="$LLVM_BIN_PATH:$PATH"
+export CC="$LLVM_BIN_PATH/clang"
+export CXX="$LLVM_BIN_PATH/clang++"
 
 # python@3.12
 export PYTHON3_BIN_PATH="${HOMEBREW_PREFIX}/opt/python@3.12/libexec/bin"
