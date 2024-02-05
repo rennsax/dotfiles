@@ -9,6 +9,9 @@ export EDITOR=nvim
 # Manually set your language environment
 export LANG=en_US.UTF-8
 
+# MacOS: `systemsetup -listtimezones`
+export TZ=Asia/Shanghai
+
 # Proxy settings
 CLASH_MIXED_PORT=8881
 export http_proxy="http://127.0.0.1:${CLASH_MIXED_PORT}"
