@@ -42,3 +42,5 @@ export PIPX_MAN_DIR="$XDG_MAN_PATH"
 # rbenv
 export RBENV_ROOT="$XDG_DATA_HOME"/rbenv
 
+# npm
+export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME"/npm/npmrc
