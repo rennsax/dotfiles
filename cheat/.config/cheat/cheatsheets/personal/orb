@@ -1,0 +1,14 @@
+# create a newest ubuntu virtual machine
+orb create ubuntu
+
+# run an interactive shell with the default machine
+orb
+
+# run the command with the default machine
+orb uname -a
+
+# select the machine and the login user
+orb -m ubuntu -u root
+
+# connect via ssh
+ssh [user]@[machine]@orb
