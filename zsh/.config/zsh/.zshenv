@@ -21,6 +21,7 @@ export https_proxy="http://127.0.0.1:${CLASH_MIXED_PORT}"
 export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_CACHE_HOME="$HOME/.cache"
 export XDG_DATA_HOME="$HOME/.local/share"
+export XDG_STATE_HOME="$HOME/.local/state"
 # The following variables are not specified by XDG standard.
 export XDG_BIN_HOME="$HOME/.local/bin"
 export XDG_MAN_PATH="$HOME/.local/share/man"
