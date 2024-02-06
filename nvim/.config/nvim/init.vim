@@ -8,7 +8,7 @@ nnoremap <silent> <M-u> :nohl<CR>
 " only highlight, not remove the cursor
 nnoremap <silent> g* :let @/ = expand("<cword>")<CR>:set hlsearch<CR>
 " nnoremap <Leader>d dd
-nnoremap <Leader>ek :vs $HOME/.config/nvim/init.vim<CR>
+nnoremap <Leader>ek :vs $XDG_CONFIG_HOME/nvim/init.vim<CR>
 nnoremap <M-d> g^dg$g^
 nnoremap <Up> gk
 nnoremap <Down> gj
