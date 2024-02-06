@@ -175,6 +175,9 @@ export NNN_TRASH=1
 # rbenv
 eval "$(rbenv init - zsh)"
 
+# nvim
+export NVIM_INSTALL_PLUGINS=1
+
 # TODO: iterm2
 
 #################### Routines ##############################
