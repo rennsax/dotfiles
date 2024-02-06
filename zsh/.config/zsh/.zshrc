@@ -194,6 +194,10 @@ __load_nvm() {
 
 loadnvm() {
     __load_nvm "$NVM_BASE"
+
+    # pnpm tabtab completions
+    [[ -f "$XDG_CONFIG_HOME/tabtab/zsh/__tabtab.zsh" ]] && \
+        \. "$XDG_CONFIG_HOME/tabtab/zsh/__tabtab.zsh"
 }
 
 # setup shell environment for conda
