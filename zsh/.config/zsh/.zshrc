@@ -432,6 +432,7 @@ eval "$(starship init zsh)" # starship theme
 plugins=(
     tmux
     git
+    orb
     zsh-syntax-highlighting
     zsh-autosuggestions
 )
