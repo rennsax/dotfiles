@@ -88,5 +88,6 @@ endfunction
 xnoremap in :<C-u>call Numbers()<CR>
 onoremap in :normal vin<CR>
 
-" format
-" set formatoptions-=o
+if $NVIM_INSTALL_PLUGINS == 1
+    lua require("rennsax.lazy")
+endif
