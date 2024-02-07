@@ -424,6 +424,7 @@ plugins=(
     orb
     zsh-syntax-highlighting
     zsh-autosuggestions
+    zsh-defer
 )
 
 if [ -z "$DEBUG_ZSH" ]; then
