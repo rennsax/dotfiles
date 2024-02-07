@@ -71,9 +71,6 @@ alias jd-gui='java -jar /Applications/JD-GUI.app/Contents/Resources/Java/jd-gui-
 # fzf
 FZF_BASE="$HOMEBREW_PREFIX/opt/fzf"
 
-# nvm
-NVM_BASE="$HOMEBREW_PREFIX/opt/nvm"
-
 # cheat
 if [[ "$HOMEBREW_COMPLETIONS/_cheat" -ot "$HOMEBREW_COMPLETIONS/cheat.zsh" ]]; then
     ln -sf './cheat.zsh' "$HOMEBREW_COMPLETIONS/_cheat"
@@ -182,21 +179,8 @@ export NVIM_INSTALL_PLUGINS=1
 
 #################### Routines ##############################
 
-__load_nvm() {
-    local nvm_sh nvm_completion
-    nvm_sh="$1/nvm.sh"
-    nvm_completion="$1/etc/bash_completion.d/nvm"
-    if [[ ! ( -s "$nvm_sh" && -s "$nvm_completion" ) ]]; then
-        echo "invalid nvm base path" >&2
-        return 1
-    fi
-    export NVM_DIR="${XDG_DATA_HOME:-$HOME/.local/share}/nvm"
-    builtin source "$nvm_sh"
-    builtin source "$nvm_completion"
-}
-
 loadnvm() {
-    __load_nvm "$NVM_BASE"
+    eval "$(fnm env --use-on-cd)"
 
     # pnpm tabtab completions
     [[ -f "$XDG_CONFIG_HOME/tabtab/zsh/__tabtab.zsh" ]] && \

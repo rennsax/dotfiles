@@ -45,3 +45,6 @@ export RBENV_ROOT="$XDG_DATA_HOME"/rbenv
 
 # npm
 export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME"/npm/npmrc
+
+# fnm
+export FNM_DIR="$XDG_DATA_HOME"/fnm
