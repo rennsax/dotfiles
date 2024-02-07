@@ -66,6 +66,9 @@ unmanaged_apps=(
     '^Activity Monitor$'
     '^Archive Utility$'
     '^BetterTouchTool$'
+    '^UTM$'
+    '^Bartender 5$'
+    '^OrbStack$'
 )
 space5_apps=(
     '^Clash Verge$'

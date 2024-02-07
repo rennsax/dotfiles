@@ -1,0 +1,17 @@
+# add plugin
+asdf plugin add ruby
+
+# show added plugins
+asdf plugin list
+
+# check all remote versions
+asdf list-all ruby
+
+# install some version
+asdf install ruby 3.3.0
+
+# activate tool version
+# global: $HOME/.tool-versions
+# shell: env `ASDF_${TOOL}_VERSION
+# local: $PWD/.tool-versions
+asdf global|shell|local ruby 3.3.0
