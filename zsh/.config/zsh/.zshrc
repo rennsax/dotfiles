@@ -78,6 +78,9 @@ elif [[ ! -f "$HOMEBREW_COMPLETIONS/cheat.zsh" ]]; then
     echo "cannot create symlink of cheat.zsh" >&2
 fi
 
+# asdf
+builtin source $(brew --prefix asdf)/libexec/asdf.sh
+
 # pipx uses a legacy, incorrect autoload file.
 # We must source it.
 ## source "${HOMEBREW_COMPLETIONS}/_pipx"
@@ -180,8 +183,6 @@ export NVIM_INSTALL_PLUGINS=1
 #################### Routines ##############################
 
 loadnvm() {
-    eval "$(fnm env --use-on-cd)"
-
     # pnpm tabtab completions
     [[ -f "$XDG_CONFIG_HOME/tabtab/zsh/__tabtab.zsh" ]] && \
         \. "$XDG_CONFIG_HOME/tabtab/zsh/__tabtab.zsh"
