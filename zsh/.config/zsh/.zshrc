@@ -22,6 +22,18 @@ if [[ ! -d $ZDOTDIR ]]; then
     return 1
 fi
 
+autoload -Uz $ZDOTDIR/.zsh-plugins/zsh-defer/zsh-defer
+
+load_plugin() {
+    emulate -L zsh
+    local plugin="$1"
+    if [[ -s "$ZDOTDIR/.zsh-plugins/$plugin/$plugin.plugin.zsh" ]]; then
+        zsh-defer source "$ZDOTDIR/.zsh-plugins/$plugin/$plugin.plugin.zsh"
+    else
+        echo "zsh: plugin $plugin not found"
+    fi
+}
+
 #################### Homebrew (MacOS) ######################
 
 export HOMEBREW_NO_AUTO_UPDATE=1
@@ -79,7 +91,7 @@ elif [[ ! -f "$HOMEBREW_COMPLETIONS/cheat.zsh" ]]; then
 fi
 
 # asdf
-builtin source $(brew --prefix asdf)/libexec/asdf.sh
+zsh-defer source $(brew --prefix asdf)/libexec/asdf.sh
 
 # pipx uses a legacy, incorrect autoload file.
 # We must source it.
@@ -174,6 +186,10 @@ export NNN_TRASH=1
 
 # nvim
 export NVIM_INSTALL_PLUGINS=1
+
+# fzf rebind TAB (^I), so it must be inited after `compinit` (defer it).
+# zsh-defer can even defer the task when __fzf_setup isn't defined.
+zsh-defer __fzf_setup "$FZF_BASE"
 
 # TODO: iterm2
 
@@ -407,9 +423,6 @@ bindkey -M listscroll '^n' down-line-or-history
 
 autoload -Uz compinit && compinit
 
-# fzf rebind TAB (^I), so it must be inited after `compinit`
-__fzf_setup $FZF_BASE
-
 # also show hidden files
 ## _comp_options+=(globdots)
 
@@ -424,18 +437,13 @@ plugins=(
     orb
     zsh-syntax-highlighting
     zsh-autosuggestions
-    zsh-defer
 )
 
 if [ -z "$DEBUG_ZSH" ]; then
     ZSH_TMUX_AUTOCONNECT=false # never try to connect to previous session
 
     for plugin ($plugins); do
-        if [[ -s "$ZDOTDIR/.zsh-plugins/$plugin/$plugin.plugin.zsh" ]]; then
-            \. "$ZDOTDIR/.zsh-plugins/$plugin/$plugin.plugin.zsh"
-        else
-            echo "zsh: plugin $plugin not found"
-        fi
+        load_plugin "$plugin"
     done
     unset plugin plugins
 fi
