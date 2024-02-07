@@ -15,6 +15,7 @@
 # 4. Use `word ... () { list }` to define functions as possible, which is more compatible.
 # 5. Do not override commands via aliasing unless you want to abandon the previous version.
 #    It prevent the nesting of aliasing, and is not what you expect at most of the time.
+# 6. Use `#` as the leading character of descriptions, and `##` of commented codes.
 #
 
 if [[ ! -d $ZDOTDIR ]]; then
@@ -93,9 +94,8 @@ fi
 # asdf
 zsh-defer source $(brew --prefix asdf)/libexec/asdf.sh
 
-# pipx uses a legacy, incorrect autoload file.
-# We must source it.
-## source "${HOMEBREW_COMPLETIONS}/_pipx"
+# pipx uses a legacy, incorrect autoload file. We must source it.
+zsh-defer source "${HOMEBREW_COMPLETIONS}/_pipx"
 
 # https://docs.brew.sh/Shell-Completion#configuring-completions-in-zsh
 FPATH="${HOMEBREW_COMPLETIONS}:${FPATH}"
