@@ -259,11 +259,6 @@ setopt interactivecomments
 # ^S/^Q has no effect on start/stop the flow
 setopt noflowcontrol
 
-# if in tmux, ^D won't exit the shell
-if [ -n "$TMUX" ]; then
-    setopt ignoreeof
-fi
-
 # history
 [[ -z "$HISTFILE" ]] && export HISTFILE="${ZDOTDIR:-$HOME}/.zsh_history"
 export HISTSIZE=50000
