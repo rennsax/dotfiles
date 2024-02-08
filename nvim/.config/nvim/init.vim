@@ -1,5 +1,3 @@
-" language en_US
-
 " keymap
 let mapleader=" "
 inoremap jj <Esc>
@@ -15,7 +13,14 @@ nnoremap <Down> gj
 xnoremap Y "+y
 nnoremap Y "+y
 
-nnoremap cl <Nop>
+" custom text-object for numerical values
+function! Numbers()
+    call search('\d\([^0-9\.]\|$\)', 'cW')
+    normal v
+    call search('\(^\|[^0-9\.]\d\)', 'becW')
+endfunction
+xnoremap in :<C-u>call Numbers()<CR>
+onoremap in :normal vin<CR>
 
 " auto source `init.vim`
 augroup NVIMRC
@@ -32,11 +37,6 @@ augroup ReloadSkhd
     autocmd!
     autocmd BufWritePost skhdrc !skhd --reload
 augroup END
-
-"augroup RestoreCursorAfterExit
-    "autocmd!
-    "autocmd VimLeave,VimSuspend * set guicursor=a:ver1
-"augroup END
 
 " indent
 set autoindent expandtab shiftround
@@ -71,22 +71,12 @@ set foldmethod=indent
 set nofoldenable
 
 " others
-" set clipboard=unnamed
 set autoread
 set backspace=indent,eol,start
 set confirm
 set hidden
 set wildignore+=.pyc,.swp
 set nrformats=bin,hex
-
-" custom text-object for numerical values
-function! Numbers()
-    call search('\d\([^0-9\.]\|$\)', 'cW')
-    normal v
-    call search('\(^\|[^0-9\.]\d\)', 'becW')
-endfunction
-xnoremap in :<C-u>call Numbers()<CR>
-onoremap in :normal vin<CR>
 
 if $NVIM_INSTALL_PLUGINS == 1
     lua require("rennsax.lazy")
