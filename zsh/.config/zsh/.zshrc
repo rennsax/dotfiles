@@ -190,13 +190,16 @@ export NVIM_INSTALL_PLUGINS=1
 # fzf rebind TAB (^I), so it must be inited after `compinit` (defer it).
 # zsh-defer can even defer the task when __fzf_setup isn't defined.
 zsh-defer __fzf_setup "$FZF_BASE"
+zsh-defer loadpnpm
 
 # TODO: iterm2
 
 #################### Routines ##############################
 
-loadnvm() {
+loadpnpm() {
     # pnpm tabtab completions
+    export PNPM_HOME="$XDG_DATA_HOME/pnpm"
+    export PATH="$PNPM_HOME:$PATH"
     [[ -f "$XDG_CONFIG_HOME/tabtab/zsh/__tabtab.zsh" ]] && \
         \. "$XDG_CONFIG_HOME/tabtab/zsh/__tabtab.zsh"
 }
