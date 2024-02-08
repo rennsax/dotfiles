@@ -156,11 +156,6 @@ alias zi='z -I'
 # prefer Inter syntax disassemble
 alias objdumpi='objdump -M intel'
 
-x86_run() {
-    docker run --rm -it --platform=linux/amd64 \
-        -v "$(pwd):/tmp" ubuntu:22.04-amd $@
-}
-
 #################### Misc. #################################
 
 # `-i`: smart case insensitive
