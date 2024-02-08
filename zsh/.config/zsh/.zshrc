@@ -156,7 +156,7 @@ alias zi='z -I'
 # prefer Inter syntax disassemble
 alias objdumpi='objdump -M intel'
 
-#################### Misc. #################################
+#################### Misc. (Portable) ######################
 
 # `-i`: smart case insensitive
 ## export MANPAGER="less -sRi"
@@ -186,6 +186,8 @@ export NVIM_INSTALL_PLUGINS=1
 # zsh-defer can even defer the task when __fzf_setup isn't defined.
 zsh-defer __fzf_setup "$FZF_BASE"
 zsh-defer loadpnpm
+
+#################### Misc. (MacOS) #########################
 
 # TODO: iterm2
 
