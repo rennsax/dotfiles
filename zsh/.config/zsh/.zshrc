@@ -107,8 +107,8 @@ FPATH="${HOMEBREW_COMPLETIONS}:${FPATH}"
 alias hd='hexdump -C'
 
 alias objdump="$GNU_BINUTILS_BIN_PATH/objdump"
-# --color=auto: only colorize the output when stdout is connected to a tty
-alias ls='gls --color=auto' # use `auto` instead of undocumented `tty`
+
+alias ls='ls --color=auto'
 
 # GNU find, locate, updatedb, xargs; sed; tar
 export PATH="$GNU_FINDUTILS_BIN_PATH:$PATH"
@@ -288,6 +288,8 @@ for ((i=1;i<=9;i+=1)); do alias $i="cdr $i"; done; unset i
 # use GNU ls (included in coreutils) and set color
 # generated via https://geoff.greer.fm/lscolors
 export LS_COLORS="di=1;36:ln=35:so=32:pi=33:ex=31:bd=34;46:cd=34;43:su=30;41:sg=30;46:tw=30;42:ow=30;43"
+# macOS ls
+export LSCOLORS="Gxfxcxdxbxegedabagacad"
 # -l: long listing format
 # -a: all
 # -A: almost all (except . and ..)
