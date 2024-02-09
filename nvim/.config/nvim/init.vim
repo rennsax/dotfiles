@@ -12,6 +12,7 @@ nnoremap <Up> gk
 nnoremap <Down> gj
 xnoremap Y "+y
 nnoremap Y "+y
+nnoremap <Leader>p "*p
 
 " custom text-object for numerical values
 function! Numbers()
