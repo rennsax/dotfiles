@@ -152,3 +152,9 @@ Macos = " "
 disabled = false
 format = "[$symbol]($style)"
 
+[status]
+disabled = false
+format = "[$symbol$maybe_int]($style) "
+map_symbol = true
+sigint_symbol = "󰋔"
+not_found_symbol = "\uf128" #
