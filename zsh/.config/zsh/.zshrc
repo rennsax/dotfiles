@@ -301,7 +301,7 @@ zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
 
 #################### ZSH Line Editor #######################
 
-# bindkey: \e == \E == ^[ == ESC+, ^J == $'\C-'
+# bindkey: \e == \E == ^[ == ESC, ^J == $'\C-'
 
 # unbound keys that are used in yabai
 ## skhd_keys=(h j k l H J K L R Y X T F B ! @ '#' $ % ^ '&')
@@ -314,7 +314,7 @@ WORDCHARS="'"'_-"'
 bindkey -e
 
 # precede the current command with `#` and then accept
-bindkey -M emacs '\e#' pound-insert # M-#
+bindkey -M emacs '^[#' pound-insert # M-#
 
 # accept current command, and push it to the buffer again
 bindkey -M emacs '^J' accept-and-hold
@@ -411,9 +411,9 @@ bindkey -M menuselect 'h' vi-backward-char
 bindkey -M menuselect 'l' vi-forward-char
 bindkey -M menuselect 'j' vi-down-line-or-history
 bindkey -M menuselect 'k' vi-up-line-or-history
-bindkey -M menuselect 'n' accept-and-infer-next-history
-bindkey -M menuselect '^xi' vi-insert
-bindkey -M menuselect '^[[Z' reverse-menu-complete
+bindkey -M menuselect 'n' accept-and-infer-next-history # accept and trigger next completion
+bindkey -M menuselect '^xi' vi-insert # C-x i: toggle interactive mode
+bindkey -M menuselect "${terminfo[kcbt]}" reverse-menu-complete # back-tap: select previous
 
 # scoll down one line
 bindkey -M listscroll '^n' down-line-or-history
