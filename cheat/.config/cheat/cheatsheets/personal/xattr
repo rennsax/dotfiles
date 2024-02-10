@@ -1,0 +1,10 @@
+# Mac OS X xattr(1) - display and manipulate extended attributes
+# xattr: e[x]tended [attr]ibute
+
+# List all extended attributes.
+xattr <file>..
+
+# Verb: -d: delete, -w: write; -c: clear
+xattr -d <attr_name> <file>..
+xattr -w <attr_name> <attr_value> <file>..
+xattr -c <file>..
