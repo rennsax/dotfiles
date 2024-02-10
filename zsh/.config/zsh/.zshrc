@@ -307,6 +307,20 @@ zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
 ## skhd_keys=(h j k l H J K L R Y X T F B ! @ '#' $ % ^ '&')
 ## for key ($skhd_keys) { bindkey -r "^[$key" }; unset skhd_keys; unset key
 
+# https://github.com/ohmyzsh/ohmyzsh/blob/fff073b55defed72a0a1aac4e853b165f208735b/lib/key-bindings.zsh#L5-L16
+# Make sure that the terminal is in application mode when zle is active, since
+# only then values from $terminfo are valid
+if (( ${+terminfo[smkx]} )) && (( ${+terminfo[rmkx]} )); then
+  function zle-line-init() {
+    echoti smkx
+  }
+  function zle-line-finish() {
+    echoti rmkx
+  }
+  zle -N zle-line-init
+  zle -N zle-line-finish
+fi
+
 # https://stackoverflow.com/a/1438523/17838999
 WORDCHARS="'"'_-"'
 
