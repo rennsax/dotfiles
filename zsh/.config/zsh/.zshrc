@@ -438,6 +438,8 @@ plugins=(
 
 if [ -z "$DEBUG_ZSH" ]; then
     ZSH_TMUX_AUTOCONNECT=false # never try to connect to previous session
+    ZSH_TMUX_FIXTERM=false
+    ZSH_TMUX_CONFIG="$XDG_CONFIG_HOME/tmux/tmux.conf"
 
     for plugin ($plugins); do
         load_plugin "$plugin"
