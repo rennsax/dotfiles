@@ -272,6 +272,13 @@ setopt histverify             # show command with history expansion to user befo
 setopt share_history          # share command history data
 alias history='fc -i -l 1'
 
+# Dups the bash behavior: print '^C' on SIGINT
+TRAPINT() {
+    # -n: no newline, -u2: stderr
+    print -n -u2 '^C'
+    return $((128+$1))
+}
+
 #################### Directory #############################
 
 # if a directory is placed as "command", `cd` to it
