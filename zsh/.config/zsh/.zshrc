@@ -277,13 +277,8 @@ alias history='fc -i -l 1'
 # if a directory is placed as "command", `cd` to it
 setopt autocd
 
-# remember recent directories
-autoload -Uz chpwd_recent_dirs cdr add-zsh-hook
-add-zsh-hook chpwd chpwd_recent_dirs
-zstyle ':completion:*:*:cdr:*:*' menu selection
-# Is '/tmp(|*)' a valid pattern? Why the doc use it as the example?
-zstyle ':chpwd:*' recent-dirs-prune 'pattern:/tmp*'
-for ((i=1;i<=9;i+=1)); do alias $i="cdr $i"; done; unset i
+setopt auto_pushd # pushd_ignore_dups
+for ((i=1;i<=9;i+=1)); do alias $i="cd +$i"; done; unset i
 
 # use GNU ls (included in coreutils) and set color
 # generated via https://geoff.greer.fm/lscolors
