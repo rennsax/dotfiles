@@ -133,11 +133,6 @@ alias glo='git log --oneline --decorate'
 alias glog='git log --oneline --decorate --graph'
 alias gloga='git log --oneline --decorate --graph --all'
 
-# docker compose
-alias dcpsu='docker compose up'
-alias dcpsud='docker compose up -d'
-alias dcpsd='docker compose down'
-
 # pip3 install ... from_tuna
 alias -g from_tuna="-i https://pypi.tuna.tsinghua.edu.cn/simple"
 
