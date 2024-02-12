@@ -73,6 +73,9 @@ export GNU_SED_BIN_PATH="${HOMEBREW_PREFIX}/opt/gnu-sed/libexec/gnubin"
 # gnu-tar <g>
 export GNU_TAR_BIN_PATH="${HOMEBREW_PREFIX}/opt/gnu-tar/libexec/gnubin"
 
+# gnu-grep <g>
+export GNU_GREP_BIN_PATH="${HOMEBREW_PREFIX}/opt/grep/libexec/gnubin"
+
 # z.lua
 ZLUA_PATH="$(brew --prefix z.lua)/share/z.lua/z.lua"
 export _ZL_DATA="${XDG_CONFIG_HOME:-$HOME/.config}/zlua/.zlua"
@@ -114,6 +117,7 @@ alias ls='ls --color=auto'
 export PATH="$GNU_FINDUTILS_BIN_PATH:$PATH"
 export PATH="$GNU_SED_BIN_PATH:$PATH"
 export PATH="$GNU_TAR_BIN_PATH:$PATH"
+export PATH="$GNU_GREP_BIN_PATH:$PATH"
 
 # brew install x86_64-elf-gdb
 alias gdb='x86_64-elf-gdb'
