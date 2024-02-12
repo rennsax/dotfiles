@@ -23,17 +23,17 @@ if [[ ! -d $ZDOTDIR ]]; then
     return 1
 fi
 
-autoload -Uz $ZDOTDIR/.zsh-plugins/zsh-defer/zsh-defer
-
-load_plugin() {
-    emulate -L zsh
-    local plugin="$1"
-    if [[ -s "$ZDOTDIR/.zsh-plugins/$plugin/$plugin.plugin.zsh" ]]; then
-        zsh-defer source "$ZDOTDIR/.zsh-plugins/$plugin/$plugin.plugin.zsh"
-    else
-        echo "zsh: plugin $plugin not found"
-    fi
-}
+if [[ -s "$ZDOTDIR/.zsh-plugins/zsh-defer/zsh-defer" ]]; then
+    autoload -Uz $ZDOTDIR/.zsh-plugins/zsh-defer/zsh-defer
+    __try_defer() {
+        zsh-defer "$@"
+    }
+else
+    print -u2 "zsh: cannot autoload zsh-defer function, the shell setup may be incomplete"
+    __try_defer() {
+        builtin eval "$@"
+    }
+fi
 
 #################### Homebrew (MacOS) ######################
 
@@ -95,10 +95,10 @@ elif [[ ! -f "$HOMEBREW_COMPLETIONS/cheat.zsh" ]]; then
 fi
 
 # asdf
-zsh-defer source $(brew --prefix asdf)/libexec/asdf.sh
+__try_defer source $(brew --prefix asdf)/libexec/asdf.sh
 
 # pipx uses a legacy, incorrect autoload file. We must source it.
-zsh-defer source "${HOMEBREW_COMPLETIONS}/_pipx"
+__try_defer source "${HOMEBREW_COMPLETIONS}/_pipx"
 
 # https://docs.brew.sh/Shell-Completion#configuring-completions-in-zsh
 FPATH="${HOMEBREW_COMPLETIONS}:${FPATH}"
@@ -183,8 +183,8 @@ export NVIM_INSTALL_PLUGINS=1
 
 # fzf rebind TAB (^I), so it must be inited after `compinit` (defer it).
 # zsh-defer can even defer the task when __fzf_setup isn't defined.
-zsh-defer __fzf_setup "$FZF_BASE"
-zsh-defer loadpnpm
+__try_defer __fzf_setup "$FZF_BASE"
+__try_defer loadpnpm
 
 #################### Misc. (MacOS) #########################
 
@@ -217,16 +217,20 @@ loadconda() {
 # The funtion is defered until completion system is inited.
 # PARAMS: FZF_BASE
 __fzf_setup() {
-    emulate -L zsh
-    setopt err_return
     local fzf_base="$1"
     if [[ ! ( -d "$fzf_base" && -d "$fzf_base/shell" ) ]]; then
         echo "[fzf-setup] invalid base" >&2
         return 1
     fi
     local fzf_shell="$fzf_base/shell"
-    source "$fzf_shell/completion.zsh"
-    source "$fzf_shell/key-bindings.zsh"
+    () {
+        builtin emulate -L zsh -o err_return
+        source "$fzf_shell/completion.zsh"
+        source "$fzf_shell/key-bindings.zsh"
+    } || {
+        print -u2 "[fzf-setup] cannot source init scripts"
+        return 1
+    }
     export FZF_DEFAULT_COMMAND="fd --type f --strip-cwd-prefix"
     export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
     export FZF_ALT_C_COMMAND="fd --type d --strip-cwd-prefix"
@@ -457,6 +461,15 @@ autoload -Uz compinit && compinit
 
 # brew install starship
 eval "$(starship init zsh)" # starship theme
+
+load_plugin() {
+    local plugin="$1"
+    if [[ -s "$ZDOTDIR/.zsh-plugins/$plugin/$plugin.plugin.zsh" ]]; then
+        __try_defer source "$ZDOTDIR/.zsh-plugins/$plugin/$plugin.plugin.zsh"
+    else
+        echo "zsh: cannnot load plugin $plugin"
+    fi
+}
 
 plugins=(
     tmux
