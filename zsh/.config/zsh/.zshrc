@@ -188,6 +188,11 @@ __try_defer loadpnpm
 
 #################### Misc. (MacOS) #########################
 
+# Prevent VS Code to generate duplicate icons in dock
+code() {
+    open -b 'com.microsoft.vscode' "$@"
+}
+
 # TODO: iterm2
 
 #################### Routines ##############################
