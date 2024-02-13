@@ -350,6 +350,9 @@ fi
 # magic-space: perform history expansion and insert a space
 bindkey ' ' magic-space
 
+# list-choices: list possible completions for the current word.
+bindkey -M emacs '^[?' list-choices
+
 # https://github.com/ohmyzsh/ohmyzsh/blob/fff073b55defed72a0a1aac4e853b165f208735b/lib/key-bindings.zsh#L34-L51
 # Start typing + [Up-Arrow] - fuzzy find history forward
 if [[ -n "${terminfo[kcuu1]}" ]]; then
