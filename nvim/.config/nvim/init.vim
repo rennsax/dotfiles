@@ -23,6 +23,19 @@ endfunction
 xnoremap in :<C-u>call Numbers()<CR>
 onoremap in :normal vin<CR>
 
+if exists('g:vscode')
+    nnoremap <Leader>t :lua require('vscode-neovim').call('workbench.action.terminal.focus')<CR>
+    nnoremap <Leader>h :lua require('vscode-neovim').action('editor.action.showHover')<CR>
+    nnoremap <Leader>r :lua require('vscode-neovim').action('editor.action.refactor')<CR>
+    nnoremap <Leader>o :lua require('vscode-neovim').call('clangd.switchheadersource')<CR>
+    nnoremap <Leader><leader>t :lua require('vscode-neovim').call('editor.emmet.action.updateTag')<CR>
+    nnoremap <Leader><leader>d :lua require('vscode-neovim').call('editor.action.peekDefinition')<CR>
+    nnoremap <Leader><leader>r :lua require('vscode-neovim').call('editor.action.referenceSearch.trigger')<CR>
+    nnoremap <Leader><C-h> :lua require('vscode-neovim').call('extension.dash.specific')<CR>
+    nnoremap <Leader>m :lua require('vscode-neovim').call('bookmarks.toggle')<CR>
+    nnoremap <Leader>f :lua require('vscode-neovim').call('workbench.explorer.fileView.focus')<CR>
+endif
+
 " auto source `init.vim`
 augroup NVIMRC
     autocmd!
