@@ -460,7 +460,7 @@ bindkey -M listscroll '^n' down-line-or-history
 autoload -Uz compinit && compinit
 
 # also show hidden files
-## _comp_options+=(globdots)
+_comp_options+=(globdots)
 
 #################### ZSH plugins ###########################
 
