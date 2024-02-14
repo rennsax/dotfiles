@@ -69,6 +69,8 @@ unmanaged_apps=(
     '^UTM$'
     '^Bartender 5$'
     '^OrbStack$'
+    '^RubyMine$'
+    '^IntelliJ IDEA$'
 )
 space5_apps=(
     '^Clash Verge$'
