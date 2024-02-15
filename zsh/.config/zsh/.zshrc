@@ -186,6 +186,12 @@ export NVIM_INSTALL_PLUGINS=1
 __try_defer __fzf_setup "$FZF_BASE"
 __try_defer loadpnpm
 
+# register the previous command easily for pet
+function prev() {
+  PREV=$(builtin fc -lrn | head -n 1)
+  sh -c "pet new -t `printf %q "$PREV"`"
+}
+
 #################### Misc. (MacOS) #########################
 
 # Prevent VS Code to generate duplicate icons in dock
