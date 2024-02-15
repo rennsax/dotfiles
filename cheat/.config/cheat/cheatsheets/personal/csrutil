@@ -1,4 +1,7 @@
+---
+tags: [ mac ]
+---
 # Mac OS X csrutil(8) - Configure system security policies
 
 # check if system integrity protection (SIP) is enabled.
-csrutil status 
+csrutil status

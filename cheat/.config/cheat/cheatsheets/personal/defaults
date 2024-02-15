@@ -1,3 +1,6 @@
+---
+tags: [ mac ]
+---
 # Mac OS X defaults(1): access the Mac OS X user defaults system
 
 # Prints the value for the default of domain identified by key.
