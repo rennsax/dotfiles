@@ -23,6 +23,8 @@ if [[ ! -d $ZDOTDIR ]]; then
     return 1
 fi
 
+#################### Function Utils ########################
+
 if [[ -s "$ZDOTDIR/.zsh-plugins/zsh-defer/zsh-defer" ]]; then
     autoload -Uz $ZDOTDIR/.zsh-plugins/zsh-defer/zsh-defer
     __try_defer() {
@@ -34,6 +36,35 @@ else
         builtin eval "$@"
     }
 fi
+
+__load_plugin() {
+    emulate -L zsh
+
+    local plugin
+    local defer=1
+
+    while (( $# )); do
+        case $1 in
+            --no-defer)
+                defer=0
+                ;;
+            *)
+                plugin="$1"; break
+                ;;
+        esac
+        shift
+    done
+
+    if [[ -s "$ZDOTDIR/.zsh-plugins/$plugin/$plugin.plugin.zsh" ]]; then
+        if [[ $defer -eq 0 ]]; then
+            source "$ZDOTDIR/.zsh-plugins/$plugin/$plugin.plugin.zsh"
+        else
+            __try_defer source "$ZDOTDIR/.zsh-plugins/$plugin/$plugin.plugin.zsh"
+        fi
+    else
+        echo "zsh: cannnot load plugin $plugin"
+    fi
+}
 
 #################### Homebrew (MacOS) ######################
 
@@ -484,15 +515,6 @@ _comp_options+=(globdots)
 # brew install starship
 eval "$(starship init zsh)" # starship theme
 
-load_plugin() {
-    local plugin="$1"
-    if [[ -s "$ZDOTDIR/.zsh-plugins/$plugin/$plugin.plugin.zsh" ]]; then
-        __try_defer source "$ZDOTDIR/.zsh-plugins/$plugin/$plugin.plugin.zsh"
-    else
-        echo "zsh: cannnot load plugin $plugin"
-    fi
-}
-
 plugins=(
     tmux
     git
@@ -511,7 +533,7 @@ if [ -z "$DEBUG_ZSH" ]; then
     ZSH_TMUX_CONFIG="$XDG_CONFIG_HOME/tmux/tmux.conf"
 
     for plugin ($plugins); do
-        load_plugin "$plugin"
+        __load_plugin "$plugin"
     done
     unset plugin plugins
 fi
