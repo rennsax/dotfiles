@@ -505,6 +505,9 @@ bindkey -M menuselect "${terminfo[kcbt]}" reverse-menu-complete # back-tap: sele
 # scoll down one line
 bindkey -M listscroll '^n' down-line-or-history
 
+# zsh-users/zsh-completions: additional completions
+__load_plugin --no-defer zsh-completions
+
 autoload -Uz compinit && compinit
 
 # also show hidden files
