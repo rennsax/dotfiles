@@ -16,6 +16,7 @@
 # 5. Do not override commands via aliasing unless you want to abandon the previous version.
 #    It prevent the nesting of aliasing, and is not what you expect at most of the time.
 # 6. Use `#` as the leading character of descriptions, and `##` of commented codes.
+# 7. Any UI-related scripts should be loaded immediately; other scripts can be deferred with __try_defer.
 #
 
 if [[ ! -d $ZDOTDIR ]]; then
@@ -110,7 +111,7 @@ export GNU_GREP_BIN_PATH="${HOMEBREW_PREFIX}/opt/grep/libexec/gnubin"
 # z.lua
 ZLUA_PATH="$(brew --prefix z.lua)/share/z.lua/z.lua"
 export _ZL_DATA="${XDG_CONFIG_HOME:-$HOME/.config}/zlua/.zlua"
-eval "$(lua "${ZLUA_PATH}" --init zsh fzf enhanced once)"
+__try_defer eval "$(lua "${ZLUA_PATH}" --init zsh fzf enhanced once)"
 
 # jd-gui (cask)
 alias jd-gui='java -jar /Applications/JD-GUI.app/Contents/Resources/Java/jd-gui-1.6.6-min.jar >& /dev/null &|'
