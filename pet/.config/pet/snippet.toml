@@ -1,0 +1,29 @@
+[[snippets]]
+  description = "modify timemachine exclusion"
+  command = "find <path> -name '<pattern=node_modules>' -print0 | xargs -I{} -0 zsh -c \"print {}; tmutil <action=addexclusion> {}\""
+  tag = ["macOS"]
+  output = ""
+
+[[snippets]]
+  description = "find timemachine stickily-excluded files"
+  command = "mdfind \"com_apple_backup_excludeItem = 'com.apple.backupd'\""
+  tag = ["macOS"]
+  output = ""
+
+[[snippets]]
+  description = "add login item"
+  command = "osascript -e 'tell application \"System Events\" to make login item at end with properties {path:\"/Applications/<AppName>.app\", hidden:false}'"
+  tag = ["macOS"]
+  output = ""
+
+[[snippets]]
+  description = "get login items"
+  command = "osascript -e 'tell application \"System Events\" to get the name of every login item'"
+  tag = ["macOS"]
+  output = ""
+
+[[snippets]]
+  description = "delete login item"
+  command = "osascript -e 'tell application \"System Events\" to delete login item \"<AppName>\"'"
+  tag = ["macOS"]
+  output = ""
