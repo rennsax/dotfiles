@@ -520,16 +520,21 @@ _comp_options+=(globdots)
 eval "$(starship init zsh)" # starship theme
 
 plugins=(
-    tmux
     git
-    orb
     zsh-syntax-highlighting
     zsh-autosuggestions
 )
 
-if (( $+commands[nnn] )); then
-    plugins+=nnn-quitcd
-fi
+typeset -A __plugin_dep
+__plugin_dep=(
+    tmux tmux
+    orb orb
+    nnn-quitcd nnn
+)
+
+for plugin ("${(k)__plugin_dep[@]}"); do
+    (( $+commands[${__plugin_dep[$plugin]}] )) && plugins=($plugin $plugins)
+done
 
 if [ -z "$DEBUG_ZSH" ]; then
     ZSH_TMUX_AUTOCONNECT=false # never try to connect to previous session
