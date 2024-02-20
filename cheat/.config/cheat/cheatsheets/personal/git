@@ -10,6 +10,12 @@ git checkout -- <file>
 # To show the changes in the index (staged changed) against the current HEAD
 git diff --cached|--staged
 
+# To show the file content at the particular rev
+git show $REV:$FILE
+
+# To "cheat" git: assume a **tracked** file is unchanged
+git update-index --assume-unchanged <file>
+
 # To set your identity:
 git config --global user.name <name>
 git config --global user.email <email>

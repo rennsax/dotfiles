@@ -1,0 +1,8 @@
+---
+tags: [ mac ]
+---
+# macOS codesign(1) – Create and manipulate code signatures
+
+# To replace existing signature
+# (a wrong code signature may cause the executable to be killed by the kernel)
+codesign -s -f - <path>

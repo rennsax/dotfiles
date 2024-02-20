@@ -2,8 +2,17 @@
 syntax: bash
 tags: [ mac, deps ]
 ---
+# Options
+# --eval-all: evaluate all available formulae and casks, whether installed or not. This option is designed to improve security in cases where Homebrew may evaluate formulae or casks that have not been installed, may not be trusted and will execute arbitrary Ruby code.
+
 # upgrade cask with buo/homebrew-cask-upgrade
 brew cu
+
+# Display formula´s name and one-line description.
+brew desc --eval-all <formula|cask|...>
+
+# Show dependencies of the formula
+brew uses <formula>
 
 # Update
 brew update
