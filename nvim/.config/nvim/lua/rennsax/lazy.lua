@@ -52,5 +52,8 @@ require("lazy").setup({
             { "<c-s>", mode = { "c" }, function() require("flash").toggle() end, desc = "Toggle Flash Search" },
         },
     },
-    { "vim-scripts/ReplaceWithRegister" },
+    {
+        "vim-scripts/ReplaceWithRegister",
+        event = "VeryLazy"
+    },
 })
