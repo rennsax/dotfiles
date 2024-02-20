@@ -9,7 +9,7 @@ export EDITOR=nvim
 # Manually set your language environment
 export LANG=en_US.UTF-8
 
-# MacOS: `systemsetup -listtimezones`
+# macOS: `systemsetup -listtimezones`
 export TZ=Asia/Shanghai
 
 # Proxy settings

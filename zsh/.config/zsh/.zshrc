@@ -67,92 +67,17 @@ __load_plugin() {
     fi
 }
 
-#################### Homebrew (MacOS) ######################
+#################### Platform-Dependent ####################
 
-export HOMEBREW_NO_AUTO_UPDATE=1
-
-# Firstly, set PATH so `brew` can be found.
-export PATH="/opt/homebrew/bin:$PATH"
-HOMEBREW_PREFIX="$(brew --prefix)"
-HOMEBREW_COMPLETIONS="${HOMEBREW_PREFIX}/share/zsh/site-functions"
-
-# llvm
-export LLVM_BIN_PATH="${HOMEBREW_PREFIX}/opt/llvm/bin"
-export PATH="$LLVM_BIN_PATH:$PATH"
-export CC="$LLVM_BIN_PATH/clang"
-export CXX="$LLVM_BIN_PATH/clang++"
-
-# python@3.12
-export PYTHON3_BIN_PATH="${HOMEBREW_PREFIX}/opt/python@3.12/libexec/bin"
-export PATH="$PYTHON3_BIN_PATH:$PATH"
-
-# xxutils: from GNU. If the binaries are prepended `g`, denoted by "<g>"
-
-# binutils (key-only)
-export GNU_BINUTILS_BIN_PATH="${HOMEBREW_PREFIX}/opt/binutils/bin"
-
-# coreutils <g>
-export GNU_COREUTILS_BIN_PATH="${HOMEBREW_PREFIX}/opt/coreutils/libexec/gnubin"
-
-# findutils <g>
-export GNU_FINDUTILS_BIN_PATH="${HOMEBREW_PREFIX}/opt/findutils/libexec/gnubin"
-
-# diffutils: already link to homebrew prefix, use it directly
-
-# gnu-sed <g>
-export GNU_SED_BIN_PATH="${HOMEBREW_PREFIX}/opt/gnu-sed/libexec/gnubin"
-
-# gnu-tar <g>
-export GNU_TAR_BIN_PATH="${HOMEBREW_PREFIX}/opt/gnu-tar/libexec/gnubin"
-
-# gnu-grep <g>
-export GNU_GREP_BIN_PATH="${HOMEBREW_PREFIX}/opt/grep/libexec/gnubin"
-
-# z.lua
-ZLUA_PATH="$(brew --prefix z.lua)/share/z.lua/z.lua"
-export _ZL_DATA="${XDG_CONFIG_HOME:-$HOME/.config}/zlua/.zlua"
-__try_defer eval "$(lua "${ZLUA_PATH}" --init zsh fzf enhanced once)"
-
-# jd-gui (cask)
-alias jd-gui='java -jar /Applications/JD-GUI.app/Contents/Resources/Java/jd-gui-1.6.6-min.jar >& /dev/null &|'
-
-# fzf
-FZF_BASE="$HOMEBREW_PREFIX/opt/fzf"
-
-# cheat
-if [[ "$HOMEBREW_COMPLETIONS/_cheat" -ot "$HOMEBREW_COMPLETIONS/cheat.zsh" ]]; then
-    ln -sf './cheat.zsh' "$HOMEBREW_COMPLETIONS/_cheat"
-elif [[ ! -f "$HOMEBREW_COMPLETIONS/cheat.zsh" ]]; then
-    echo "cannot create symlink of cheat.zsh" >&2
-fi
-
-# asdf
-__try_defer source $(brew --prefix asdf)/libexec/asdf.sh
-
-# pipx uses a legacy, incorrect autoload file. We must source it.
-__try_defer source "${HOMEBREW_COMPLETIONS}/_pipx"
-
-# https://docs.brew.sh/Shell-Completion#configuring-completions-in-zsh
-FPATH="${HOMEBREW_COMPLETIONS}:${FPATH}"
-
-#################### Linuxify (MacOS) ######################
-
-# most Linux distro has a separate utility `hd`
-# hexdump is included in util-linux
-alias hd='hexdump -C'
-
-alias objdump="$GNU_BINUTILS_BIN_PATH/objdump"
-
-alias ls='ls --color=auto'
-
-# GNU find, locate, updatedb, xargs; sed; tar
-export PATH="$GNU_FINDUTILS_BIN_PATH:$PATH"
-export PATH="$GNU_SED_BIN_PATH:$PATH"
-export PATH="$GNU_TAR_BIN_PATH:$PATH"
-export PATH="$GNU_GREP_BIN_PATH:$PATH"
-
-# brew install x86_64-elf-gdb
-alias gdb='x86_64-elf-gdb'
+case "$OSTYPE" in
+    darwin*)
+        builtin source "$ZDOTDIR/.zshrc-darwin"
+        ;;
+    linux*)
+        ;;
+    *)
+        ;;
+esac
 
 #################### Shortcuts #############################
 
@@ -215,8 +140,7 @@ export NVIM_INSTALL_PLUGINS=1
 
 # fzf rebind TAB (^I), so it must be inited after `compinit` (defer it).
 # zsh-defer can even defer the task when __fzf_setup isn't defined.
-__try_defer __fzf_setup "$FZF_BASE"
-__try_defer loadpnpm
+[[ -n "$FZF_BASE" ]] && __try_defer __fzf_setup "$FZF_BASE"
 
 # register the previous command easily for pet
 function prev() {
@@ -224,23 +148,19 @@ function prev() {
   sh -c "pet new -t `printf %q "$PREV"`"
 }
 
-#################### Misc. (MacOS) #########################
-
-# Prevent VS Code to generate duplicate icons in dock
-code() {
-    open -b 'com.microsoft.vscode' "$@"
-}
-
-# TODO: iterm2
-
 #################### Routines ##############################
 
+# I recommend installing standalone pnpm (not using `npm install -g`).
+# But pnpm is still dependent on nodejs.
+# This routine set pnpm home and tab-completion.
+alias pnpm="print -u2 'Please use \`loadpnpm\` first'"
 loadpnpm() {
     # pnpm tabtab completions
     export PNPM_HOME="$XDG_DATA_HOME/pnpm"
     export PATH="$PNPM_HOME:$PATH"
     [[ -f "$XDG_CONFIG_HOME/tabtab/zsh/__tabtab.zsh" ]] && \
         \. "$XDG_CONFIG_HOME/tabtab/zsh/__tabtab.zsh"
+    unalias pnpm 2>/dev/null || true
 }
 
 # setup shell environment for conda
@@ -326,17 +246,22 @@ setopt autocd
 setopt auto_pushd # pushd_ignore_dups
 for ((i=1;i<=9;i+=1)); do alias $i="cd +$i"; done; unset i
 
-# use GNU ls (included in coreutils) and set color
 # generated via https://geoff.greer.fm/lscolors
+# GNU ls (included in coreutils) color
 export LS_COLORS="di=1;36:ln=35:so=32:pi=33:ex=31:bd=34;46:cd=34;43:su=30;41:sg=30;46:tw=30;42:ow=30;43"
-# macOS ls
+# BSD ls color
 export LSCOLORS="Gxfxcxdxbxegedabagacad"
+
+# Enable colors when not piped
+alias ls='ls --color=auto'
+
 # -l: long listing format
 # -a: all
 # -A: almost all (except . and ..)
 # -h: human-readable
 alias l='ls -lAh'
 alias ll='ls -lah'
+
 # also enable completion color
 zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
 
@@ -546,4 +471,3 @@ if [ -z "$DEBUG_ZSH" ]; then
     done
     unset plugin plugins
 fi
-

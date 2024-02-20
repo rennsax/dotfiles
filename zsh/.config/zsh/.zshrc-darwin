@@ -1,0 +1,94 @@
+
+#################### Homebrew ##############################
+
+export HOMEBREW_NO_AUTO_UPDATE=1
+
+# Firstly, set PATH so `brew` can be found.
+export PATH="/opt/homebrew/bin:$PATH"
+HOMEBREW_PREFIX="$(brew --prefix)"
+HOMEBREW_COMPLETIONS="${HOMEBREW_PREFIX}/share/zsh/site-functions"
+
+# llvm
+export LLVM_BIN_PATH="${HOMEBREW_PREFIX}/opt/llvm/bin"
+export PATH="$LLVM_BIN_PATH:$PATH"
+export CC="$LLVM_BIN_PATH/clang"
+export CXX="$LLVM_BIN_PATH/clang++"
+
+# python@3.12
+export PYTHON3_BIN_PATH="${HOMEBREW_PREFIX}/opt/python@3.12/libexec/bin"
+export PATH="$PYTHON3_BIN_PATH:$PATH"
+
+# xxutils: from GNU. If the binaries are prepended `g`, denoted by "<g>"
+
+# binutils (key-only)
+export GNU_BINUTILS_BIN_PATH="${HOMEBREW_PREFIX}/opt/binutils/bin"
+
+# coreutils <g>
+export GNU_COREUTILS_BIN_PATH="${HOMEBREW_PREFIX}/opt/coreutils/libexec/gnubin"
+
+# findutils <g>
+export GNU_FINDUTILS_BIN_PATH="${HOMEBREW_PREFIX}/opt/findutils/libexec/gnubin"
+
+# diffutils: already link to homebrew prefix, use it directly
+
+# gnu-sed <g>
+export GNU_SED_BIN_PATH="${HOMEBREW_PREFIX}/opt/gnu-sed/libexec/gnubin"
+
+# gnu-tar <g>
+export GNU_TAR_BIN_PATH="${HOMEBREW_PREFIX}/opt/gnu-tar/libexec/gnubin"
+
+# gnu-grep <g>
+export GNU_GREP_BIN_PATH="${HOMEBREW_PREFIX}/opt/grep/libexec/gnubin"
+
+# z.lua
+ZLUA_PATH="$(brew --prefix z.lua)/share/z.lua/z.lua"
+export _ZL_DATA="${XDG_CONFIG_HOME:-$HOME/.config}/zlua/.zlua"
+__try_defer eval "$(lua "${ZLUA_PATH}" --init zsh fzf enhanced once)"
+
+# jd-gui (cask)
+alias jd-gui='java -jar /Applications/JD-GUI.app/Contents/Resources/Java/jd-gui-1.6.6-min.jar >& /dev/null &|'
+
+# fzf
+FZF_BASE="$HOMEBREW_PREFIX/opt/fzf"
+
+# cheat
+if [[ "$HOMEBREW_COMPLETIONS/_cheat" -ot "$HOMEBREW_COMPLETIONS/cheat.zsh" ]]; then
+    ln -sf './cheat.zsh' "$HOMEBREW_COMPLETIONS/_cheat"
+elif [[ ! -f "$HOMEBREW_COMPLETIONS/cheat.zsh" ]]; then
+    echo "cannot create symlink of cheat.zsh" >&2
+fi
+
+# asdf
+__try_defer source $(brew --prefix asdf)/libexec/asdf.sh
+
+# pipx uses a legacy, incorrect autoload file. We must source it.
+__try_defer source "${HOMEBREW_COMPLETIONS}/_pipx"
+
+# https://docs.brew.sh/Shell-Completion#configuring-completions-in-zsh
+FPATH="${HOMEBREW_COMPLETIONS}:${FPATH}"
+
+#################### Linuxify ##############################
+
+# most Linux distro has a separate utility `hd`
+# hexdump is included in util-linux
+alias hd='hexdump -C'
+
+alias objdump="$GNU_BINUTILS_BIN_PATH/objdump"
+
+# GNU find, locate, updatedb, xargs; sed; tar
+export PATH="$GNU_FINDUTILS_BIN_PATH:$PATH"
+export PATH="$GNU_SED_BIN_PATH:$PATH"
+export PATH="$GNU_TAR_BIN_PATH:$PATH"
+export PATH="$GNU_GREP_BIN_PATH:$PATH"
+
+# brew install x86_64-elf-gdb
+alias gdb='x86_64-elf-gdb'
+
+#################### Misc. #################################
+
+# Prevent VS Code to generate duplicate icons in dock
+code() {
+    open -b 'com.microsoft.vscode' "$@"
+}
+
+# TODO: iterm2
