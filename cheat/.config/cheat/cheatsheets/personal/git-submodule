@@ -1,5 +1,5 @@
 ---
-tag: [ vce ]
+tag: [ vce, git ]
 ---
 
 # To init a submodule (add the entry to .git/config)

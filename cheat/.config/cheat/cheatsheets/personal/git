@@ -1,5 +1,5 @@
 ---
-tags: [ vcs ]
+tags: [ vcs, git ]
 ---
 # To remove files from staging, but keep your changes:
 git reset HEAD <file>
@@ -69,17 +69,11 @@ git push origin master
 # To push to a specified repository:
 git push git@github.com:<username>/<repo>.git
 
-# Tags: Tag a commit
-git tag -a <tag> <commit> -m "<commit message>"
-
 # Tags: To push a tag to remote:
 git push origin <tagname>
 
 # Tags: To delete a tag <tagname> on remote
 git push --delete origin <tagname>
-
-# Tags: To delete a tag locally
-git tag -d <tagname>
 
 # To force a push:
 git push -f
@@ -186,9 +180,6 @@ git commit --amend --author="Author Name <email@address.com>"
 
 # The GPG key used for signing your commits
 git config --global user.signingkey 0A46826A
-
-# Sign new tags:
-git tag -s v1.5 -m 'my signed 1.5 tag'
 
 # Sign a commit:
 git commit -a -S -m 'Signed commit'

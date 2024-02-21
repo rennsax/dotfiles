@@ -1,0 +1,16 @@
+---
+tags: [ vcs, git ]
+---
+# Add a lightweight tag (simply a name for the commit object in .git/refs/tags)
+git tag <tagname> <commit> # no message!
+
+# Add an annotated tag
+# (contains a creation date, the tagger name and e-mail, a tagging message, and an optional GnuPG signature.)
+# -a|--annotate: unsigned
+git tag -a|-s <tagname> <commit> [-m <message>]
+
+# Tags: To delete a tag locally
+git tag -d <tagname>
+
+# To print the first (num) line of the annotation message. If the tag is lightweight, print the commit message.
+git tag -n[num]

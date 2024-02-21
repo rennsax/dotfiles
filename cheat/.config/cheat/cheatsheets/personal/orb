@@ -1,8 +1,11 @@
 # create a newest ubuntu virtual machine
-orb create ubuntu
+orb create ubuntu[:version] [machine-name]
 
 # run an interactive shell with the default machine
 orb
+
+# To remove a machine
+orb delete <machine>
 
 # run the command with the default machine
 orb uname -a
