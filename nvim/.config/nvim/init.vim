@@ -46,16 +46,6 @@ augroup NVIMRC
     autocmd BufWritePost init.vim source %
 augroup END
 
-augroup ReloadYabai
-    autocmd!
-    autocmd BufWritePost yabairc !rm /tmp/yabai_$USER*.log; yabai --restart-service
-augroup END
-
-augroup ReloadSkhd
-    autocmd!
-    autocmd BufWritePost skhdrc !skhd --reload
-augroup END
-
 " indent
 set autoindent expandtab shiftround
 set shiftwidth=4
