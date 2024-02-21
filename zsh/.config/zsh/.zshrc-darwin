@@ -91,4 +91,9 @@ code() {
     open -b 'com.microsoft.vscode' "$@"
 }
 
+# Use skyzh/canvas_grab to download canvas files
+grabcan() {
+    zsh -c 'cd ~/codeplace/github/canvas_grab && ./canvas_grab.sh'
+}
+
 # TODO: iterm2
