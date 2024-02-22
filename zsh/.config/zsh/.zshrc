@@ -129,7 +129,7 @@ alias cat='bat'
 alias rm='echo "This is not the command you are looking for."; false'
 
 # nnn
-alias n='n -e' # always open text files in the terminal
+alias n='n -Ae' # always open text files in the terminal
 export NNN_PLUG="p:preview-tui;z:autojump"
 export NNN_FIFO="/tmp/nnn.fifo"
 export NNN_ZLUA="${ZLUA_PATH}"
