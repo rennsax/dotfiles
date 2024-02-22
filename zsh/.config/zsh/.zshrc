@@ -114,6 +114,10 @@ alias objdumpi='objdump -M intel'
 
 #################### Misc. (Portable) ######################
 
+# -i: prompt if need to overwrite an existing file
+alias cp='cp -i'
+alias mv='mv -i'
+
 # `-i`: smart case insensitive
 ## export MANPAGER="less -sRi"
 export MANPAGER='nvim +Man!'
