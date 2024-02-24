@@ -74,6 +74,7 @@ unmanaged_apps=(
     '^WakeUp课程表$'
     '^Calendar$'
     '^Clash Verge$'
+    '^Raycast$'
 )
 space5_apps=(
     '^WeChat$'
@@ -83,6 +84,8 @@ space5_apps=(
     '^TencentMeeting$'
     '^Discord$'
     '^Music$'
+    '^QQ$'
+    '^NetNewsWire$'
 )
 for app in ${unmanaged_apps}; do
     yabai -m rule --add app=${app} manage=off
