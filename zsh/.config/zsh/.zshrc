@@ -83,17 +83,6 @@ esac
 
 alias debug_zsh='DEBUG_ZSH=1 zsh -x'
 
-# git log
-# https://github.com/ohmyzsh/ohmyzsh/blob/80c114cb3a64044ea50b623f96a35bc022db5e8d/plugins/git/git.plugin.zsh#L224-L238
-alias glgg='git log --graph'
-alias glgga='git log --graph --decorate --all'
-alias glola='git log --graph --pretty="%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%ar) %C(bold blue)<%an>%Creset" --all'
-alias glols='git log --graph --pretty="%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%ar) %C(bold blue)<%an>%Creset" --stat'
-alias glol='git log --graph --pretty="%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%ar) %C(bold blue)<%an>%Creset"'
-alias glo='git log --oneline --decorate'
-alias glog='git log --oneline --decorate --graph'
-alias gloga='git log --oneline --decorate --graph --all'
-
 # pip3 install ... from_tuna
 alias -g from_tuna="-i https://pypi.tuna.tsinghua.edu.cn/simple"
 
