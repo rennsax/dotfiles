@@ -223,6 +223,9 @@ editz() {
 
 ################### General Configurations #################
 
+# redirect shouldn't overwrite a existing file
+setopt noclobber
+
 # allow comments when interactive
 setopt interactivecomments
 

@@ -1,7 +1,8 @@
-# very important setup
+#!/usr/bin/env sh
 
-# redirect shouldn't overwrite a existing file
-setopt noclobber
+# Global environment variables.
+# This file should not contain commands that produce output or assume the shell is attached to a TTY.
+# Also, respect POSIX, or use the intersection of syntaxes of those prevalent shells (sh, bash, zsh, ...)
 
 # Default editor
 export EDITOR=nvim
