@@ -24,11 +24,6 @@ export NNN_TMPFILE="${XDG_CONFIG_HOME:-$HOME/.config}/nnn/.lastd"
 command nnn "$@"
 
 [ ! -f "$NNN_TMPFILE" ] || {
-    if [[ "$(command cat $NNN_TMPFILE)" =~ "cd '(.*)'" ]]; then
-        target_dir="${match[1]}"
-        [[ "$PWD" = "$target_dir" ]] || cd "$target_dir"
-        rm -f "$NNN_TMPFILE" > /dev/null
-    else
-        printf '%s\n' "regex match failed" >&2
-    fi
+    \. "$NNN_TMPFILE"
+    rm -f "$NNN_TMPFILE"
 }
