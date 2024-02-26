@@ -116,7 +116,6 @@ export REPO_URL='https://mirrors.tuna.tsinghua.edu.cn/git/git-repo'
 
 # bat
 export BAT_THEME="gruvbox-dark"
-alias cat='bat'
 
 # trash-cli
 alias rm='echo "This is not the command you are looking for."; false'
