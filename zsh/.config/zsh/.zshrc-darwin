@@ -73,16 +73,11 @@ FPATH="${HOMEBREW_COMPLETIONS}:${FPATH}"
 # hexdump is included in util-linux
 alias hd='hexdump -C'
 
-alias objdump="$GNU_BINUTILS_BIN_PATH/objdump"
-
 # GNU find, locate, updatedb, xargs; sed; tar
 export PATH="$GNU_FINDUTILS_BIN_PATH:$PATH"
 export PATH="$GNU_SED_BIN_PATH:$PATH"
 export PATH="$GNU_TAR_BIN_PATH:$PATH"
 export PATH="$GNU_GREP_BIN_PATH:$PATH"
-
-# brew install x86_64-elf-gdb
-alias gdb='x86_64-elf-gdb'
 
 #################### Misc. #################################
 
