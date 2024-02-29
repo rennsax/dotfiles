@@ -127,8 +127,6 @@ export NNN_FIFO="/tmp/nnn.fifo"
 export NNN_ZLUA="${ZLUA_PATH}"
 export NNN_TRASH=1
 
-# nvim
-export NVIM_INSTALL_PLUGINS=1
 
 # fzf rebind TAB (^I), so it must be inited after `compinit` (defer it).
 # zsh-defer can even defer the task when __fzf_setup isn't defined.
