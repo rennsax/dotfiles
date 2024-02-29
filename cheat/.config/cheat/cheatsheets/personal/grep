@@ -1,8 +1,10 @@
-# To search a file for a pattern:
+# To search files for a pattern:
 grep <pattern> <file>..
-
 # trick: add /dev/null in the file list, so grep can print the file name
 grep <pattern> <file> /dev/null
+
+# To search possible occurrences of **words** foo, bar, baz
+grep -wE 'foo|bar|baz'
 
 # To perform a case-insensitive search (with line numbers):
 grep -in <pattern> <file>

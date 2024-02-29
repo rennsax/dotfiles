@@ -6,3 +6,6 @@ tags: [ mac ]
 # To replace existing signature
 # (a wrong code signature may cause the executable to be killed by the kernel)
 codesign -s -f - <path>
+
+# To display codesign information
+codesign -dv <path>

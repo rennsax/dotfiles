@@ -1,14 +1,20 @@
 # remove all lines that match the pattern, while keeping backup
-sed -i.bak '/pattern_to_match/d' <file>
+# -i: in-place, `.bak` is the suffix to use
+sed -i.bak '/line_pattern/d' <file>
 
 # To replace all occurrences of "day" with "night" and write to stdout:
 sed 's/day/night/g' <file>
+echo 'It is daytime' | sed 's/day/night/g' # also from stdin
 
-# To replace all occurrences of "day" with "night" within <file>:
-sed -i 's/day/night/g' <file>
+# Execute multiple sed scripts
+sed 's/a/b/;s/c/d/;s/1/2/' <file>
+sed -e 's/a/b/' -e 's/c/d/' -e 's/1/2/' <file>
 
-# To replace all occurrences of "day" with "night" on stdin:
-echo 'It is daytime' | sed 's/day/night/g'
+# Strip tailing whitespaces in each line
+sed -i 's/\s*$//'
+
+# Uppercase
+sed 's/[a-z]/\U&/g' <file>
 
 # To remove leading spaces:
 sed -i -r 's/^\s+//g' <file>

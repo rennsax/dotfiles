@@ -2,9 +2,12 @@
 syntax: bash
 tags: [ git, github, vcs ]
 ---
-
 # Create repo (the repo can be based on a local repo)
 gh repo create
+
+# Browse repo in web
+# --repo|-R: select repo when there are multiple tracked remotes
+gh browse
 
 # View README.md:
 gh repo view
