@@ -5,8 +5,6 @@ nnoremap <silent> <Leader>n :nohl<CR>
 nnoremap <silent> <M-u> :nohl<CR>
 " only highlight, not remove the cursor
 nnoremap <silent> g* :let @/ = expand("<cword>")<CR>:set hlsearch<CR>
-" nnoremap <Leader>d dd
-nnoremap <Leader>ek :vs $XDG_CONFIG_HOME/nvim/init.vim<CR>
 nnoremap <M-d> g^dg$g^
 nnoremap <Up> gk
 nnoremap <Down> gj
@@ -39,12 +37,6 @@ if exists('g:vscode')
     nnoremap <Leader>m :lua require('vscode-neovim').call('bookmarks.toggle')<CR>
     nnoremap <Leader>f :lua require('vscode-neovim').call('workbench.explorer.fileView.focus')<CR>
 endif
-
-" auto source `init.vim`
-augroup NVIMRC
-    autocmd!
-    autocmd BufWritePost init.vim source %
-augroup END
 
 " indent
 set autoindent expandtab shiftround
