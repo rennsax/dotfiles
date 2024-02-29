@@ -75,6 +75,9 @@ export PATH="$GNU_SED_BIN_PATH:$PATH"
 export PATH="$GNU_TAR_BIN_PATH:$PATH"
 export PATH="$GNU_GREP_BIN_PATH:$PATH"
 
+# xcode-select installs an outdated GNU make
+export PATH="/opt/homebrew/opt/make/libexec/gnubin:$PATH"
+
 #################### Misc. #################################
 
 # Prevent VS Code to generate duplicate icons in dock
