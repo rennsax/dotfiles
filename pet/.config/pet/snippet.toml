@@ -27,3 +27,15 @@
   command = "osascript -e 'tell application \"System Events\" to delete login item \"<AppName>\"'"
   tag = ["macOS"]
   output = ""
+
+[[snippets]]
+  description = "inspect image configurations"
+  command = "docker image inspect <image> | jq '.[0].Config'"
+  tag = ["docker"]
+  output = ""
+
+[[snippets]]
+  description = "sterilize shell history"
+  command = "sed -i.bak '/<pattern>/d' \"<file=$ZDOTDIR/.zsh_history>\""
+  output = ""
+
