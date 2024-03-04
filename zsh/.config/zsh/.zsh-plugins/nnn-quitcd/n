@@ -23,7 +23,11 @@ export NNN_TMPFILE="${XDG_CONFIG_HOME:-$HOME/.config}/nnn/.lastd"
 # making an infinitely recursive alias
 command nnn "$@"
 
-[ ! -f "$NNN_TMPFILE" ] || {
-    \. "$NNN_TMPFILE"
-    rm -f "$NNN_TMPFILE"
-}
+# The workaround is taken from:
+# https://github.com/jarun/nnn/discussions/1833#discussioncomment-8619252
+if [ "$?" -eq 0 ] && [ -f "$NNN_TMPFILE" ]; then
+    local to=$(sed "s|^cd '||;s|'$||;s|'\\\''|'|g;" "$NNN_TMPFILE")
+    [ "$to" != "$PWD" ] && cd "$to"
+fi
+
+rm -f "$NNN_TMPFILE"
