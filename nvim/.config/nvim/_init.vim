@@ -4,7 +4,7 @@ inoremap jj <Esc>
 nnoremap <silent> <Leader>n :nohl<CR>
 nnoremap <silent> <M-u> :nohl<CR>
 " only highlight, not remove the cursor
-nnoremap <silent> g* :let @/ = expand("<cword>")<CR>:set hlsearch<CR>
+" nnoremap <silent> g* :let @/ = expand("<cword>")<CR>:set hlsearch<CR>
 nnoremap <M-d> g^dg$g^
 nnoremap <Up> gk
 nnoremap <Down> gj

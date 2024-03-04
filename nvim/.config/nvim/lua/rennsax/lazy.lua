@@ -56,4 +56,18 @@ require("lazy").setup({
         "vim-scripts/ReplaceWithRegister",
         event = "VeryLazy"
     },
+    {
+        "haya14busa/vim-asterisk",
+        event = "VeryLazy"
+    }
 })
+
+-- "haya14busa/vim-asterisk"
+vim.api.nvim_set_keymap("n", "*", "<Plug>(asterisk-*)", {})
+vim.api.nvim_set_keymap("n", "#", "<Plug>(asterisk-#)", {})
+vim.api.nvim_set_keymap("n", "g*", "<Plug>(asterisk-g*)", {})
+vim.api.nvim_set_keymap("n", "g#", "<Plug>(asterisk-g#)", {})
+vim.api.nvim_set_keymap("n", "z*", "<Plug>(asterisk-z*)", {})
+vim.api.nvim_set_keymap("n", "gz*", "<Plug>(asterisk-gz*)", {})
+vim.api.nvim_set_keymap("n", "z#", "<Plug>(asterisk-z#)", {})
+vim.api.nvim_set_keymap("n", "gz#", "<Plug>(asterisk-gz#)", {})
