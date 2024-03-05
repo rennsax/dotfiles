@@ -230,7 +230,7 @@ setopt noflowcontrol
 [[ -z "$HISTFILE" ]] && export HISTFILE="${ZDOTDIR:-$HOME}/.zsh_history"
 export HISTSIZE=50000
 export SAVEHIST=10000 # leave SAVEHIST less than HISTSIZE so HIST_EXPIRE_DUPS_FIRST has
-export HISTORY_IGNORE='(bye|history*)'
+export HISTORY_IGNORE="(bye|history*|*${USER}*)"
 setopt extendedhistory        # record timestamp of command in HISTFILE
 setopt histexpiredupsfirst    # delete duplicates first when HISTFILE size exceeds HISTSIZE
 setopt histignoredups         # do not enter command lines into the history list if they are duplicates of the previous event.
