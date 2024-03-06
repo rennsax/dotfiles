@@ -39,11 +39,6 @@ export GNU_TAR_BIN_PATH="${HOMEBREW_PREFIX}/opt/gnu-tar/libexec/gnubin"
 # gnu-grep <g>
 export GNU_GREP_BIN_PATH="${HOMEBREW_PREFIX}/opt/grep/libexec/gnubin"
 
-# z.lua
-ZLUA_PATH="$(brew --prefix z.lua)/share/z.lua/z.lua"
-export _ZL_DATA="${XDG_CONFIG_HOME:-$HOME/.config}/zlua/.zlua"
-__try_defer eval "$(lua "${ZLUA_PATH}" --init zsh fzf enhanced once)"
-
 # jd-gui (cask)
 alias jd-gui='java -jar /Applications/JD-GUI.app/Contents/Resources/Java/jd-gui-1.6.6-min.jar >& /dev/null &|'
 

@@ -159,6 +159,9 @@ __fzf_setup() {
 # zsh-defer can even defer the task when __fzf_setup isn't defined.
 [[ -n "$FZF_SCRIPT_BASE" ]] && __try_defer __fzf_setup "$FZF_SCRIPT_BASE"
 
+# z.lua data
+export _ZL_DATA="${XDG_CONFIG_HOME:-$HOME/.config}/zlua/.zlua"
+
 # register the previous command easily for pet
 function prev() {
   PREV=$(builtin fc -lrn | head -n 1)
@@ -449,6 +452,7 @@ __plugin_dep=(
     tmux tmux
     orb orb
     nnn-quitcd nnn
+    z.lua lua
 )
 
 for plugin ("${(k)__plugin_dep[@]}"); do

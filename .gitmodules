@@ -10,3 +10,6 @@
 [submodule "zsh/.config/zsh/.zsh-plugins/zsh-completions"]
 	path = zsh/.config/zsh/.zsh-plugins/zsh-completions
 	url = https://github.com/zsh-users/zsh-completions
+[submodule "zsh/.config/zsh/.zsh-plugins/z.lua"]
+	path = zsh/.config/zsh/.zsh-plugins/z.lua
+	url = https://github.com/skywind3000/z.lua
