@@ -75,6 +75,10 @@ unmanaged_apps=(
     '^Calendar$'
     '^Clash Verge$'
     '^Raycast$'
+    '^Disk Utilitjy$'
+    '^MATLAB$'
+    '^RustDesk$'
+    '^Messages$'
 )
 space5_apps=(
     '^WeChat$'
