@@ -1,3 +1,6 @@
+# error exit
+set -e
+
 # use "default_user" if $USER is unset or empty
 user="${USER:-default_user}"
 : ${USER:=default_user}

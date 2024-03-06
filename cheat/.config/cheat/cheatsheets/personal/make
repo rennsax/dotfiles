@@ -1,0 +1,5 @@
+# Automatic variables
+$@: The file name of the target of the rule.
+$<: The name of the first prerequisite.
+$?: The name of all the prerequisite that are newer than the target.
+$^: The name of all the prerequisite, with spaces between them.
