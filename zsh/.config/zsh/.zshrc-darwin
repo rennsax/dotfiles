@@ -98,4 +98,4 @@ grabcan() {
 #################### Used Later ############################
 
 # fzf
-FZF_BASE="$HOMEBREW_PREFIX/opt/fzf"
+FZF_SCRIPT_BASE="$HOMEBREW_PREFIX/opt/fzf/shell"

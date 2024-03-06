@@ -126,9 +126,38 @@ export NNN_PLUG="p:preview-tui;z:autojump;d:macos-trash"
 export NNN_FIFO="/tmp/nnn.fifo"
 export NNN_ZLUA="${ZLUA_PATH}"
 
+# fzf
+# Setup completion, keybindings for fzf.
+# The funtion is defered until completion system is inited.
+# PARAMS: FZF_SCRIPT_BASE
+__fzf_setup() {
+    local script_base="$1"
+    () {
+        builtin emulate -L zsh -o err_return
+        source "$script_base/completion.zsh"
+        source "$script_base/key-bindings.zsh"
+    } || {
+        print -u2 "[fzf-setup] cannot source init scripts"
+        return 1
+    }
+    export FZF_DEFAULT_COMMAND="fd --type f --strip-cwd-prefix"
+    export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+    export FZF_ALT_C_COMMAND="fd --type d --strip-cwd-prefix"
+    # print tree structure in the preview window
+    export FZF_ALT_C_OPTS="--preview 'tree -C {}'"
+    _fzf_compgen_dir() {
+        # cd **<TAB>
+        fd --type d --hidden --follow --exclude ".git" --exclude "node_modules" . "$1"
+    }
+    _fzf_compgen_path() {
+        # vim **<TAB>
+        fd --hidden --follow --exclude ".git" --exclude "node_modules" . "$1"
+    }
+}
+
 # fzf rebind TAB (^I), so it must be inited after `compinit` (defer it).
 # zsh-defer can even defer the task when __fzf_setup isn't defined.
-[[ -n "$FZF_BASE" ]] && __try_defer __fzf_setup "$FZF_BASE"
+[[ -n "$FZF_SCRIPT_BASE" ]] && __try_defer __fzf_setup "$FZF_SCRIPT_BASE"
 
 # register the previous command easily for pet
 function prev() {
@@ -161,40 +190,6 @@ loadconda() {
         eval "$__conda_setup"
         echo 'successfully init conda environment'
     fi
-}
-
-# fzf
-# Setup completion, keybindings for fzf.
-# The funtion is defered until completion system is inited.
-# PARAMS: FZF_BASE
-__fzf_setup() {
-    local fzf_base="$1"
-    if [[ ! ( -d "$fzf_base" && -d "$fzf_base/shell" ) ]]; then
-        echo "[fzf-setup] invalid base" >&2
-        return 1
-    fi
-    local fzf_shell="$fzf_base/shell"
-    () {
-        builtin emulate -L zsh -o err_return
-        source "$fzf_shell/completion.zsh"
-        source "$fzf_shell/key-bindings.zsh"
-    } || {
-        print -u2 "[fzf-setup] cannot source init scripts"
-        return 1
-    }
-    export FZF_DEFAULT_COMMAND="fd --type f --strip-cwd-prefix"
-    export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-    export FZF_ALT_C_COMMAND="fd --type d --strip-cwd-prefix"
-    # print tree structure in the preview window
-    export FZF_ALT_C_OPTS="--preview 'tree -C {}'"
-    _fzf_compgen_dir() {
-        # cd **<TAB>
-        fd --type d --hidden --follow --exclude ".git" --exclude "node_modules" . "$1"
-    }
-    _fzf_compgen_path() {
-        # vim **<TAB>
-        fd --hidden --follow --exclude ".git" --exclude "node_modules" . "$1"
-    }
 }
 
 curl_github() {
