@@ -122,11 +122,9 @@ alias rm='echo "This is not the command you are looking for."; false'
 
 # nnn
 alias n='n -Ae' # always open text files in the terminal
-export NNN_PLUG="p:preview-tui;z:autojump"
+export NNN_PLUG="p:preview-tui;z:autojump;d:macos-trash"
 export NNN_FIFO="/tmp/nnn.fifo"
 export NNN_ZLUA="${ZLUA_PATH}"
-export NNN_TRASH=1
-
 
 # fzf rebind TAB (^I), so it must be inited after `compinit` (defer it).
 # zsh-defer can even defer the task when __fzf_setup isn't defined.
