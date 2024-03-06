@@ -1,3 +1,10 @@
+#################### System ################################
+
+# Proxy settings
+CLASH_MIXED_PORT=8881
+export http_proxy="http://127.0.0.1:${CLASH_MIXED_PORT}"
+export https_proxy="http://127.0.0.1:${CLASH_MIXED_PORT}"
+
 #################### Homebrew ##############################
 
 export HOMEBREW_NO_AUTO_UPDATE=1

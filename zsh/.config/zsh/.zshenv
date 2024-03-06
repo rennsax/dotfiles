@@ -13,11 +13,6 @@ export LANG=en_US.UTF-8
 # macOS: `systemsetup -listtimezones`
 export TZ=Asia/Shanghai
 
-# Proxy settings
-CLASH_MIXED_PORT=8881
-export http_proxy="http://127.0.0.1:${CLASH_MIXED_PORT}"
-export https_proxy="http://127.0.0.1:${CLASH_MIXED_PORT}"
-
 # XDG standard, see https://wiki.archlinux.org/title/XDG_Base_Directory
 export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_CACHE_HOME="$HOME/.cache"
