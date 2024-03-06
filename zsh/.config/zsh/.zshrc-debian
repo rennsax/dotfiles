@@ -1,0 +1,4 @@
+#################### Used Later ############################
+
+# fzf
+FZF_SCRIPT_BASE="/usr/share/doc/fzf/examples"

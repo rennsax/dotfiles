@@ -69,11 +69,23 @@ __load_plugin() {
 
 #################### Platform-Dependent ####################
 
+# On differenet operating systems, many things can vary:
+#       package manager, system utilites, etc.
+# Therefore we need to conditionally source other scripts in this section.
+
+# Inputs:
+# - __try_defer: a subroutine that will try to use `zsh-defer` to eval the command.
+
+# Outputs:
+# (For portability, these OS-dependent scripts should define some parameters for further use.)
+# - FZF_SCRIPT_BASE: the fzf installation directory.
+
 case "$OSTYPE" in
     darwin*)
         builtin source "$ZDOTDIR/.zshrc-darwin"
         ;;
     linux*)
+        builtin source "$ZDOTDIR/.zshrc-debian"
         ;;
     *)
         ;;
