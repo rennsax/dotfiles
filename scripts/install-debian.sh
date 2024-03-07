@@ -55,7 +55,11 @@ has fdfind && ln -sf "$(which fdfind)" ~/.local/bin/fd
 # starship
 if ! has starship; then
     info "installing starship..."
-    curl -sS https://starship.rs/install.sh | sh
+    if during_ci; then
+        curl -sS https://starship.rs/install.sh | FORCE=1 sh
+    else
+        curl -sS https://starship.rs/install.sh | sh
+    fi
 fi
 
 # zsh: set ZDOTDIR
@@ -63,4 +67,4 @@ fi
 printf 'export ZDOTDIR="$HOME/.config/zsh"\n' | sudo tee -a /etc/zsh/zshenv >/dev/null
 
 info "Setting up zsh as default shell:"
-chsh -s "$(which zsh)"
+during_ci || chsh -s "$(which zsh)"

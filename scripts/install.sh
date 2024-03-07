@@ -99,6 +99,10 @@ install_linux() {
     esac
 }
 
+during_ci() {
+    [ "${GITHUB_ACTIONS}" = "true" ]
+}
+
 PLATFORM=$(uname -s | tr '[:upper:]' '[:lower:]')
 
 case "$PLATFORM" in
