@@ -136,7 +136,7 @@ alias rm='echo "This is not the command you are looking for."; false'
 alias n='n -Ae' # always open text files in the terminal
 export NNN_PLUG="p:preview-tui;z:autojump;d:macos-trash"
 export NNN_FIFO="/tmp/nnn.fifo"
-export NNN_ZLUA="${ZLUA_PATH}"
+export NNN_ZLUA="$ZDOTDIR/.zsh-plugins/z.lua/z.lua"
 
 # fzf
 # Setup completion, keybindings for fzf.
