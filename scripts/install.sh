@@ -39,22 +39,22 @@ export_linux_distro() {
 #   - arm
 #   - arm64
 which_arch() {
-  arch="$(uname -m | tr '[:upper:]' '[:lower:]')"
+    arch="$(uname -m | tr '[:upper:]' '[:lower:]')"
 
-  case "${arch}" in
-    amd64) arch="x86_64" ;;
-    armv*) arch="arm" ;;
-    arm64) arch="aarch64" ;;
-  esac
+    case "${arch}" in
+        amd64) arch="x86_64" ;;
+        armv*) arch="arm" ;;
+        arm64) arch="aarch64" ;;
+    esac
 
-  # `uname -m` in some cases mis-reports 32-bit OS as 64-bit, so double check
-  if [ "${arch}" = "x86_64" ] && [ "$(getconf LONG_BIT)" -eq 32 ]; then
-    arch=i686
-  elif [ "${arch}" = "aarch64" ] && [ "$(getconf LONG_BIT)" -eq 32 ]; then
-    arch=arm
-  fi
+    # `uname -m` in some cases mis-reports 32-bit OS as 64-bit, so double check
+    if [ "${arch}" = "x86_64" ] && [ "$(getconf LONG_BIT)" -eq 32 ]; then
+        arch=i686
+    elif [ "${arch}" = "aarch64" ] && [ "$(getconf LONG_BIT)" -eq 32 ]; then
+        arch=arm
+    fi
 
-  printf '%s' "${arch}"
+    printf '%s' "${arch}"
 }
 
 do_install() {
