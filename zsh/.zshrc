@@ -450,8 +450,13 @@ _comp_options+=(globdots)
 
 #################### ZSH plugins ###########################
 
-# brew install starship
-eval "$(starship init zsh)" # starship theme
+if (( $+commands[starship] )); then
+    eval "$(starship init zsh)" # starship theme
+else
+    # https://dev.to/cassidoo/customizing-my-zsh-prompt-3417
+    setopt PROMPT_SUBST
+    PROMPT='%F{green}%*%f %F{blue}%~%f %F{red}${vcs_info_msg_0_}%f$ '
+fi
 
 plugins=(
     git
