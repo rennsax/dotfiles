@@ -1,3 +1,5 @@
+[![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/rennsax/dotfiles/test-install.yml?label=Test)](https://github.com/rennsax/dotfiles/actions/workflows/test-install.yml)
+
 # dotfiles
 
 My personal dotfiles.
