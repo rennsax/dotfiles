@@ -1,3 +1,6 @@
+command_timeout = 300
+format = "$time$all"
+
 [aws]
 symbol = "  "
 disabled = true
@@ -155,3 +158,7 @@ format = "[$symbol$maybe_int]($style) "
 map_symbol = true
 sigint_symbol = "󰋔"
 not_found_symbol = "\uf128" #
+
+[time]
+disabled = false
+format = '🕙[\[$time\]]($style) '
