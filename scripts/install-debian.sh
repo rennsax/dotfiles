@@ -34,7 +34,7 @@ else
     sudo apt-get upgrade -y >/dev/null
 fi
 
-PACKAGES="man zsh git xz-utils curl"
+PACKAGES="man zsh git xz-utils curl tmux"
 PACKAGES="${PACKAGES} fzf neovim fd-find tree lua5.4"
 PACKAGES="${PACKAGES} $(printf "%s" "$DEBIAN_EXTRA_PACKAGES" | tr ':' ' ')"
 
