@@ -17,7 +17,7 @@ ZDOTDIR="$XDG_CONFIG_HOME/zsh"
 
 mkdir -p "$ZDOTDIR"
 
-[ "$(basename "$PWD")" = ".dotfiles" ] || {
+[ "$(basename "$PWD")" = "dotfiles" ] || [ "$(basename "$PWD")" = ".dotfiles" ] || {
     printf "%s\n" "Please run this script from the .dotfiles directory." >&2
     exit 1
 }
