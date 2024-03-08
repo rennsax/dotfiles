@@ -7,9 +7,9 @@
 [submodule "zsh-defer"]
 	path = zsh/.zsh-plugins/zsh-defer
 	url = https://github.com/romkatv/zsh-defer
-[submodule "zsh/.config/zsh/.zsh-plugins/zsh-completions"]
+[submodule "zsh-completions"]
 	path = zsh/.zsh-plugins/zsh-completions
 	url = https://github.com/zsh-users/zsh-completions
-[submodule "zsh/.config/zsh/.zsh-plugins/z.lua"]
+[submodule "z.lua"]
 	path = zsh/.zsh-plugins/z.lua
 	url = https://github.com/skywind3000/z.lua
