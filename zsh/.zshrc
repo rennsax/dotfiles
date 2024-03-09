@@ -119,6 +119,11 @@ alias objdumpi='objdump -M intel'
 alias cp='cp -i'
 alias mv='mv -i'
 
+# Enable colors for grep
+alias egrep='egrep --color=auto'
+alias fgrep='fgrep --color=auto'
+alias grep='grep --color=auto'
+
 # `-i`: smart case insensitive
 ## export MANPAGER="less -sRi"
 export MANPAGER='nvim +Man!'
