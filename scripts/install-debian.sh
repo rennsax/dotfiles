@@ -21,6 +21,15 @@ alter_apt_sources() {
 : "${INSTALL_DEBIAN_NO_SJTU_SOURCES:=0}"
 : "${INSTALL_DEBIAN_TRACE:=0}"
 
+# The needrestart(1) prompts are annoying.
+# Simply export NEEDRESTART_MODE=a or NEEDRESTART_SUSPEND=1
+# or DEBIAN_FRONTEND=noninteractive is useless,
+# because sudo doesn't perserve the environment varibles (unless w/ -E option)
+if [ -f "/etc/needrestart/needrestart.conf" ]; then
+    # disable kernel checks && restart_mode = (a)utomatically
+    printf "%s\n" "\$nrconf{kernelhints} = 0;" "\$nrconf{restart} = 'a';" | \
+        sudo tee -a /etc/needrestart/needrestart.conf >/dev/null
+fi
 if [ "${INSTALL_DEBIAN_NO_SJTU_SOURCES}" -ne 1 ]; then
     alter_apt_sources || error_exit "failed to alter apt sources"
 fi
