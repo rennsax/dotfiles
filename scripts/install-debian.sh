@@ -39,8 +39,8 @@ if [ "${INSTALL_DEBIAN_TRACE}" -eq 1 ]; then
     sudo apt-get update -y
     sudo apt-get upgrade -y
 else
-    sudo apt-get update -y >/dev/null
-    sudo apt-get upgrade -y >/dev/null
+    sudo apt-get update -y >/dev/null 2>&1
+    sudo apt-get upgrade -y >/dev/null 2>&1
 fi
 
 PACKAGES="man zsh git xz-utils curl tmux"
@@ -54,7 +54,7 @@ for package in $PACKAGES; do
         int_exit_eval sudo apt-get install "$package" -y \
             || error_report "failed to install $package"
     else
-        int_exit_eval sudo apt-get install "$package" >/dev/null -y \
+        int_exit_eval sudo apt-get install "$package" >/dev/null 2>&1 -y \
             || error_report "failed to install $package"
     fi
 done
