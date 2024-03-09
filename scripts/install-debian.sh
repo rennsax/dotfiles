@@ -2,6 +2,13 @@
 
 set -e
 
+# whether to disable the modification of /etc/apt/sources.list
+: "${INSTALL_DEBIAN_NO_SJTU_SOURCES:=0}"
+# whether to print verbose log
+: "${INSTALL_DEBIAN_TRACE:=0}"
+# whether to install starship (better shell prompt)
+: "${INSTALL_STARSHIP:=0}"
+
 alter_apt_sources() {
     arch=$(which_arch)
 
@@ -18,9 +25,10 @@ alter_apt_sources() {
     esac
 }
 
-: "${INSTALL_DEBIAN_NO_SJTU_SOURCES:=0}"
-: "${INSTALL_DEBIAN_TRACE:=0}"
-: "${INSTALL_STARSHIP:=0}"
+info "Note: This installing script needs root permission to be executed."
+if ! sudo -v; then
+    error_exit "Not granted, abort."
+fi
 
 # The needrestart(1) prompts are annoying.
 # Simply export NEEDRESTART_MODE=a or NEEDRESTART_SUSPEND=1
@@ -80,5 +88,5 @@ fi
 # shellcheck disable=SC2016
 printf 'export ZDOTDIR="$HOME/.config/zsh"\n' | sudo tee -a /etc/zsh/zshenv >/dev/null
 
-info "Setting up zsh as default shell:"
-during_ci || chsh -s "$(which zsh)"
+info "setting up zsh as default shell..."
+sudo sed -i "/^$USER/s|bash|zsh|" /etc/passwd
