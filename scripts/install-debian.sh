@@ -20,6 +20,7 @@ alter_apt_sources() {
 
 : "${INSTALL_DEBIAN_NO_SJTU_SOURCES:=0}"
 : "${INSTALL_DEBIAN_TRACE:=0}"
+: "${INSTALL_STARSHIP:=0}"
 
 # The needrestart(1) prompts are annoying.
 # Simply export NEEDRESTART_MODE=a or NEEDRESTART_SUSPEND=1
@@ -63,11 +64,15 @@ has fdfind && ln -sf "$(which fdfind)" ~/.local/bin/fd
 
 # starship
 if ! has starship; then
-    info "installing starship..."
-    if during_ci; then
-        curl -sS https://starship.rs/install.sh | FORCE=1 sh
+    if [ "${INSTALL_STARSHIP}" -ne 1 ]; then
+        info "bypass installing starship"
     else
-        curl -sS https://starship.rs/install.sh | sh
+        info "installing starship..."
+        if during_ci; then
+            curl -sS https://starship.rs/install.sh | FORCE=1 sh
+        else
+            curl -sS https://starship.rs/install.sh | sh
+        fi
     fi
 fi
 
