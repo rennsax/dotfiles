@@ -82,6 +82,9 @@ ln -sf "$DOTFILES_HOME/npm/npmrc" "$XDG_CONFIG_HOME"/npm/
 # nvim
 mkdir -p "$XDG_CONFIG_HOME"/nvim
 
+# z.lua
+mkdir -p "$XDG_CONFIG_HOME"/zlua
+
 # cpp-dev
 ln -sf "$DOTFILES_HOME/.clang-format" "$DOTFILES_HOME/.clang-tidy" \
     "$HOME/"
