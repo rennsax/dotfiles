@@ -371,9 +371,6 @@ unbind C-b
 set -g prefix M-a
 bind M-a send-prefix # necessary if you still want to use <M-a>
 
-# disable repetition
-set-option -g repeat-time 0
-
 # if you don't want Oh my tmux! to alter a binding, use #!important
 # bind c new-window -c '#{pane_current_path}' #!important
 
