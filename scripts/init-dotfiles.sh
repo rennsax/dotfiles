@@ -41,8 +41,8 @@ macos_specified() {
     force_ln_folder "$DOTFILES_HOME/pet" "$XDG_CONFIG_HOME"/
 
     # cheat
-    mkdir -p "$XDG_CONFIG_HOME"/cheat/cheatesheets
-    force_ln_folder "$DOTFILES_HOME/cheatesheets/personal" "$XDG_CONFIG_HOME"/cheat/cheatesheets/
+    mkdir -p "$XDG_CONFIG_HOME"/cheat/cheatsheets
+    force_ln_folder "$DOTFILES_HOME/cheat/cheatsheets/personal" "$XDG_CONFIG_HOME"/cheat/cheatsheets/
 
     # nnm
     force_ln_folder "$DOTFILES_HOME/nnn/plugins" "$XDG_CONFIG_HOME"/nnn/
