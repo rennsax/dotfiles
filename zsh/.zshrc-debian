@@ -1,3 +1,10 @@
+#################### Misc ##################################
+
+[[ "$TERM_PROGRAM" == "vscode" ]] && . "$(code --locate-shell-integration-path zsh)"
+
+# Shell Completions
+fpath+="/usr/share/zsh/vendor-completions"
+
 #################### Used Later ############################
 
 # fzf
