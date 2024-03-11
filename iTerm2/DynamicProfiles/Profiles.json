@@ -508,7 +508,7 @@
             "Window Type": 0,
             "Use Bright Bold": true,
             "Has Hotkey": false,
-            "HotKey Modifier Activation": 2,
+            "HotKey Modifier Activation": 3,
             "Cursor Text Color": {
                 "Red Component": 0.99718433618545532,
                 "Color Space": "sRGB",
@@ -628,7 +628,7 @@
                 "Alpha Component": 1,
                 "Green Component": 0.20391708612442017
             },
-            "HotKey Activated By Modifier": true,
+            "HotKey Activated By Modifier": false,
             "Screen": -2,
             "AWDS Window Option": "No",
             "Initial Use Transparency": true,
