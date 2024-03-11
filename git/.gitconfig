@@ -1,0 +1,12 @@
+[core]
+	editor = nvim
+	ignorecase = false
+[alias]
+	co = checkout
+    br = brach
+    ci = commit
+    st = status
+    amend = commit --amend
+    ls = "log --graph --pretty=\"%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%ar) %C(bold blue)<%an>%Creset\""
+    lss = ls --stat
+    lsa = ls --all
