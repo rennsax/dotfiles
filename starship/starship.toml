@@ -1,5 +1,6 @@
 command_timeout = 300
-format = "$time$all"
+format = "$all"
+right_format = "$time"
 
 [aws]
 symbol = "  "
@@ -161,4 +162,4 @@ not_found_symbol = "\uf128" #
 
 [time]
 disabled = false
-format = '🕙[\[$time\]]($style) '
+format = '🕙 [$time]($style) '
