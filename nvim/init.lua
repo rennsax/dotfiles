@@ -33,4 +33,7 @@ if vim.g.vscode then
     -- open file manage
     vim.api.nvim_set_keymap(
         "n", "<Leader>f", ":lua require('vscode-neovim').call('workbench.explorer.fileView.focus')<CR>", {})
+    -- restart neovim
+    vim.api.nvim_set_keymap(
+        "n", "<Leader>rn", ":lua require('vscode-neovim').call('vscode-neovim.restart')<CR>", {})
 end
