@@ -93,8 +93,6 @@ esac
 
 #################### Shortcuts #############################
 
-alias debug_zsh='DEBUG_ZSH=1 zsh -x'
-
 # pip3 install ... from_tuna
 alias -g from_tuna="-i https://pypi.tuna.tsinghua.edu.cn/simple"
 
@@ -463,12 +461,16 @@ else
     PROMPT='%F{green}%*%f %F{blue}%~%f %F{red}${vcs_info_msg_0_}%f$ '
 fi
 
+# plugins that have no deps
 plugins=(
     git
     zsh-syntax-highlighting
     zsh-autosuggestions
 )
 
+# plugins that are installed only when the deps are available
+# [key, value] = [plugin, dep]
+# TODO: multiple deps
 typeset -A __plugin_dep
 __plugin_dep=(
     tmux tmux
@@ -477,11 +479,10 @@ __plugin_dep=(
     z.lua lua
 )
 
-for plugin ("${(k)__plugin_dep[@]}"); do
-    (( $+commands[${__plugin_dep[$plugin]}] )) && plugins=($plugin $plugins)
-done
-
-if [ -z "$DEBUG_ZSH" ]; then
+() {
+    for plugin ("${(k)__plugin_dep[@]}"); do
+        (( $+commands[${__plugin_dep[$plugin]}] )) && plugins=($plugin $plugins)
+    done
     ZSH_TMUX_AUTOCONNECT=false # never try to connect to previous session
     ZSH_TMUX_FIXTERM=false
     ZSH_TMUX_CONFIG="$XDG_CONFIG_HOME/tmux/tmux.conf"
@@ -491,4 +492,4 @@ if [ -z "$DEBUG_ZSH" ]; then
         __load_plugin "$plugin"
     done
     unset plugin plugins
-fi
+}
