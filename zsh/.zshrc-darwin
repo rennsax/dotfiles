@@ -87,7 +87,11 @@ export PATH="/opt/homebrew/opt/make/libexec/gnubin:$PATH"
 
 # Prevent VS Code to generate duplicate icons in dock
 code() {
-    open -b 'com.microsoft.vscode' "$@"
+    if [[ "$1" =~ '-*' ]]; then
+        command code "$@"
+    else
+        open -b 'com.microsoft.vscode' "$@"
+    fi
 }
 
 # Use skyzh/canvas_grab to download canvas files
