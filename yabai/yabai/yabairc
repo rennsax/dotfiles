@@ -11,12 +11,6 @@
 # sudo yabai --load-sa
 #
 
-yabai_log() {
-    str_format=$1
-    shift
-    printf "[%s] $str_format" "$(date +'%F %T')" $@
-}
-
 # global settings
 yabai -m config                                 \
     mouse_follows_focus          off            \
@@ -100,8 +94,8 @@ done
 yabai -m rule --add app='^Arc$' title='^Rennsax$' manage=off
 
 focus_under_cursor() {
-    if yabai -m query --windows --space |
-        jq -er 'map(select(.["has-focus"] == true)) | length == 0' &>/dev/null; then
+    if yabai -m query --windows --space \
+        | jq -er 'map(select(.["has-focus"] == true)) | length == 0' &>/dev/null; then
         yabai -m window --focus mouse 2>/dev/null || true
     fi
 }
@@ -114,5 +108,11 @@ yabai -m signal --add event=space_changed \
     action="${functions[focus_under_cursor]}" active=yes
 
 borders active_color=0xffff7c5c width=10.0 inactive_color=0xff494d64 width=5.0 &
+
+yabai_log() {
+    str_format=$1
+    shift
+    printf "[%s] $str_format\n" "$(date +'%F %T')" $@
+}
 
 yabai_log "configuration loaded.."
