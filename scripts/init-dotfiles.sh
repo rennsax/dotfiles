@@ -8,6 +8,7 @@ set -e
 }
 
 XDG_CONFIG_HOME="$HOME/.config"
+XDG_BIN_HOME="$HOME/.local/bin"
 ZDOTDIR="$XDG_CONFIG_HOME/zsh"
 DOTFILES_HOME="$PWD"
 
@@ -55,7 +56,40 @@ macos_specified() {
 orb_extra_init() {
     # shellcheck disable=SC2016
     mac_home="$(mac sh -c 'printf "%s" $HOME')"
+
+    # Directly symlink .gitconfig
     ln -sf "$mac_home/.gitconfig" "$HOME"/
+
+    # macOS file system is also available on orb vm
+    ln -sf "$mac_home/.config/zlua/.zlua" "$XDG_CONFIG_HOME/zlua/"
+
+    # Install a special utility which effectively runs trash command on the mac
+    # (since trash-cli cannot act perfectly on an orb VM)
+    # See https://specifications.freedesktop.org/trash-spec/trashspec-latest.html
+    cat <<'EOF' > "$XDG_BIN_HOME/trash-mac"
+#!/usr/bin/env sh
+
+usage() {
+    printf "Usage: %s <path> [...]\n" "$(basename "$0")" >&2
+    printf "A wrapper script for orbstack VM which runs trash command on the mac.\n" >&2
+    exit 0
+}
+
+main() {
+    mac trash "$@"
+}
+
+if [ "$1" = "-h" ] || [ "$1" = "--help" ]; then
+    usage
+fi
+
+main "$@"
+EOF
+    chmod +x "$XDG_BIN_HOME/trash-mac"
+}
+
+is_orb_vm() {
+    uname -r | grep -q 'orbstack'
 }
 
 # zsh
@@ -99,6 +133,6 @@ case "$(uname -s | tr '[:upper:]' '[:lower:]')" in
         ;;
 esac
 
-if command -v mac >/dev/null; then
+if is_orb_vm; then
     orb_extra_init
 fi
