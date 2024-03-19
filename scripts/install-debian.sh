@@ -9,6 +9,10 @@ set -e
 # whether to install starship (better shell prompt)
 : "${INSTALL_STARSHIP:=0}"
 
+PACKAGES="man zsh git xz-utils curl tmux"
+PACKAGES="${PACKAGES} fzf neovim fd-find tree lua5.4 jq trash-cli"
+PACKAGES="${PACKAGES} $(printf "%s" "$DEBIAN_EXTRA_PACKAGES" | tr ':' ' ')"
+
 alter_apt_sources() {
     arch=$(which_arch)
 
@@ -51,10 +55,6 @@ else
     sudo apt-get update -y >/dev/null 2>&1
     sudo apt-get upgrade -y >/dev/null 2>&1
 fi
-
-PACKAGES="man zsh git xz-utils curl tmux"
-PACKAGES="${PACKAGES} fzf neovim fd-find tree lua5.4"
-PACKAGES="${PACKAGES} $(printf "%s" "$DEBIAN_EXTRA_PACKAGES" | tr ':' ' ')"
 
 IFS=" "
 for package in $PACKAGES; do
