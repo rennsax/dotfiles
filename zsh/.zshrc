@@ -190,7 +190,7 @@ function prev() {
 # I recommend installing standalone pnpm (not using `npm install -g`).
 # But pnpm is still dependent on nodejs.
 # This routine set pnpm home and tab-completion.
-alias pnpm="print -u2 'Please use \`loadpnpm\` first'"
+alias pnpm="print -u2 'Please use \`loadpnpm\` first'; false"
 loadpnpm() {
     # pnpm tabtab completions
     export PNPM_HOME="$XDG_DATA_HOME/pnpm"
