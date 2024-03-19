@@ -86,7 +86,7 @@ mkdir -p "$XDG_CONFIG_HOME"/nvim
 mkdir -p "$XDG_CONFIG_HOME"/zlua
 
 # cpp-dev
-ln -sf "$DOTFILES_HOME/.clang-format" "$DOTFILES_HOME/.clang-tidy" \
+ln -sf "$DOTFILES_HOME/cpp-dev/.clang-format" "$DOTFILES_HOME/cpp-dev/.clang-tidy" \
     "$HOME/"
 
 # extra actions
