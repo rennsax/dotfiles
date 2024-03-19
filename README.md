@@ -27,6 +27,8 @@ Designed to be cross-platform, but mainly tested on macOS (MacBook Pro 2021).
 **Not well-tested. Use with caution!**
 
 ```sh
+git submodule update --remote --recursive
+
 # These two scripts must be run at the root folder.
 ./scripts/install.sh
 ./scripts/init-dotfiles.sh
