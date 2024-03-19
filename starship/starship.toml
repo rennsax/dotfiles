@@ -163,3 +163,6 @@ not_found_symbol = "\uf128" #
 [time]
 disabled = false
 format = '🕙 [$time]($style) '
+
+[[battery.display]]
+threshold = 20
