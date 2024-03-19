@@ -93,6 +93,8 @@ esac
 
 #################### Shortcuts #############################
 
+alias :q="exit"
+
 # pip3 install ... from_tuna
 alias -g from_tuna="-i https://pypi.tuna.tsinghua.edu.cn/simple"
 
