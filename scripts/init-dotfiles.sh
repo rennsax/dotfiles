@@ -28,15 +28,21 @@ force_ln_folder() {
 }
 
 linux_specified() {
+    # starship: on Linux, the default C/C++ compiler is gcc/g++
     sed -i 's|clang++|g++|;s|clang|gcc|' "$XDG_CONFIG_HOME/starship.toml"
-    ln -sf "$DOTFILES_HOME/nvim/_init.vim" "$XDG_CONFIG_HOME"/nvim/init.vim
+
+    # The minimal nvim configurations
+    mkdir "$XDG_CONFIG_HOME"/nvim
+    # From lua configurations, extract the Vimscript parts
+    find nvim/lua/configs -type f -exec grep -- '-- <VIM> ' '{}' \; |
+        sed 's|^-- <VIM> ||g' > "$XDG_CONFIG_HOME/nvim/init.vim"
+    # TODO: add pre-commit script to check the line number
+    test "$(wc -l "$XDG_CONFIG_HOME/nvim/init.vim")" -eq 81
 }
 
 macos_specified() {
-    ln -sf "$DOTFILES_HOME/nvim/_init.vim" \
-        "$DOTFILES_HOME/nvim/init.lua" \
-        "$XDG_CONFIG_HOME"/nvim/
-    force_ln_folder "$DOTFILES_HOME/nvim/lua" "$XDG_CONFIG_HOME"/nvim/
+    # Directly symlink the nvim configurations.
+    force_ln_folder "$DOTFILES_HOME/nvim" "$XDG_CONFIG_HOME"/
 
     # pet
     force_ln_folder "$DOTFILES_HOME/pet" "$XDG_CONFIG_HOME"/
@@ -59,9 +65,6 @@ orb_extra_init() {
 
     # Directly symlink .gitconfig
     ln -sf "$mac_home/.gitconfig" "$HOME"/
-
-    # macOS file system is also available on orb vm
-    ln -sf "$mac_home/.config/zlua/.zlua" "$XDG_CONFIG_HOME/zlua/"
 
     # Install a special utility which effectively runs trash command on the mac
     # (since trash-cli cannot act perfectly on an orb VM)
@@ -114,7 +117,11 @@ mkdir -p "$XDG_CONFIG_HOME"/npm
 ln -sf "$DOTFILES_HOME/npm/npmrc" "$XDG_CONFIG_HOME"/npm/
 
 # nvim
-mkdir -p "$XDG_CONFIG_HOME"/nvim
+if [ -d "$XDG_CONFIG_HOME/nvim" ]; then
+    printf "%s\n" "[warning] backup original nvim configurations"
+    # TODO: what if nvim.back already exists?
+    mv "$XDG_CONFIG_HOME/nvim" "$XDG_CONFIG_HOME/nvim.backup"
+fi
 
 # z.lua
 mkdir -p "$XDG_CONFIG_HOME"/zlua
