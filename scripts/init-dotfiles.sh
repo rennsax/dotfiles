@@ -37,7 +37,7 @@ linux_specified() {
     find nvim/lua/configs -type f -exec grep -- '-- <VIM> ' '{}' \; |
         sed 's|^-- <VIM> ||g' > "$XDG_CONFIG_HOME/nvim/init.vim"
     # TODO: add pre-commit script to check the line number
-    test "$(wc -l "$XDG_CONFIG_HOME/nvim/init.vim")" -eq 81
+    test "$(wc -l "$XDG_CONFIG_HOME/nvim/init.vim")" -eq 82
 }
 
 macos_specified() {
