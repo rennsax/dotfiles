@@ -72,9 +72,11 @@ unmanaged_apps=(
     '^Disk Utilitjy$'
     '^MATLAB$'
     '^RustDesk$'
-    '^Messages$'
+    '^DrRacket$'
+    '^Dash$'
 )
 space5_apps=(
+    '^Messages$'
     '^WeChat$'
     '^Telegram$'
     '^Jitsi Meet$'
