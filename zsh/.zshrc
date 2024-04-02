@@ -185,6 +185,11 @@ function prev() {
   sh -c "pet new -t `printf %q "$PREV"`"
 }
 
+# GNU Emacs
+export PATH="$PATH:$XDG_CONFIG_HOME/emacs/bin"
+alias emacs-client='tmux new-session -s "emacs-client" -d emacsclient -c -a emacs'
+alias emacs-kill-server="emacsclient -e '(save-buffers-kill-emacs)'"
+
 #################### Routines ##############################
 
 # I recommend installing standalone pnpm (not using `npm install -g`).
@@ -440,6 +445,7 @@ bindkey -M menuselect 'j' vi-down-line-or-history
 bindkey -M menuselect 'k' vi-up-line-or-history
 bindkey -M menuselect 'n' accept-and-infer-next-history # accept and trigger next completion
 bindkey -M menuselect '^xi' vi-insert # C-x i: toggle interactive mode
+# FIXME: is empty in emacs term
 bindkey -M menuselect "${terminfo[kcbt]}" reverse-menu-complete # back-tap: select previous
 
 # scoll down one line
