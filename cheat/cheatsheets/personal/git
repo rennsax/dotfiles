@@ -1,11 +1,19 @@
 ---
 tags: [ vcs, git ]
 ---
+
+# working tree{{{
+
+# Record the fact the "untracked" files will be added later.
+# The effect: the file will be annotated as "added", and `git diff` will show its content.
+git add --intent-to-add <file>
+
 # To remove files from staging, but keep your changes:
 git reset HEAD <file>
 
 # After unstaging the file, to revert the file back to the state it was in before the changes:
 git checkout -- <file>
+# }}}
 
 # To show the changes in the index (staged changed) against the current HEAD
 git diff --cached|--staged
@@ -220,3 +228,4 @@ git commit -m <message>
 # To edit previous commit message:
 git commit --amend
 
+# vim: set ft=sh fdm=marker:
