@@ -12,29 +12,28 @@ local imeName = {
   default = "com.apple.keylayout.US",
 }
 
--- FIXME: Why not just use the App name as the identifier?
 local app2Ime = {
   -- Develop
-  { '/Applications/iTerm.app', imeName.EnglishDefault },
-  { '/Applications/kitty.app', imeName.EnglishDefault },
-  { '/Applications/Visual Studio Code.app', imeName.EnglishDefault },
-  -- { '/opt/homebrew/Cellar/emacs-plus@29/29.3/Emacs.app', imeName.EnglishDefault },
-  { '/Applications/Xcode.app', imeName.EnglishDefault },
-  { '/Applications/Logseq.app', imeName.EnglishDefault },
-  { '/Applications/UTM.app', imeName.EnglishDefault },
+  { 'iTerm', imeName.EnglishDefault },
+  { 'kitty', imeName.EnglishDefault },
+  { 'Visual Studio Code', imeName.EnglishDefault },
+  -- { '/opt/homebrew/Cellar/emacs-plus@29/29.3/Emacs', imeName.EnglishDefault },
+  { 'Xcode', imeName.EnglishDefault },
+  { 'Logseq', imeName.EnglishDefault },
+  { 'UTM', imeName.EnglishDefault },
 
   -- Browser
-  { '/Applications/Google Chrome.app', imeName.EnglishDefault },
-  { '/Applications/Arc.app', imeName.EnglishDefault },
-  { '/Applications/Firefox.app', imeName.EnglishDefault },
+  { 'Google Chrome', imeName.EnglishDefault },
+  { 'Arc', imeName.EnglishDefault },
+  { 'Firefox', imeName.EnglishDefault },
 
-  { '/Applications/WeChat.app', imeName.ChineseDefault },
-  { '/System/Applications/Messages.app', imeName.ChineseDefault },
-  { '/Applications/QQ.app', imeName.ChineseDefault },
+  { 'WeChat', imeName.ChineseDefault },
+  { 'Messages', imeName.ChineseDefault },
+  { 'QQ', imeName.ChineseDefault },
 }
 
 local app2ImePersist = {
-  ['/opt/homebrew/Cellar/emacs-plus@29/29.3/Emacs.app'] = imeName.EnglishDefault,
+  ['Emacs'] = imeName.EnglishDefault,
 }
 
 -- Auxiliary for showing the APP information with key binding `ctrl-cmd-.'
@@ -55,22 +54,17 @@ imeWatcher = hs.application.watcher.new(function(appName, eventType, appObject)
   if eventType == hs.application.watcher.activated
     or eventType == hs.application.watcher.launched then
 
-    local focusAppPath = hs.window.frontmostWindow():application():path()
-
     -- If the APP's IME is persisted
-    if app2ImePersist[focusAppPath] then
-      hs.keycodes.currentSourceID(app2ImePersist[focusAppPath])
+    if app2ImePersist[appName] then
+      hs.keycodes.currentSourceID(app2ImePersist[appName])
       return
     end
 
-    local ime = nil
     -- Search the APP in the list
     for _, app in pairs(app2Ime) do
-      local appPath = app[1]
-      local expectedIme = app[2]
 
-      if focusAppPath == appPath then
-        hs.keycodes.currentSourceID(expectedIme)
+      if appName == app[1] then
+        hs.keycodes.currentSourceID(app[2])
         return
       end
     end
