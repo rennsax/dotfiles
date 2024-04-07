@@ -24,6 +24,9 @@ if [[ ! -d $ZDOTDIR ]]; then
     return 1
 fi
 
+# See https://www.emacswiki.org/emacs/TrampMode Tramp hangs #3
+[[ "$TERM" == "dumb" ]] && unsetopt zle && PS1="$ " && return
+
 #################### Function Utils ########################
 
 if [[ -s "$ZDOTDIR/.zsh-plugins/zsh-defer/zsh-defer" ]]; then
@@ -445,8 +448,9 @@ bindkey -M menuselect 'j' vi-down-line-or-history
 bindkey -M menuselect 'k' vi-up-line-or-history
 bindkey -M menuselect 'n' accept-and-infer-next-history # accept and trigger next completion
 bindkey -M menuselect '^xi' vi-insert # C-x i: toggle interactive mode
-# FIXME: is empty in emacs term
-bindkey -M menuselect "${terminfo[kcbt]}" reverse-menu-complete # back-tap: select previous
+if (( $+terminfo[kcbt] )); then
+    bindkey -M menuselect "${terminfo[kcbt]}" reverse-menu-complete # back-tap: select previous
+fi
 
 # scoll down one line
 bindkey -M listscroll '^n' down-line-or-history
