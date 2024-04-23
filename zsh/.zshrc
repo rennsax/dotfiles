@@ -192,6 +192,7 @@ function prev() {
 export PATH="$PATH:$XDG_CONFIG_HOME/emacs/bin"
 alias emacs-client='tmux new-session -s "emacs-client" -d emacsclient -c -a emacs'
 alias emacs-kill-server="emacsclient -e '(save-buffers-kill-emacs)'"
+[ -n "$INSIDE_EMACS" ] && ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=8,underline"
 
 #################### Routines ##############################
 
@@ -319,7 +320,7 @@ bindkey -e
 bindkey -M emacs '^[#' pound-insert # M-#
 
 # accept current command, and push it to the buffer again
-bindkey -M emacs '^J' accept-and-hold
+[ -z "$INSIDE_EMACS" ] && bindkey -M emacs '^J' accept-and-hold
 
 # use ^X^E like bash
 # create a widget with the same name so it can be invoke by ZLE
