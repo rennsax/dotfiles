@@ -5,7 +5,7 @@
 # Also, respect POSIX, or use the intersection of syntaxes of those prevalent shells (sh, bash, zsh, ...)
 
 # Default editor
-export EDITOR=nvim
+export EDITOR="emacsclient -c -a nvim"
 
 # Manually set your language environment
 export LANG=en_US.UTF-8

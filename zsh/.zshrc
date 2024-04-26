@@ -226,7 +226,7 @@ curl_github() {
 }
 
 editz() {
-    "$EDITOR" "$ZDOTDIR/.zshrc"
+    eval "$EDITOR" "$ZDOTDIR/.zshrc"
 }
 
 most-often-use() {
@@ -260,6 +260,8 @@ setopt hist_ignore_space      # ignore commands that start with space (the comma
 setopt histverify             # show command with history expansion to user before running it
 setopt share_history          # share command history data
 alias history='fc -i -l 1'
+
+alias e="$EDITOR"
 
 #################### Directory #############################
 
