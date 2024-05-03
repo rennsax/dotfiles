@@ -279,6 +279,7 @@ export LSCOLORS="Gxfxcxdxbxegedabagacad"
 
 # Enable colors when not piped
 alias ls='ls --color=auto'
+[ -n "$INSIDE_EMACS" ] && alias ls='gls --color=auto'
 
 # -l: long listing format
 # -a: all
