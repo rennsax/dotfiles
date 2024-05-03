@@ -14,10 +14,10 @@ local imeName = {
 
 local app2Ime = {
   -- Develop
-  { 'iTerm', imeName.EnglishDefault },
+  { 'iTerm2', imeName.EnglishDefault },
   { 'kitty', imeName.EnglishDefault },
   { 'Visual Studio Code', imeName.EnglishDefault },
-  -- { '/opt/homebrew/Cellar/emacs-plus@29/29.3/Emacs', imeName.EnglishDefault },
+  { 'Emacs', imeName.EnglishDefault },
   { 'Xcode', imeName.EnglishDefault },
   { 'Logseq', imeName.EnglishDefault },
   { 'UTM', imeName.EnglishDefault },
@@ -30,10 +30,12 @@ local app2Ime = {
   { 'WeChat', imeName.ChineseDefault },
   { 'Messages', imeName.ChineseDefault },
   { 'QQ', imeName.ChineseDefault },
+  { 'WPS Office', imeName.ChineseDefault },
+  { 'Telegram', imeName.ChineseDefault },
 }
 
 local app2ImePersist = {
-  ['Emacs'] = imeName.EnglishDefault,
+  -- ['Emacs'] = imeName.EnglishDefault,
 }
 
 -- Auxiliary for showing the APP information with key binding `ctrl-cmd-.'
@@ -88,4 +90,10 @@ spoon.ReloadConfiguration:start()
 -- ctrl + alt - n: open a new window of iTerm2
 hs.hotkey.bind({"ctrl", "alt"}, "N", function()
   hs.applescript('tell application "iTerm2" to create window with default profile')
+end)
+
+
+hs.hotkey.bind({"cmd", "alt"}, "E", function()
+  local output = hs.execute("/opt/homebrew/bin/emacsclient -e '(emacs-everywhere)'")
+  print("Emacs everywhere: " .. output)
 end)
