@@ -48,13 +48,11 @@ if [ "${INSTALL_DEBIAN_NO_SJTU_SOURCES}" -ne 1 ]; then
     alter_apt_sources || error_exit "failed to alter apt sources"
 fi
 
-info "update packages"
+info "update apt index"
 if [ "${INSTALL_DEBIAN_TRACE}" -eq 1 ]; then
     sudo apt-get update -y
-    sudo apt-get upgrade -y
 else
     sudo apt-get update -y >/dev/null 2>&1
-    sudo apt-get upgrade -y >/dev/null 2>&1
 fi
 
 IFS=" "
