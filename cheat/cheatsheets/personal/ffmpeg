@@ -6,6 +6,12 @@ docker run --rm -it -v $(pwd):/config linuxserver/ffmpeg \
     -q:a 4 \
     /config/"${f%.mp4}".mp3
 
+# To convert mkv to mp4
+docker run --rm -it -v $(pwd):/config linuxserver/ffmpeg \
+       -i /config/3.mkv \
+       -c:v libx264 -crf 23 \
+       -c:a aac -b:a 256k -movflags +faststart /config/3.mp4
+
 # To print file metadata:
 ffmpeg -i <file>
 
@@ -47,5 +53,5 @@ cat mylist.txt
 file '/path/to/file1'
 file '/path/to/file2'
 file '/path/to/file3'
-    
+
 ffmpeg -f concat -safe 0 -i mylist.txt -c copy output.mp4
