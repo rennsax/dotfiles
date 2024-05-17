@@ -5,7 +5,7 @@
 # Also, respect POSIX, or use the intersection of syntaxes of those prevalent shells (sh, bash, zsh, ...)
 
 # Default editor
-export EDITOR="emacsclient -c -a nvim"
+export EDITOR="$HOME/.dotfiles/scripts/editor.sh"
 
 # Manually set your language environment
 export LANG=en_US.UTF-8
