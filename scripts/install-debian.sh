@@ -21,6 +21,7 @@ alter_apt_sources() {
             sudo sed -i 's@ports.ubuntu.com@mirror.sjtu.edu.cn@g' /etc/apt/sources.list
             ;;
         x86_64 )
+            sudo sed -i 's@us.archive.ubuntu.com@mirror.sjtu.edu.cn@g' /etc/apt/sources.list
             sudo sed -i 's@archive.ubuntu.com@mirror.sjtu.edu.cn@g' /etc/apt/sources.list
             ;;
         * )

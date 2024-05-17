@@ -119,8 +119,7 @@ ln -sf "$DOTFILES_HOME/npm/npmrc" "$XDG_CONFIG_HOME"/npm/
 # nvim
 if [ -d "$XDG_CONFIG_HOME/nvim" ]; then
     printf "%s\n" "[warning] backup original nvim configurations"
-    # TODO: what if nvim.back already exists?
-    mv "$XDG_CONFIG_HOME/nvim" "$XDG_CONFIG_HOME/nvim.backup"
+    mv "$XDG_CONFIG_HOME/nvim" "$XDG_CONFIG_HOME/nvim.backup-$(date +%s)"
 fi
 
 # z.lua
