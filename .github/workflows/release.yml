@@ -1,0 +1,37 @@
+name: Pack dotfiles with submodules downloaded
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+
+permissions:
+  contents: write
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+          path: '.dotfiles'
+
+      - name: Create tarball
+        run: |
+          tar zcvf dotfiles-${{ github.ref_name }}.tar.gz .dotfiles
+
+      - name: Generate SHA256 checksums
+        run: |
+          sha256sum dotfiles-* > SHA256SUMS.txt
+          cat SHA256SUMS.txt
+
+      - name: List files
+        run: |
+          ls -lh
+
+      - name: Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            dotfiles-${{ github.ref_name }}.tar.gz
+            SHA256SUMS.txt

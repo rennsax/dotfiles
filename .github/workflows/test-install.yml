@@ -3,6 +3,7 @@ on:
   push:
     branches:
       - main
+      - dev
 
 jobs:
   test:
@@ -24,6 +25,7 @@ jobs:
         run: |
           ./scripts/init-dotfiles.sh
 
+      # "link dotfiles" should be idempotent
       - name: Link dotfiles twice
         run: |
           ./scripts/init-dotfiles.sh
