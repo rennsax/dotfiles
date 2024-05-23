@@ -250,16 +250,17 @@ setopt noflowcontrol
 
 # history
 [[ -z "$HISTFILE" ]] && export HISTFILE="${ZDOTDIR:-$HOME}/.zsh_history"
-export HISTSIZE=50000
-export SAVEHIST=10000 # leave SAVEHIST less than HISTSIZE so HIST_EXPIRE_DUPS_FIRST has
-export HISTORY_IGNORE="(bye|history*|*${USER}*)"
-setopt extendedhistory        # record timestamp of command in HISTFILE
-setopt histexpiredupsfirst    # delete duplicates first when HISTFILE size exceeds HISTSIZE
-setopt histignoredups         # do not enter command lines into the history list if they are duplicates of the previous event.
-setopt hist_ignore_space      # ignore commands that start with space (the command will linger until next command is entered)
-setopt histverify             # show command with history expansion to user before running it
+export HISTSIZE=1000000
+export SAVEHIST=1000000
+export HISTORY_IGNORE="(*${USER}*)"
+## History command configuration
+setopt extended_history       # record timestamp of command in HISTFILE
+setopt hist_expire_dups_first # delete duplicates first when HISTFILE size exceeds HISTSIZE
+setopt hist_ignore_dups       # ignore duplicated commands history list
+setopt hist_ignore_space      # ignore commands that start with space
+setopt hist_verify            # show command with history expansion to user before running it
 setopt share_history          # share command history data
-alias history='fc -i -l 1'
+alias history='fc -i -l 1'    # -i = timestamp
 
 alias e="$EDITOR"
 
