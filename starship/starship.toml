@@ -161,7 +161,7 @@ sigint_symbol = "󰋔"
 not_found_symbol = "\uf128" #
 
 [time]
-disabled = false
+disabled = true
 format = '🕙 [$time]($style) '
 
 [[battery.display]]
