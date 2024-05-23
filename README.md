@@ -19,7 +19,7 @@ Designed to be cross-platform, but mainly tested on macOS (MacBook Pro 2021).
 - [pet](https://github.com/knqyf263/pet)
 - [starship](https://starship.rs/): terminal prompt.
 - [tmux](https://github.com/tmux/tmux): based on [gpakosz/.tmux: 🇫🇷 Oh my tmux!](https://github.com/gpakosz/.tmux).
-- [yabai](https://github.com/koekeishiya/yabai): tilling window manager for macOS
+- [yabai](https://github.com/koekeishiya/yabai) (deprecated): tilling window manager for macOS
 - [zsh](https://github.com/zsh-users/zsh)
 
 ## Installation
@@ -29,10 +29,18 @@ Designed to be cross-platform, but mainly tested on macOS (MacBook Pro 2021).
 ```sh
 git submodule update --remote --recursive
 
-# These two scripts must be run at the root folder.
+## These two scripts must be run at the root directory.
+## And I recommend set the environment variable to see more logs, if there are
+## some problems.
+## See the documents in the corresponding scripts, such as install-debian.sh.
+# export INSTALL_DEBIAN_TRACE=1
 ./scripts/install.sh
 ./scripts/init-dotfiles.sh
 ```
+
+## TODO
+
+- [ ] script: install fonts.
 
 ## References
 
