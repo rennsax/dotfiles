@@ -34,6 +34,7 @@ git submodule update --remote --recursive
 ## some problems.
 ## See the documents in the corresponding scripts, such as install-debian.sh.
 # export INSTALL_DEBIAN_TRACE=1
+# export DEBIAN_EXTRA_PACKAGES="openssh-server:kitty"
 ./scripts/install.sh
 ./scripts/init-dotfiles.sh
 ```

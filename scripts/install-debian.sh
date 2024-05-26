@@ -8,6 +8,8 @@ set -e
 : "${INSTALL_DEBIAN_TRACE:=0}"
 # whether to install starship (better shell prompt)
 : "${INSTALL_STARSHIP:=0}"
+# extra packages, separated with colons
+: "${DEBIAN_EXTRA_PACKAGES:=}"
 
 PACKAGES="man zsh git xz-utils curl tmux"
 PACKAGES="${PACKAGES} fzf neovim fd-find tree lua5.4 jq trash-cli"
