@@ -99,6 +99,9 @@ grabcan() {
     zsh -c 'cd ~/codeplace/github/canvas_grab && ./canvas_grab.sh'
 }
 
+# Emacs
+[ -n "$INSIDE_EMACS" ] && alias ls='gls --color=auto'
+
 # TODO: iterm2
 
 #################### Used Later ############################

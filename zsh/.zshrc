@@ -70,173 +70,6 @@ __load_plugin() {
     fi
 }
 
-#################### Platform-Dependent ####################
-
-# On differenet operating systems, many things can vary:
-#       package manager, system utilites, etc.
-# Therefore we need to conditionally source other scripts in this section.
-
-# Inputs:
-# - __try_defer: a subroutine that will try to use `zsh-defer` to eval the command.
-
-# Outputs:
-# (For portability, these OS-dependent scripts should define some parameters for further use.)
-# - FZF_SCRIPT_BASE: the fzf installation directory.
-
-case "$OSTYPE" in
-    darwin*)
-        builtin source "$ZDOTDIR/.zshrc-darwin"
-        ;;
-    linux*)
-        builtin source "$ZDOTDIR/.zshrc-debian"
-        ;;
-    *)
-        ;;
-esac
-
-#################### Shortcuts #############################
-
-alias :q="exit"
-
-# pip3 install ... from_tuna
-alias -g from_tuna="-i https://pypi.tuna.tsinghua.edu.cn/simple"
-
-alias cmake-clean='cmake --build build --target clean'
-
-# rsync
-alias rsync-copy="rsync -avz --progress -h"
-alias rsync-move="rsync -avz --progress -h --remove-source-files"
-alias rsync-update="rsync -avzu --progress -h"
-alias rsync-synchronize="rsync -avzu --delete --progress -h"
-
-# z.lua
-alias zb='z -b'
-alias zi='z -I'
-
-# prefer Inter syntax disassemble
-alias objdumpi='objdump -M intel'
-
-#################### Misc. (Portable) ######################
-
-# -i: prompt if need to overwrite an existing file
-alias cp='cp -i'
-alias mv='mv -i'
-
-# Enable colors for grep
-alias egrep='egrep --color=auto'
-alias fgrep='fgrep --color=auto'
-alias grep='grep --color=auto'
-
-# `-i`: smart case insensitive
-## export MANPAGER="less -sRi"
-export MANPAGER='nvim +Man!'
-
-# git-repo
-export REPO_URL='https://mirrors.tuna.tsinghua.edu.cn/git/git-repo'
-
-# bat
-export BAT_THEME="gruvbox-dark"
-
-# trash-cli
-alias rm='echo "This is not the command you are looking for."; false'
-
-# nnn
-alias n='n -Ae' # always open text files in the terminal
-export NNN_PLUG="p:preview-tui;z:autojump;d:macos-trash"
-export NNN_FIFO="/tmp/nnn.fifo"
-export NNN_ZLUA="$ZDOTDIR/.zsh-plugins/z.lua/z.lua"
-
-# fzf
-# Setup completion, keybindings for fzf.
-# The funtion is defered until completion system is inited.
-# PARAMS: FZF_SCRIPT_BASE
-__fzf_setup() {
-    local script_base="$1"
-    () {
-        builtin emulate -L zsh -o err_return
-        source "$script_base/completion.zsh"
-        source "$script_base/key-bindings.zsh"
-    } || {
-        print -u2 "[fzf-setup] cannot source init scripts"
-        return 1
-    }
-    export FZF_DEFAULT_COMMAND="fd --type f --strip-cwd-prefix"
-    export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-    export FZF_ALT_C_COMMAND="fd --type d --strip-cwd-prefix"
-    # print tree structure in the preview window
-    export FZF_ALT_C_OPTS="--preview 'tree -C {}'"
-    _fzf_compgen_dir() {
-        # cd **<TAB>
-        fd --type d --hidden --follow --exclude ".git" --exclude "node_modules" . "$1"
-    }
-    _fzf_compgen_path() {
-        # vim **<TAB>
-        fd --hidden --follow --exclude ".git" --exclude "node_modules" . "$1"
-    }
-}
-
-# fzf rebind TAB (^I), so it must be inited after `compinit` (defer it).
-# zsh-defer can even defer the task when __fzf_setup isn't defined.
-[[ -n "$FZF_SCRIPT_BASE" ]] && __try_defer __fzf_setup "$FZF_SCRIPT_BASE"
-
-# z.lua data
-export _ZL_DATA="${XDG_CONFIG_HOME:-$HOME/.config}/zlua/.zlua"
-
-# register the previous command easily for pet
-function prev() {
-  PREV=$(builtin fc -lrn | head -n 1)
-  sh -c "pet new -t `printf %q "$PREV"`"
-}
-
-# GNU Emacs
-export PATH="$PATH:$XDG_CONFIG_HOME/emacs/bin"
-alias emacs-client='tmux new-session -s "emacs-client" -d emacsclient -c -a emacs'
-alias emacs-kill-server="emacsclient -e '(save-buffers-kill-emacs)'"
-[ -n "$INSIDE_EMACS" ] && ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=8,underline"
-
-#################### Routines ##############################
-
-# I recommend installing standalone pnpm (not using `npm install -g`).
-# But pnpm is still dependent on nodejs.
-# This routine set pnpm home and tab-completion.
-alias pnpm="print -u2 'Please use \`loadpnpm\` first'; false"
-loadpnpm() {
-    # pnpm tabtab completions
-    export PNPM_HOME="$XDG_DATA_HOME/pnpm"
-    export PATH="$PNPM_HOME:$PATH"
-    [[ -f "$XDG_CONFIG_HOME/tabtab/zsh/__tabtab.zsh" ]] && \
-        \. "$XDG_CONFIG_HOME/tabtab/zsh/__tabtab.zsh"
-    unalias pnpm 2>/dev/null || true
-}
-
-# setup shell environment for conda
-loadconda() {
-    local __conda_setup
-    __conda_setup="$(command conda "shell.zsh" hook 2>/dev/null)"
-    if (( $? )); then
-        echo 'cannot find `conda` executable' >&2
-    else
-        eval "$__conda_setup"
-        echo 'successfully init conda environment'
-    fi
-}
-
-curl_github() {
-    curl -sSLO "https://raw.githubusercontent.com/$1"
-}
-
-editz() {
-    eval "$EDITOR" "$ZDOTDIR/.zshrc"
-}
-
-most-often-use() {
-    fc -l 1 | \
-    awk '{CMD[$2]++;count++;}END { for (a in CMD)print CMD[a] " " CMD[a]/count*100 "% " a;}' | \
-    grep -vE '( \.)|/|\\' | \
-    column -c3 -s " " -t | \
-    sort -nr | nl |  head -n "$1"
-}
-
 ################### General Configurations #################
 
 # redirect shouldn't overwrite a existing file
@@ -280,7 +113,6 @@ export LSCOLORS="Gxfxcxdxbxegedabagacad"
 
 # Enable colors when not piped
 alias ls='ls --color=auto'
-[ -n "$INSIDE_EMACS" ] && alias ls='gls --color=auto'
 
 # -l: long listing format
 # -a: all
@@ -467,6 +299,174 @@ autoload -Uz compinit && compinit
 
 # also show hidden files
 _comp_options+=(globdots)
+
+#################### Platform-Dependent ####################
+
+# On differenet operating systems, many things can vary:
+#       package manager, system utilites, etc.
+# Therefore we need to conditionally source other scripts in this section.
+
+# Inputs:
+# - __try_defer: a subroutine that will try to use `zsh-defer` to eval the command.
+
+# Outputs:
+# (For portability, these OS-dependent scripts should define some parameters for further use.)
+# - FZF_SCRIPT_BASE: the fzf installation directory.
+
+case "$OSTYPE" in
+    darwin*)
+        builtin source "$ZDOTDIR/.zshrc-darwin"
+        ;;
+    linux*)
+        builtin source "$ZDOTDIR/.zshrc-debian"
+        ;;
+    *)
+        ;;
+esac
+
+#################### Shortcuts #############################
+
+alias :q="exit"
+
+# pip3 install ... from_tuna
+alias -g from_tuna="-i https://pypi.tuna.tsinghua.edu.cn/simple"
+
+alias cmake-clean='cmake --build build --target clean'
+
+# rsync
+alias rsync-copy="rsync -avz --progress -h"
+alias rsync-move="rsync -avz --progress -h --remove-source-files"
+alias rsync-update="rsync -avzu --progress -h"
+alias rsync-synchronize="rsync -avzu --delete --progress -h"
+
+# z.lua
+alias zb='z -b'
+alias zi='z -I'
+
+# prefer Inter syntax disassemble
+alias objdumpi='objdump -M intel'
+
+#################### Misc. (Portable) ######################
+
+# -i: prompt if need to overwrite an existing file
+alias cp='cp -i'
+alias mv='mv -i'
+
+# Enable colors for grep
+alias egrep='egrep --color=auto'
+alias fgrep='fgrep --color=auto'
+alias grep='grep --color=auto'
+
+# `-i`: smart case insensitive
+## export MANPAGER="less -sRi"
+export MANPAGER='nvim +Man!'
+
+# git-repo
+export REPO_URL='https://mirrors.tuna.tsinghua.edu.cn/git/git-repo'
+
+# bat
+export BAT_THEME="gruvbox-dark"
+
+# trash-cli
+alias rm='echo "This is not the command you are looking for."; false'
+
+# nnn
+alias n='n -Ae' # always open text files in the terminal
+export NNN_PLUG="p:preview-tui;z:autojump;d:macos-trash"
+export NNN_FIFO="/tmp/nnn.fifo"
+export NNN_ZLUA="$ZDOTDIR/.zsh-plugins/z.lua/z.lua"
+
+# fzf
+# Setup completion, keybindings for fzf.
+# The funtion is defered until completion system is inited.
+# PARAMS: FZF_SCRIPT_BASE
+__fzf_setup() {
+    local script_base="$1"
+    () {
+        builtin emulate -L zsh -o err_return
+        source "$script_base/completion.zsh"
+        source "$script_base/key-bindings.zsh"
+    } || {
+        print -u2 "[fzf-setup] cannot source init scripts"
+        return 1
+    }
+    export FZF_DEFAULT_COMMAND="fd --type f --strip-cwd-prefix"
+    export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+    export FZF_ALT_C_COMMAND="fd --type d --strip-cwd-prefix"
+    # print tree structure in the preview window
+    export FZF_ALT_C_OPTS="--preview 'tree -C {}'"
+    _fzf_compgen_dir() {
+        # cd **<TAB>
+        fd --type d --hidden --follow --exclude ".git" --exclude "node_modules" . "$1"
+    }
+    _fzf_compgen_path() {
+        # vim **<TAB>
+        fd --hidden --follow --exclude ".git" --exclude "node_modules" . "$1"
+    }
+}
+
+# fzf rebind TAB (^I), so it must be inited after `compinit` (defer it).
+# zsh-defer can even defer the task when __fzf_setup isn't defined.
+[[ -n "$FZF_SCRIPT_BASE" ]] && __try_defer __fzf_setup "$FZF_SCRIPT_BASE"
+
+# z.lua data
+export _ZL_DATA="${XDG_CONFIG_HOME:-$HOME/.config}/zlua/.zlua"
+
+# register the previous command easily for pet
+function prev() {
+  PREV=$(builtin fc -lrn | head -n 1)
+  sh -c "pet new -t `printf %q "$PREV"`"
+}
+
+# GNU Emacs
+export PATH="$PATH:$XDG_CONFIG_HOME/emacs/bin"
+alias emacs-client='tmux new-session -s "emacs-client" -d emacsclient -c -a emacs'
+alias emacs-kill-server="emacsclient -e '(save-buffers-kill-emacs)'"
+[ -n "$INSIDE_EMACS" ] && ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=8,underline"
+
+
+#################### Routines ##############################
+
+# I recommend installing standalone pnpm (not using `npm install -g`).
+# But pnpm is still dependent on nodejs.
+# This routine set pnpm home and tab-completion.
+alias pnpm="print -u2 'Please use \`loadpnpm\` first'; false"
+loadpnpm() {
+    # pnpm tabtab completions
+    export PNPM_HOME="$XDG_DATA_HOME/pnpm"
+    export PATH="$PNPM_HOME:$PATH"
+    [[ -f "$XDG_CONFIG_HOME/tabtab/zsh/__tabtab.zsh" ]] && \
+        \. "$XDG_CONFIG_HOME/tabtab/zsh/__tabtab.zsh"
+    unalias pnpm 2>/dev/null || true
+}
+
+# setup shell environment for conda
+loadconda() {
+    local __conda_setup
+    __conda_setup="$(command conda "shell.zsh" hook 2>/dev/null)"
+    if (( $? )); then
+        echo 'cannot find `conda` executable' >&2
+    else
+        eval "$__conda_setup"
+        echo 'successfully init conda environment'
+    fi
+}
+
+curl_github() {
+    curl -sSLO "https://raw.githubusercontent.com/$1"
+}
+
+editz() {
+    eval "$EDITOR" "$ZDOTDIR/.zshrc"
+}
+
+most-often-use() {
+    fc -l 1 | \
+    awk '{CMD[$2]++;count++;}END { for (a in CMD)print CMD[a] " " CMD[a]/count*100 "% " a;}' | \
+    grep -vE '( \.)|/|\\' | \
+    column -c3 -s " " -t | \
+    sort -nr | nl |  head -n "$1"
+}
 
 #################### ZSH plugins ###########################
 
