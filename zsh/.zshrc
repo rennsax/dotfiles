@@ -295,8 +295,6 @@ bindkey -M listscroll '^n' down-line-or-history
 # zsh-users/zsh-completions: additional completions
 __load_plugin --no-defer zsh-completions
 
-autoload -Uz compinit && compinit
-
 # also show hidden files
 _comp_options+=(globdots)
 
@@ -312,6 +310,7 @@ _comp_options+=(globdots)
 # Outputs:
 # (For portability, these OS-dependent scripts should define some parameters for further use.)
 # - FZF_SCRIPT_BASE: the fzf installation directory.
+# - Provide more FPATH entries
 
 case "$OSTYPE" in
     darwin*)
@@ -510,3 +509,7 @@ __plugin_dep=(
     done
     unset plugin plugins
 }
+
+#################### Final Initialization ##################
+
+autoload -Uz compinit && compinit
