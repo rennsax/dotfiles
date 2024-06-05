@@ -82,7 +82,7 @@ setopt interactivecomments
 setopt noflowcontrol
 
 # history
-[[ -z "$HISTFILE" ]] && export HISTFILE="${ZDOTDIR:-$HOME}/.zsh_history"
+export HISTFILE="${ZDOTDIR:-$HOME}/.zsh_history"
 export HISTSIZE=1000000
 export SAVEHIST=1000000
 export HISTORY_IGNORE="(*${USER}*)"
