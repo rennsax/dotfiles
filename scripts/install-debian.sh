@@ -48,6 +48,11 @@ if [ -f "/etc/needrestart/needrestart.conf" ]; then
     printf "%s\n" "\$nrconf{kernelhints} = 0;" "\$nrconf{restart} = 'a';" | \
         sudo tee -a /etc/needrestart/needrestart.conf >/dev/null
 fi
+
+# Remove the poorly-designed auto-upgrade software, which always holds on the
+# dpkg lock forever.
+sudo apt-get remove unattended-upgrades -y
+
 if [ "${INSTALL_DEBIAN_NO_SJTU_SOURCES}" -ne 1 ]; then
     alter_apt_sources || error_exit "failed to alter apt sources"
 fi
