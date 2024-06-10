@@ -146,8 +146,10 @@ if (( ${+terminfo[smkx]} )) && (( ${+terminfo[rmkx]} )); then
   zle -N zle-line-finish
 fi
 
-# https://stackoverflow.com/a/1438523/17838999
-WORDCHARS="'"'_-"'
+# select-word-style is a use-defined function that wraps word-chars and other
+# settings to provide an easier interface to customize the ZLE word style.
+autoload -U select-word-style
+select-word-style bash
 
 # bind emacs keymapping to main
 bindkey -e
