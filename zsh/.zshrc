@@ -495,6 +495,7 @@ __plugin_dep=(
     orb orb
     nnn-quitcd nnn
     z.lua lua
+    cheat cheat
 )
 
 () {

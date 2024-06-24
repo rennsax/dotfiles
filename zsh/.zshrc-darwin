@@ -49,13 +49,6 @@ export GNU_GREP_BIN_PATH="${HOMEBREW_PREFIX}/opt/grep/libexec/gnubin"
 # jd-gui (cask)
 alias jd-gui='java -jar /Applications/JD-GUI.app/Contents/Resources/Java/jd-gui-1.6.6-min.jar >& /dev/null &|'
 
-# cheat
-if [[ "$HOMEBREW_COMPLETIONS/_cheat" -ot "$HOMEBREW_COMPLETIONS/cheat.zsh" ]]; then
-    ln -sf './cheat.zsh' "$HOMEBREW_COMPLETIONS/_cheat"
-elif [[ ! -f "$HOMEBREW_COMPLETIONS/cheat.zsh" ]]; then
-    printf "%s\n" "cannot create symlink of cheat.zsh" >&2
-fi
-
 # asdf
 __try_defer source "$(brew --prefix asdf)/libexec/asdf.sh"
 
