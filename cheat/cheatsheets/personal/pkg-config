@@ -1,4 +1,0 @@
-# Get the options for C/C++ complier
-pkg-config --libs --cflags <LIB>
-
-# vim: ft=sh

@@ -1,2 +1,0 @@
-# dry run, log level 1 (-v1)
-stow -nv1 <package>
