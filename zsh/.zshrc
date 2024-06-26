@@ -344,6 +344,8 @@ alias zi='z -I'
 # prefer Inter syntax disassemble
 alias objdumpi='objdump -M intel'
 
+alias play='cd "$(mktemp -d)"'
+
 #################### Misc. (Portable) ######################
 
 # -i: prompt if need to overwrite an existing file
