@@ -284,6 +284,11 @@ bindkey -M menuselect 'j' vi-down-line-or-history
 bindkey -M menuselect 'k' vi-up-line-or-history
 bindkey -M menuselect 'n' accept-and-infer-next-history # accept and trigger next completion
 bindkey -M menuselect '^xi' vi-insert # C-x i: toggle interactive mode
+# Prefixed by ".": call `zle ..`, which quits menuselect.
+bindkey -M menuselect '^a' .beginning-of-line
+bindkey -M menuselect '^e' .end-of-line
+bindkey -M menuselect '^b' .backward-char
+bindkey -M menuselect '^f' .forward-char
 if (( $+terminfo[kcbt] )); then
     bindkey -M menuselect "${terminfo[kcbt]}" reverse-menu-complete # back-tap: select previous
 fi
