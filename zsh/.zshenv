@@ -1,37 +1,20 @@
-#!/usr/bin/env sh
-
 # Global environment variables.
-# This file should not contain commands that produce output or assume the shell is attached to a TTY.
-# Also, respect POSIX, or use the intersection of syntaxes of those prevalent shells (sh, bash, zsh, ...)
 
-# Default editor
-export EDITOR="$HOME/.dotfiles/scripts/editor.sh"
-
-# Manually set your language environment
-export LANG=en_US.UTF-8
+# Home Manager. I don't want to manage your shell through Home Manager so I have
+# to manually source 'hm-session-vars.sh'
+[[ -f ~"/.nix-profile/etc/profile.d/hm-session-vars.sh" ]] && . ~"/.nix-profile/etc/profile.d/hm-session-vars.sh"
 
 # macOS: `systemsetup -listtimezones`
 export TZ=Asia/Shanghai
 
-# XDG standard, see https://wiki.archlinux.org/title/XDG_Base_Directory
-export XDG_CONFIG_HOME="$HOME/.config"
-export XDG_CACHE_HOME="$HOME/.cache"
-export XDG_DATA_HOME="$HOME/.local/share"
-export XDG_STATE_HOME="$HOME/.local/state"
 # The following variables are not specified by XDG standard.
 export XDG_BIN_HOME="$HOME/.local/bin"
 export XDG_MAN_PATH="$HOME/.local/share/man"
 
 export PATH="$XDG_BIN_HOME:$PATH"
 
-# GoLang
-export GOPATH="$XDG_DATA_HOME/go"
-export GOMODCACHE="$XDG_CACHE_HOME/go/mod"
-
-# Cargo
-export CARGO_HOME="$XDG_DATA_HOME/cargo"
-
 # pipx
+# TODO: legacy in Nix system
 export PIPX_HOME="$XDG_DATA_HOME/pipx"
 export PIPX_BIN_DIR="$XDG_BIN_HOME"
 export PIPX_MAN_DIR="$XDG_MAN_PATH"
