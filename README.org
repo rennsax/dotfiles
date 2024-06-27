@@ -1,0 +1,24 @@
+#+startup: indent show2levels
+#+html: <img src="https://img.shields.io/github/actions/workflow/status/rennsax/dotfiles/test-install.yml?label=Test" alt="https://github.com/rennsax/dotfiles/actions/workflows/test-install.yml"/>
+
+* dotfiles
+
+My personal dotfiles. Managed with Nix Flake.
+
+** Installation
+
+#+begin_src sh
+# Make sure you've installed Nix!
+make init-darwin
+#+end_src
+
+** See Also
+
+- [[https://github.com/rennsax/init.lua][rennsax/init.lua: My neovim configuration.]]
+
+** References
+
+- [[https://wiki.archlinux.org/title/XDG_Base_Directory][XDG Base Directory - ArchWiki]]
+- [[https://www.ecb.torontomu.ca/guides/zsh-intro.pdf][zsh-intro.pdf]]
+- [[https://thevaluable.dev/zsh-install-configure-mouseless/][Configuring Zsh Without Dependencies]]
+- [[https://zdharma-continuum.github.io/Zsh-100-Commits-Club/Zsh-Plugin-Standard.html][Zsh Plugin Standard]]
