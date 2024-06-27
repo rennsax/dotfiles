@@ -444,6 +444,7 @@ plugins=(
     git
     zsh-syntax-highlighting
     zsh-autosuggestions
+    vterm                       # vterm.plugin.zsh checks $INSIDE_EMACS
 )
 
 # plugins that are installed only when the deps are available
@@ -456,7 +457,6 @@ __plugin_dep=(
     nnn-quitcd nnn
     z.lua lua
     cheat cheat
-    vterm emacs                 # vterm.plugin.zsh checks $INSIDE_EMACS
 )
 
 () {
