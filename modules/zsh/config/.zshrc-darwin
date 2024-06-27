@@ -18,16 +18,8 @@ HOMEBREW_COMPLETIONS="${HOMEBREW_PREFIX}/share/zsh/site-functions"
 export PYTHON3_BIN_PATH="${HOMEBREW_PREFIX}/opt/python@3.12/libexec/bin"
 export PATH="$PYTHON3_BIN_PATH:$PATH"
 
-# xxutils: from GNU. If the binaries are prepended `g`, denoted by "<g>"
-
 # jd-gui (cask)
 alias jd-gui='java -jar /Applications/JD-GUI.app/Contents/Resources/Java/jd-gui-1.6.6-min.jar >& /dev/null &|'
-
-# asdf
-__try_defer source "$(brew --prefix asdf)/libexec/asdf.sh"
-
-# pipx uses a legacy, incorrect autoload file. We must source it.
-__try_defer source "${HOMEBREW_COMPLETIONS}/_pipx"
 
 # https://docs.brew.sh/Shell-Completion#configuring-completions-in-zsh
 FPATH="${HOMEBREW_COMPLETIONS}:${FPATH}"

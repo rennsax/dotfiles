@@ -6,7 +6,6 @@
   ...
 }:
 # Simplified zsh module that satisfies my personal usage.
-# TODO: fzf
 with lib;
 let
   cfg = config.myModules.zsh;
@@ -63,9 +62,6 @@ in
         completionInit = "";
         initExtra = ''
           source ${zdotDir}/.zshrc-extra
-        '';
-        envExtra = ''
-          source ${zdotDir}/.zshenv-extra
         '';
         inherit (cfg) dotDir;
 

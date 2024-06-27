@@ -79,6 +79,10 @@ in
     base = "en_US.UTF-8";
   };
   home.sessionVariables = {
+    # macOS: `systemsetup -listtimezones`
+    TZ = "Asia/Shanghai";
+    # REVIEW: purely manage npm config
+    NPM_CONFIG_USERCONFIG = "${config.xdg.configHome}/npm/npmrc";
     GOPATH = "${config.xdg.dataHome}/go";
     GOMODCACHE = "${config.xdg.cacheHome}/go/mod";
   };
