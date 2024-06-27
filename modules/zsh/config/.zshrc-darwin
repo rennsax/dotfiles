@@ -1,0 +1,68 @@
+#################### System ################################
+
+# Proxy settings
+CLASH_MIXED_PORT=8881
+export http_proxy="http://127.0.0.1:${CLASH_MIXED_PORT}"
+export https_proxy="http://127.0.0.1:${CLASH_MIXED_PORT}"
+
+#################### Homebrew ##############################
+
+export HOMEBREW_NO_AUTO_UPDATE=1
+
+# Firstly, set PATH so `brew` can be found.
+export PATH="/opt/homebrew/bin:$PATH"
+HOMEBREW_PREFIX="$(brew --prefix)"
+HOMEBREW_COMPLETIONS="${HOMEBREW_PREFIX}/share/zsh/site-functions"
+
+# python@3.12
+export PYTHON3_BIN_PATH="${HOMEBREW_PREFIX}/opt/python@3.12/libexec/bin"
+export PATH="$PYTHON3_BIN_PATH:$PATH"
+
+# xxutils: from GNU. If the binaries are prepended `g`, denoted by "<g>"
+
+# jd-gui (cask)
+alias jd-gui='java -jar /Applications/JD-GUI.app/Contents/Resources/Java/jd-gui-1.6.6-min.jar >& /dev/null &|'
+
+# asdf
+__try_defer source "$(brew --prefix asdf)/libexec/asdf.sh"
+
+# pipx uses a legacy, incorrect autoload file. We must source it.
+__try_defer source "${HOMEBREW_COMPLETIONS}/_pipx"
+
+# https://docs.brew.sh/Shell-Completion#configuring-completions-in-zsh
+FPATH="${HOMEBREW_COMPLETIONS}:${FPATH}"
+
+#################### Linuxify ##############################
+
+# most Linux distro has a separate utility `hd`
+# hexdump is included in util-linux
+alias hd='hexdump -C'
+
+#################### Misc. #################################
+
+# VS Code terminal shell integration
+[[ $TERM_PROGRAM == 'vscode' ]] && \. "/Applications/Visual Studio Code.app/Contents/Resources/app/out/vs/workbench/contrib/terminal/browser/media/shellIntegration-rc.zsh"
+
+# Prevent VS Code to generate duplicate icons in dock
+code() {
+    if [[ "$1" =~ '-*' ]]; then
+        command code "$@"
+    else
+        open -b 'com.microsoft.vscode' "$@"
+    fi
+}
+
+# Use skyzh/canvas_grab to download canvas files
+grabcan() {
+    zsh -c 'cd ~/codeplace/github/canvas_grab && ./canvas_grab.sh'
+}
+
+# Emacs
+[ -n "$INSIDE_EMACS" ] && alias ls='gls --color=auto'
+
+# TODO: iterm2
+
+#################### Used Later ############################
+
+# fzf
+FZF_SCRIPT_BASE="$HOMEBREW_PREFIX/opt/fzf/shell"

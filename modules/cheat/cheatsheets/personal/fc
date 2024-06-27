@@ -1,0 +1,15 @@
+---
+tags: [ shell ]
+---
+# To execute history events after modified
+fc [first] [last]
+
+# Show with timestamp, from the first event
+fc -i -l 1
+
+# -p: push the current history list onto a stack and switches to a new history list
+# -a: auto pop when exiting the current function scope
+fc -ap
+
+# Pop the current history list (after `fc -p`)
+fc -P

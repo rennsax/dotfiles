@@ -1,0 +1,21 @@
+# create a newest ubuntu virtual machine
+orb create ubuntu[:version] [machine-name]
+
+# run an interactive shell with the default machine
+orb
+
+# To remove a machine
+orb delete <machine>
+
+# run the command with the default machine
+orb [-m machine] uname -a
+
+# select the machine and the login user
+orb -m ubuntu -u root
+
+# connect via ssh (more info: orb ssh)
+ssh [user]@[machine]@orb
+
+# push file from macOS to Linux (default dest: ~)
+orb push [-m machine] FILE [DEST]
+

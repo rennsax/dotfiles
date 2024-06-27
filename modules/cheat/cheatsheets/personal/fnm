@@ -1,0 +1,5 @@
+# install LTS
+fnm install lts/iron # v20
+
+# activate node version
+fnm use v20

@@ -1,0 +1,2 @@
+# use ld script, set the address of `.text` section to `0x7c00`
+ld -Ttext=0x7c00 -m elf_i386 example.o -o example.elf
