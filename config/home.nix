@@ -12,13 +12,14 @@ let
   username = myVars.me.username;
 in
 {
+  imports = [ ./scripts.nix ./dotfiles.nix ];
   myModules = {
     starship.enable = true;
     cheat.enable = true;
     git.enable = true;
     zsh = {
       enable = true;
-      dotDir = ".config/zsh"; # Should follow $ZDOTDIR
+      dotDir = ".config/zsh";
       _personalConfigs.enable = true;
       defer.enable = true;
       extraPlugins = [
@@ -35,6 +36,7 @@ in
         "orb"
       ];
     };
+    fzf.enable = true;
     tmux.enable = true;
     hammerspoon.enable = true;
   };
@@ -69,64 +71,16 @@ in
     gh
     ripgrep
     nixfmt-rfc-style
+    tree
 
-    (writeShellApplication {
-      name = "nds"; # nix darwin switch
-      text = ''
-        cd "${myVars.nixConfigDir}" || ( printf "Error cd to the Nix config directory!" >&2; exit 1)
-        make darwin
-      '';
-    })
-
-    (writeShellApplication {
-      name = "nhs"; # nix home switch
-      text = ''
-        cd "${myVars.nixConfigDir}" || ( printf "Error cd to the Nix config directory!" >&2; exit 1)
-        make home
-      '';
-    })
-
-    # FIXME: macOS specified
-    (writeShellApplication {
-      name = "mdfind-wrapper";
-      text = ''
-        # Remove annoying warning of mdfind.
-        # See https://www.reddit.com/r/MacOS/comments/zq36l1/whats_up_with_mdfind_warning_on_console
-        /usr/bin/mdfind "$@" 2> >(grep --invert-match ' \[UserQueryParser\] ' >&2)
-      '';
-    })
   ];
 
   home.language = {
     base = "en_US.UTF-8";
   };
   home.sessionVariables = {
-    EDITOR =
-      let
-        name = "editor-wrapper";
-      in
-      pkgs.writeShellApplication {
-        inherit name;
-        text = ''
-          if ! command -v emacsclient >/dev/null 2>&1; then
-              # cannot find Emacs
-              nvim "$@"
-          else
-              # Try Emacs, if not found, use nvim.
-              emacsclient -c -q -a nvim "$@"
-          fi
-        '';
-      }
-      + "/bin/${name}";
     GOPATH = "${config.xdg.dataHome}/go";
     GOMODCACHE = "${config.xdg.cacheHome}/go/mod";
-  };
-
-  # dotfiles that do not conform to XDG standard.
-  home.file = {
-    ".gdbinit".text = ''
-      set disassembly-flavor intel
-    '';
   };
 
   # Will pollute `home.sessionVariables`

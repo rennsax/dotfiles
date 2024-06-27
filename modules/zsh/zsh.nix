@@ -26,6 +26,10 @@ let
       src = ./site-plugins/${name};
     }) cfg.extraPlugins;
 
+  zdotDir = "$HOME/" + escapeShellArg cfg.dotDir;
+
+  zshDataDir = "${config.xdg.dataHome}/zsh";
+
 in
 {
   options.myModules.zsh = {
@@ -48,13 +52,37 @@ in
       enable = mkEnableOption "zsh-defer";
     };
     _personalConfigs.enable = mkEnableOption "my personal zsh configs";
+
   };
 
   config = mkIf cfg.enable (mkMerge [
     {
-      # Disable the home-manager's zsh module.
-      programs.zsh.enable = mkForce false;
-      home.packages = [ cfg.package ];
+      programs.zsh = {
+        enable = true;
+        package = cfg.package;
+        completionInit = "";
+        initExtra = ''
+          source ${zdotDir}/.zshrc-extra
+        '';
+        envExtra = ''
+          source ${zdotDir}/.zshenv-extra
+        '';
+        inherit (cfg) dotDir;
+
+        # Regrettably, I cannot disable home-manager from modifying my history settings.
+        history = {
+          path = "${zshDataDir}/zsh_history";
+          size = 1000000;
+          save = 1000000;
+          ignorePatterns = [ "*\${USER}*" ];
+          extended = true;
+          ignoreDups = true;
+          ignoreAllDups = false;
+          ignoreSpace = true;
+          expireDuplicatesFirst = true;
+          share = true;
+        };
+      };
       myModules.zsh.plugins = optional cfg.defer.enable "zsh-defer";
     }
 

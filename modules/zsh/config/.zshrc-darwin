@@ -61,8 +61,3 @@ grabcan() {
 [ -n "$INSIDE_EMACS" ] && alias ls='gls --color=auto'
 
 # TODO: iterm2
-
-#################### Used Later ############################
-
-# fzf
-FZF_SCRIPT_BASE="$HOMEBREW_PREFIX/opt/fzf/shell"

@@ -1,9 +1,5 @@
 # Global environment variables.
 
-# Home Manager. I don't want to manage your shell through Home Manager so I have
-# to manually source 'hm-session-vars.sh'
-[[ -f ~"/.nix-profile/etc/profile.d/hm-session-vars.sh" ]] && . ~"/.nix-profile/etc/profile.d/hm-session-vars.sh"
-
 # macOS: `systemsetup -listtimezones`
 export TZ=Asia/Shanghai
 

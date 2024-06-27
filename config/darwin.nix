@@ -77,13 +77,10 @@
 
   programs.zsh = {
     enable = true;
-    shellInit = ''
-      export ZDOTDIR=$HOME/.config/zsh
-    '';
-
     # These two tremendously slow down my shell.
     enableGlobalCompInit = false;
     enableBashCompletion = false;
+    promptInit = "";
   };
 
   programs.bash = {

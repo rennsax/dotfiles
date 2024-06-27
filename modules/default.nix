@@ -8,6 +8,7 @@
         ./git.nix
         ./zsh/zsh.nix
         ./tmux/tmux.nix
+        ./fzf.nix
       ];
       darwinModules = [ ./hammerspoon/hammerspoon.nix ];
       makeSubModule = modules: { imports = modules; };

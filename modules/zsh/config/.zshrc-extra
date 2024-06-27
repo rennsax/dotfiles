@@ -81,18 +81,8 @@ setopt interactivecomments
 # ^S/^Q has no effect on start/stop the flow
 setopt noflowcontrol
 
-# history
-export HISTFILE="${ZDOTDIR:-$HOME}/.zsh_history"
-export HISTSIZE=1000000
-export SAVEHIST=1000000
-export HISTORY_IGNORE="(*${USER}*)"
 ## History command configuration
-setopt extended_history       # record timestamp of command in HISTFILE
-setopt hist_expire_dups_first # delete duplicates first when HISTFILE size exceeds HISTSIZE
-setopt hist_ignore_dups       # ignore duplicated commands history list
-setopt hist_ignore_space      # ignore commands that start with space
 setopt hist_verify            # show command with history expansion to user before running it
-setopt share_history          # share command history data
 alias history='fc -i -l 1'    # -i = timestamp
 
 alias e="$EDITOR"
@@ -412,7 +402,9 @@ __fzf_setup() {
 
 # fzf rebind TAB (^I), so it must be inited after `compinit` (defer it).
 # zsh-defer can even defer the task when __fzf_setup isn't defined.
-[[ -n "$FZF_SCRIPT_BASE" ]] && __try_defer __fzf_setup "$FZF_SCRIPT_BASE"
+if [[ $options[zle] = on && -n "$FZF_SCRIPT_BASE" ]]; then
+    __try_defer __fzf_setup "$FZF_SCRIPT_BASE"
+fi
 
 # z.lua data
 export _ZL_DATA="${XDG_CONFIG_HOME:-$HOME/.config}/zlua/.zlua"
