@@ -17,6 +17,7 @@
       nixpkgs,
       nix-darwin,
       home-manager,
+      flake-utils,
       ...
     }:
     let
@@ -59,7 +60,19 @@
         };
       };
 
-      devShells.${system}.default = with pkgs; mkShell.override { inherit (llvmPackages_18) stdenv; } { };
-
-    };
+    }
+    // flake-utils.lib.eachDefaultSystem (
+      system:
+      let
+        pkgs = nixpkgs.legacyPackages.${system};
+      in
+      {
+        devShells.default = pkgs.mkShell {
+          packages = with pkgs; [
+            nil
+            nixfmt-rfc-style
+          ];
+        };
+      }
+    );
 }
