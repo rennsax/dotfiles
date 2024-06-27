@@ -92,6 +92,16 @@ in
     package = pkgs.man; # nongnu man-db
   };
 
+  programs.direnv = {
+    enable = true;
+    enableZshIntegration = true;
+    nix-direnv.enable = true;
+  };
+  programs.zsh.sessionVariables = {
+    # Disable regular load/unload messages.
+    DIRENV_LOG_FORMAT = "";
+  };
+
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
 }
