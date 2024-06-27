@@ -1,11 +1,12 @@
 RLS	= sonoma					# the default release name
 T =
+NIX_ARGS = --extra-experimental-features 'nix-command flakes'
 
 all: darwin home
 
 init-darwin:
-	nix run nix-darwin switch --flake .#$(RLS)
-	nix run nixpkgs#home-manager switch --flake .
+	nix $(NIX_ARGS) run nix-darwin switch --flake .#$(RLS)
+	nix $(NIX_ARGS) run nixpkgs#home-manager switch --flake .#default
 
 darwin:
 	darwin-rebuild switch --flake .#$(RLS)
