@@ -85,6 +85,9 @@ in
     NPM_CONFIG_USERCONFIG = "${config.xdg.configHome}/npm/npmrc";
     GOPATH = "${config.xdg.dataHome}/go";
     GOMODCACHE = "${config.xdg.cacheHome}/go/mod";
+
+    http_proxy = myVars.network.proxy.clash;
+    https_proxy = myVars.network.proxy.clash;
   };
 
   # Will pollute `home.sessionVariables`
