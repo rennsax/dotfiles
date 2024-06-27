@@ -27,7 +27,7 @@
       pkgs = nixpkgs.legacyPackages.${system};
       lib = nixpkgs.lib;
 
-      myVars = import ./vars { };
+      myVars = import ./vars { inherit pkgs; };
       myLib = import ./lib { inherit pkgs lib myVars; };
       myModules = import ./modules { };
     in

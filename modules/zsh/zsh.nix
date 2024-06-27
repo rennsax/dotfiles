@@ -3,6 +3,7 @@
   lib,
   config,
   myLib,
+  myVars,
   ...
 }:
 # Simplified zsh module that satisfies my personal usage.
@@ -59,10 +60,23 @@ in
       programs.zsh = {
         enable = true;
         package = cfg.package;
-        completionInit = "";
-        initExtra = ''
-          source ${zdotDir}/.zshrc-extra
-        '';
+        enableCompletion = true;
+        initExtraBeforeCompInit =
+          ''
+            ############################################################
+            #################### BEGIN my configs ######################
+            ############################################################
+
+          ''
+          + (concatStringsSep "\n" (
+            [ (readFile ./config/.zshrc-extra) ] ++ optional myVars.isDarwin (readFile ./config/.zshrc-darwin)
+          ))
+          + ''
+
+            ############################################################
+            ####################  END my configs  ######################
+            ############################################################
+          '';
         inherit (cfg) dotDir;
 
         # Regrettably, I cannot disable home-manager from modifying my history settings.
@@ -89,12 +103,5 @@ in
       );
     })
 
-    (mkIf (cfg._personalConfigs.enable) {
-      home.file = foldl' (a: b: a // b) { } (
-        map (filename: { "${cfg.dotDir}/${filename}".source = ./config/${filename}; }) (
-          builtins.attrNames (builtins.readDir ./config)
-        )
-      );
-    })
   ]);
 }

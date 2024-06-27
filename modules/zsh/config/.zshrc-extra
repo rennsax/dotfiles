@@ -1,28 +1,19 @@
-# vim: set ft=zsh:
-# (modeline magic)
-
 ############################################################
 #################### NOTE ##################################
 ############################################################
 #
-# 1. When possible, install packages with Homebrew.
-# 2. In the following cases, in favor of `alias` rather than `function`:
-#    - Claim default options for the commands.
-#    - Use the abbreviation in interactive mode most of the time.
-# 3. In the following cases, in favor of `function` rather than `alias`:
-#    - Complex routines.
-#    - Need to be reused even when writing shell scripts.
-# 4. Use `word ... () { list }` to define functions as possible, which is more compatible.
-# 5. Do not override commands via aliasing unless you want to abandon the previous version.
-#    It prevent the nesting of aliasing, and is not what you expect at most of the time.
-# 6. Use `#` as the leading character of descriptions, and `##` of commented codes.
-# 7. Any UI-related scripts should be loaded immediately; other scripts can be deferred with __try_defer.
+# - In the following cases, in favor of `alias` rather than `function`:
+#   - Claim default options for the commands.
+#   - Use the abbreviation in interactive mode most of the time.
+# - In the following cases, in favor of `function` rather than `alias`:
+#   - Complex routines.
+#   - Need to be reused even when writing shell scripts.
+# - Use `word ... () { list }` to define functions as possible, which is more compatible.
+# - Do not override commands via aliasing unless you want to abandon the previous version.
+#   It prevent the nesting of aliasing, and is not what you expect at most of the time.
+# - Use `#` as the leading character of descriptions, and `##` of commented codes.
+# - Any UI-related scripts should be loaded immediately; other scripts can be deferred with __try_defer.
 #
-
-if [[ ! -d $ZDOTDIR ]]; then
-    echo "refuse to load .zshrc since ZDOTDIR is invalid" >&2
-    return 1
-fi
 
 # See https://www.emacswiki.org/emacs/TrampMode Tramp hangs #3
 [[ "$TERM" == "dumb" ]] && unsetopt zle && PS1="$ " && return
@@ -292,31 +283,6 @@ __load_plugin --no-defer zsh-completions
 # also show hidden files
 _comp_options+=(globdots)
 
-#################### Platform-Dependent ####################
-
-# On differenet operating systems, many things can vary:
-#       package manager, system utilites, etc.
-# Therefore we need to conditionally source other scripts in this section.
-
-# Inputs:
-# - __try_defer: a subroutine that will try to use `zsh-defer` to eval the command.
-
-# Outputs:
-# (For portability, these OS-dependent scripts should define some parameters for further use.)
-# - FZF_SCRIPT_BASE: the fzf installation directory.
-# - Provide more FPATH entries
-
-case "$OSTYPE" in
-    darwin*)
-        builtin source "$ZDOTDIR/.zshrc-darwin"
-        ;;
-    linux*)
-        builtin source "$ZDOTDIR/.zshrc-debian"
-        ;;
-    *)
-        ;;
-esac
-
 #################### Shortcuts #############################
 
 alias :q="exit"
@@ -507,7 +473,3 @@ __plugin_dep=(
     done
     unset plugin plugins
 }
-
-#################### Final Initialization ##################
-
-autoload -Uz compinit && compinit
