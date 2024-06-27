@@ -26,6 +26,7 @@
     nix-darwin = {
       flake = inputs.nix-darwin;
     };
+    flake-utils.flake = inputs.flake-utils;
   };
 
   nix.nixPath = [
