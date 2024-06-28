@@ -2,20 +2,8 @@
 
 export HOMEBREW_NO_AUTO_UPDATE=1
 
-# Firstly, set PATH so `brew` can be found.
-export PATH="/opt/homebrew/bin:$PATH"
-HOMEBREW_PREFIX="$(brew --prefix)"
-HOMEBREW_COMPLETIONS="${HOMEBREW_PREFIX}/share/zsh/site-functions"
-
-# python@3.12
-export PYTHON3_BIN_PATH="${HOMEBREW_PREFIX}/opt/python@3.12/libexec/bin"
-export PATH="$PYTHON3_BIN_PATH:$PATH"
-
 # jd-gui (cask)
 alias jd-gui='java -jar /Applications/JD-GUI.app/Contents/Resources/Java/jd-gui-1.6.6-min.jar >& /dev/null &|'
-
-# https://docs.brew.sh/Shell-Completion#configuring-completions-in-zsh
-FPATH="${HOMEBREW_COMPLETIONS}:${FPATH}"
 
 #################### Linuxify ##############################
 

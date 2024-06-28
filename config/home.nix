@@ -12,7 +12,10 @@ let
   username = myVars.me.username;
 in
 {
-  imports = [ ./scripts.nix ./dotfiles.nix ];
+  imports = [
+    ./scripts.nix
+    ./dotfiles.nix
+  ];
   myModules = {
     starship.enable = true;
     cheat.enable = true;
@@ -62,18 +65,43 @@ in
 
   # The home.packages option allows you to install Nix packages into your
   # environment.
-  home.packages = with pkgs; [
-    bat
-    btop
-    dust
-    fd
-    jq
-    gh
-    ripgrep
-    nixfmt-rfc-style
-    tree
+  home.packages =
+    with pkgs;
+    [
+      bat
+      btop
+      dust
+      fd
+      jq
+      gh
+      ripgrep
+      nixfmt-rfc-style
+      tree
+      rlwrap # Readline wrapper
+      p7zip
+      viu # Image viewer
+      wget
 
-  ];
+      # Programming
+      shellcheck
+
+    ]
+    # For emacs-smart-input-source
+    ++ lib.optional myVars.isDarwin (
+      stdenv.mkDerivation {
+        name = "macism-github-pre";
+        src = fetchFromGitHub {
+          owner = "laishulu";
+          repo = "macism";
+          rev = "092feeaea02fc79d60ee636e3d5c0d777df00162";
+          hash = "sha256-CejRlhZj/2x/e3C6JMNf7ALGaJUuMqOfcpBP2aAYZAw=";
+        };
+        buildPhase = ''
+          mkdir -p $out/bin
+          /usr/bin/swiftc macism.swift -o $out/bin/macism
+        '';
+      }
+    );
 
   home.language = {
     base = "en_US.UTF-8";
