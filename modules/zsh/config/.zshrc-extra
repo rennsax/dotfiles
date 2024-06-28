@@ -319,8 +319,7 @@ alias fgrep='fgrep --color=auto'
 alias grep='grep --color=auto'
 
 # `-i`: smart case insensitive
-## export MANPAGER="less -sRi"
-export MANPAGER='nvim +Man!'
+export MANPAGER="less -sRi"
 
 # git-repo
 export REPO_URL='https://mirrors.tuna.tsinghua.edu.cn/git/git-repo'
