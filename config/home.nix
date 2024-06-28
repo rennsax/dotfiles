@@ -75,6 +75,7 @@ in
       dust
       fd
       jq
+      lua
       gh
       ripgrep
       nixfmt-rfc-style
