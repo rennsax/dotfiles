@@ -41,6 +41,7 @@ in
     };
     fzf.enable = true;
     tmux.enable = true;
+  } // lib.optionalAttrs myVars.isDarwin {
     hammerspoon.enable = true;
     orbstack.enable = true;
   };
@@ -53,7 +54,7 @@ in
   # manage.
   home.username = username;
   home.homeDirectory =
-    if pkgs.stdenv.hostPlatform.isDarwin then "/Users/${username}" else "/home/${username}";
+    if myVars.isDarwin then "/Users/${username}" else "/home/${username}";
 
   # This value determines the Home Manager release that your configuration is
   # compatible with. This helps avoid breakage when a new Home Manager release
@@ -133,6 +134,7 @@ in
     GOPATH = "${config.xdg.dataHome}/go";
     GOMODCACHE = "${config.xdg.cacheHome}/go/mod";
 
+  } // lib.optionalAttrs myVars.isDarwin {
     http_proxy = myVars.network.proxy.clash;
     https_proxy = myVars.network.proxy.clash;
   };
