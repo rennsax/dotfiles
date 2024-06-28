@@ -10,6 +10,7 @@
       ./zsh
       ./tmux
       ./hammerspoon
+      ./orbstack
     ];
   };
 

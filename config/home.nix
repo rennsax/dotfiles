@@ -42,6 +42,7 @@ in
     fzf.enable = true;
     tmux.enable = true;
     hammerspoon.enable = true;
+    orbstack.enable = true;
   };
 
   nix.registry.home-manager = {
