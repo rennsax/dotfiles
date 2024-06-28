@@ -1,6 +1,6 @@
-RLS	= sonoma					# the default release name
-T =
-NIX_ARGS = --extra-experimental-features 'nix-command flakes'
+RLS	:= sonoma					# the default release name
+T :=
+NIX_ARGS := --extra-experimental-features 'nix-command flakes'
 
 uname_m := $(shell uname -m)
 uname_s := $(shell uname -s)
@@ -24,9 +24,14 @@ $(info Current System = "$(system)")
 
 all: $(kernel) home
 
+test:
+	@echo $(NIX_ARGS)
+
+nix-darwin := github:LnL7/nix-darwin/50581970f37f06a4719001735828519925ef8310
+
 init-darwin:
-	nix $(NIX_ARGS) run 'github:LnL7/nix-darwin?rev=505819' switch --flake .#$(RLS)
-	nix $(NIX_ARGS) run nixpkgs#home-manager switch --flake .#$(system)
+	nix $(NIX_ARGS) run $(nix-darwin) -- switch --flake .#$(RLS)
+	nix $(NIX_ARGS) run 'flake:nixpkgs#home-manager' -- switch --flake .#$(system)
 
 darwin:
 	$(REBUILD) switch --flake .#$(RLS)
