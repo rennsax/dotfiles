@@ -2,8 +2,6 @@ RLS	:= sonoma					# the default release name
 T :=
 NIX_ARGS := --extra-experimental-features 'nix-command flakes'
 
-nixpkgs_path := "github:NixOS/nixpkgs?rev=c66e98"
-
 uname_m := $(shell uname -m)
 uname_s := $(shell uname -s)
 
@@ -26,16 +24,14 @@ $(info Current System = "$(system)")
 
 all: $(kernel) home
 
-nixpkgs := 'github:NixOS/nixpkgs?rev=c66e984bda09e7230ea7b364e677c5ba4f0d36d0'
-override-input-arg := --override-input nixpkgs $(nixpkgs)
-nix-darwin := 'github:LnL7/nix-darwin?rev=50581970f37f06a4719001735828519925ef8310'
-
 test:
 	@echo $(NIX_ARGS)
 
+nix-darwin := github:LnL7/nix-darwin/50581970f37f06a4719001735828519925ef8310
+
 init-darwin:
-	nix $(NIX_ARGS) run $(nix-darwin) $(override-input-arg) -- switch --flake .#$(RLS)
-	nix $(NIX_ARGS) run 'flake:nixpkgs#home-manager' $(override-input-arg) -- switch --flake .#$(system)
+	nix $(NIX_ARGS) run $(nix-darwin) -- switch --flake .#$(RLS)
+	nix $(NIX_ARGS) run 'flake:nixpkgs#home-manager' -- switch --flake .#$(system)
 
 darwin:
 	$(REBUILD) switch --flake .#$(RLS)
