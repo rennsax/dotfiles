@@ -21,43 +21,56 @@
       ...
     }:
     let
-      darwinReleaseName = "sonoma";
-      system = "aarch64-darwin";
-
-      pkgs = nixpkgs.legacyPackages.${system};
       lib = nixpkgs.lib;
 
-      myVars = import ./vars { inherit pkgs; };
-      myLib = import ./lib { inherit pkgs lib myVars; };
+      # System types to support.
+      supportedSystems = [ "x86_64-linux" "x86_64-darwin" "aarch64-linux" "aarch64-darwin" ];
+
+      # Helper function to generate an attrset '{ x86_64-linux = f "x86_64-linux"; ... }'.
+      forAllSystems = nixpkgs.lib.genAttrs supportedSystems;
+      varsFor = system: import ./vars { inherit system; };
+      libFor = system: import ./lib {
+        pkgs = nixpkgs.legacyPackages.${system};
+        myVars = varsFor system;
+        inherit lib;
+      };
+
       myModules = import ./modules { };
     in
     {
       # Build darwin flake using:
       darwinConfigurations = {
-        ${darwinReleaseName} = nix-darwin.lib.darwinSystem {
+        "sonoma" = nix-darwin.lib.darwinSystem {
           modules = [
             myModules.darwin
             ./config/darwin.nix
           ];
           specialArgs = {
-            inherit inputs myVars myLib;
+            inherit inputs;
+            myLib = libFor "aarch64-darwin";
+            myVars = varsFor "aarch64-darwin";
           };
         };
       };
 
       # Expose the package set, including overlays, for convenience.
-      darwinPackages = self.darwinConfigurations.${darwinReleaseName}.pkgs;
+      darwinPackages = self.darwinConfigurations."sonoma".pkgs;
 
-      homeConfigurations.default = home-manager.lib.homeManagerConfiguration {
-        inherit pkgs;
-        modules = [
-          myModules.home
-          ./config/home.nix
-        ];
-        extraSpecialArgs = {
-          inherit inputs myVars myLib;
-        };
-      };
+      homeConfigurations = forAllSystems (
+        system:
+        home-manager.lib.homeManagerConfiguration {
+          pkgs = nixpkgs.legacyPackages.${system};
+          modules = [
+            myModules.home
+            ./config/home.nix
+          ];
+          extraSpecialArgs = {
+            inherit inputs;
+            myVars = varsFor system;
+            myLib = libFor system;
+          };
+        }
+      );
 
     }
     // flake-utils.lib.eachDefaultSystem (

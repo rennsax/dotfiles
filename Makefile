@@ -2,20 +2,40 @@ RLS	= sonoma					# the default release name
 T =
 NIX_ARGS = --extra-experimental-features 'nix-command flakes'
 
-all: darwin home
+uname_m := $(shell uname -m)
+uname_s := $(shell uname -s)
+
+ifeq "$(uname_m)" "arm64"
+arch := aarch64
+else
+arch := x86_64
+endif
+
+ifeq "$(uname_s)" "Darwin"
+kernel := darwin
+else
+kernel := linux
+endif
+
+system := $(arch)-$(kernel)
+REBUILD := $(kernel)-rebuild
+
+$(info Current System = "$(system)")
+
+all: $(kernel) home
 
 init-darwin:
-	nix $(NIX_ARGS) run nix-darwin switch --flake .#$(RLS)
-	nix $(NIX_ARGS) run nixpkgs#home-manager switch --flake .#default
+	nix $(NIX_ARGS) run 'github:LnL7/nix-darwin?rev=505819' switch --flake .#$(RLS)
+	nix $(NIX_ARGS) run nixpkgs#home-manager switch --flake .#$(system)
 
 darwin:
-	darwin-rebuild switch --flake .#$(RLS)
+	$(REBUILD) switch --flake .#$(RLS)
 
 list:
-	darwin-rebuild switch --list-generations
+	$(REBUILD) switch --list-generations
 
 gen:
-	darwin-rebuild switch --switch-generation $(T)
+	$(REBUILD) switch --switch-generation $(T)
 
 size:
 	@du -sh /nix
@@ -26,6 +46,6 @@ clean:
 	sudo nix-collect-garbage --delete-older-than 14d
 
 home:
-	home-manager switch --flake	.#default
+	home-manager switch --flake	.#$(system)
 
-.PHONY:	all install	darwin list gen size clean home
+.PHONY:	all init-darwin	darwin list gen size clean home
