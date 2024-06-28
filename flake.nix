@@ -51,8 +51,7 @@
       homeConfigurations.default = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
         modules = [
-          myModules.home.base
-          myModules.home.darwin
+          myModules.home
           ./config/home.nix
         ];
         extraSpecialArgs = {
