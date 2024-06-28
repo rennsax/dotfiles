@@ -2,6 +2,7 @@
   pkgs,
   lib,
   config,
+  myVars,
   ...
 }:
 
@@ -22,7 +23,12 @@ in
     };
 
     xdg.configFile."starship.toml" = {
-      source = ./starship.toml;
+      source = pkgs.writeText "starship.toml" (
+        lib.concatStringsSep "\n" (
+          [ (lib.readFile ./starship.toml) ]
+          ++ [ (lib.readFile (if myVars.isDarwin then ./starship-darwin.toml else ./starship-linux.toml)) ]
+        )
+      );
     };
   };
 }

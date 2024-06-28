@@ -11,12 +11,6 @@ threshold = 20
 [buf]
 symbol = " "
 
-[c]
-# TODO: Linux
-commands = [["clang", "--version"]]
-detect_extensions = ["c", "h", "cpp", "cc"]
-symbol = " "
-
 [conda]
 symbol = " "
 
