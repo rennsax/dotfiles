@@ -109,10 +109,6 @@ zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
 
 # bindkey: \e == \E == ^[ == ESC, ^J == $'\C-'
 
-# unbound keys that are used in yabai
-## skhd_keys=(h j k l H J K L R Y X T F B ! @ '#' $ % ^ '&')
-## for key ($skhd_keys) { bindkey -r "^[$key" }; unset skhd_keys; unset key
-
 # https://github.com/ohmyzsh/ohmyzsh/blob/fff073b55defed72a0a1aac4e853b165f208735b/lib/key-bindings.zsh#L5-L16
 # Make sure that the terminal is in application mode when zle is active, since
 # only then values from $terminfo are valid
@@ -373,12 +369,6 @@ fi
 
 # z.lua data
 export _ZL_DATA="${XDG_CONFIG_HOME:-$HOME/.config}/zlua/.zlua"
-
-# register the previous command easily for pet
-function prev() {
-  PREV=$(builtin fc -lrn | head -n 1)
-  sh -c "pet new -t `printf %q "$PREV"`"
-}
 
 # GNU Emacs
 export PATH="$PATH:$XDG_CONFIG_HOME/emacs/bin"
