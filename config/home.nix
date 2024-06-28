@@ -87,8 +87,8 @@ in
 
     ]
     # For emacs-smart-input-source
-    ++ lib.optional myVars.isDarwin (
-      stdenv.mkDerivation {
+    ++ lib.optionals myVars.isDarwin [
+      (stdenv.mkDerivation {
         name = "macism-github-pre";
         src = fetchFromGitHub {
           owner = "laishulu";
@@ -98,10 +98,28 @@ in
         };
         buildPhase = ''
           mkdir -p $out/bin
+          # Impure, but it's a compromise.
           /usr/bin/swiftc macism.swift -o $out/bin/macism
         '';
-      }
-    );
+      })
+      (stdenvNoCC.mkDerivation {
+        name = "macos-trash-v1.2.0";
+        src = fetchurl {
+          url = "https://github.com/sindresorhus/macos-trash/releases/download/v1.2.0/trash.zip";
+          hash = "sha256-hJc2rFosV+LQfXnf4ssagfpLaShFho/ths2HJ6t1tzw=";
+        };
+        unpackPhase = ''
+          runHook preUnpack
+          unzip $src
+          runHook postUnpack
+        '';
+        nativeBuildInputs = [ unzip ];
+        buildPhase = ''
+          mkdir -p $out/bin
+          mv trash $out/bin/
+        '';
+      })
+    ];
 
   home.language = {
     base = "en_US.UTF-8";
