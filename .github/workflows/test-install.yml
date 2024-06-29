@@ -1,0 +1,21 @@
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+jobs:
+  lints:
+    name: Test Installation
+    runs-on: ubuntu-22.04
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Install Nix
+      uses: DeterminateSystems/nix-installer-action@main
+
+    - name: Patch username
+      run: ./scripts/patch-user
+
+    - name: Install home configurations
+      run: make init-home
