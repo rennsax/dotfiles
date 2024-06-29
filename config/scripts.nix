@@ -42,12 +42,19 @@
       pkgs.writeShellApplication {
         inherit name;
         text = ''
+          if command -v nvim >/dev/null 2>&1; then
+              VIM="nvim"
+          elif command -v vim >/dev/null 2>&1; then
+              VIM="vim"
+          else
+              VIM="vi"
+          fi
           if ! command -v emacsclient >/dev/null 2>&1; then
               # cannot find Emacs
-              nvim "$@"
+              "$VIM" "$@"
           else
-              # Try Emacs, if not found, use nvim.
-              emacsclient -c -q -a nvim "$@"
+              # Try Emacs, if not found, use vim.
+              emacsclient -c -q -a "$VIM" "$@"
           fi
         '';
       }
