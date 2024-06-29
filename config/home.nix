@@ -46,8 +46,10 @@ in
     orbstack.enable = true;
   };
 
-  nix.registry.home-manager = {
-    flake = inputs.home-manager;
+  nix.registry = {
+    nixpkgs.flake = inputs.nixpkgs;
+    flake-utils.flake = inputs.flake-utils;
+    home-manager.flake = inputs.home-manager;
   };
 
   # Home Manager needs a bit of information about you and the paths it should

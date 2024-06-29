@@ -20,12 +20,8 @@
   };
 
   nix.registry = {
-    nixpkgs = {
-      flake = inputs.nixpkgs;
-    };
-    nix-darwin = {
-      flake = inputs.nix-darwin;
-    };
+    nixpkgs.flake = inputs.nixpkgs;
+    nix-darwin.flake = inputs.nix-darwin;
     flake-utils.flake = inputs.flake-utils;
   };
 

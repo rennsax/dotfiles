@@ -28,10 +28,14 @@ test:
 	@echo $(NIX_ARGS)
 
 nix-darwin := github:LnL7/nix-darwin/50581970f37f06a4719001735828519925ef8310
+home-manager := github:nix-community/home-manager/1a4f12ae0bda877ec4099b429cf439aad897d7e9
 
 init-darwin:
 	nix $(NIX_ARGS) run $(nix-darwin) -- switch --flake .#$(RLS)
 	nix $(NIX_ARGS) run 'flake:nixpkgs#home-manager' -- switch --flake .#$(system)
+
+init-home:
+	nix $(NIX_ARGS) run $(home-manager) -- switch --flake .#$(system)
 
 darwin:
 	$(REBUILD) switch --flake .#$(RLS)
