@@ -4,7 +4,7 @@ on:
 
 jobs:
   lints:
-    name: Test Install
+    name: Test Installation
     runs-on: ubuntu-22.04
     steps:
     - uses: actions/checkout@v4
