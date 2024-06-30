@@ -94,6 +94,7 @@ in
     ]
     # For emacs-smart-input-source
     ++ lib.optionals myVars.isDarwin [
+      libreoffice-bin
       (stdenv.mkDerivation {
         name = "macism-github-pre";
         src = fetchFromGitHub {

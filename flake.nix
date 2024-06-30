@@ -46,6 +46,9 @@
       myOverlays = {
         nixpkgs.overlays = [
           emacs-lsp-booster.overlays.default
+          (final: prev: {
+            libreoffice-bin = prev.callPackage ./modules/libreoffice-bin.nix { };
+          })
         ];
       };
     in
