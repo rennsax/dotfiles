@@ -34,7 +34,7 @@ make init-darwin
 
 *** Ubuntu
 
-Nix does not manage the system-width configuration of Ubuntu, so I use a script
+Nix does not manage the system-width configuration for Ubuntu, so I use a script
 to quickly bootstrap Ubuntu system environment.
 
 #+begin_src sh
