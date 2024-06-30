@@ -89,6 +89,7 @@ in
 
       # Programming
       shellcheck
+      emacs-lsp-booster
 
     ]
     # For emacs-smart-input-source

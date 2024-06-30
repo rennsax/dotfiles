@@ -23,6 +23,7 @@
       nix-darwin,
       home-manager,
       flake-utils,
+      emacs-lsp-booster,
       ...
     }:
     let
@@ -41,6 +42,12 @@
       };
 
       myModules = import ./modules { };
+
+      myOverlays = {
+        nixpkgs.overlays = [
+          emacs-lsp-booster.overlays.default
+        ];
+      };
     in
     {
       # Build darwin flake using:
@@ -67,6 +74,7 @@
           pkgs = nixpkgs.legacyPackages.${system};
           modules = [
             myModules.home
+            myOverlays
             ./config/home.nix
           ];
           extraSpecialArgs = {
