@@ -9,6 +9,11 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
     flake-utils.url = "github:numtide/flake-utils";
+
+    emacs-lsp-booster = {
+      url = "github:slotThe/emacs-lsp-booster-flake";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
