@@ -14,6 +14,9 @@ jobs:
     - name: Install Nix
       uses: DeterminateSystems/nix-installer-action@main
 
+    - name: Install system configuration
+      run: ./scripts/init-ubuntu
+
     - name: Patch username
       run: ./scripts/patch-user
 
