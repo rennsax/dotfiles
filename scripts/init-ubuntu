@@ -1,0 +1,142 @@
+#!/usr/bin/env bash
+
+set -e
+
+# whether to disable the modification of /etc/apt/sources.list
+: "${INSTALL_DEBIAN_NO_SJTU_SOURCES:=0}"
+# whether to print verbose log
+: "${INSTALL_DEBIAN_TRACE:=0}"
+# extra packages, separated with colons
+: "${DEBIAN_EXTRA_PACKAGES:=}"
+
+PACKAGES="man zsh git curl openssh-server make vim"
+PACKAGES="${PACKAGES} $(printf "%s" "$DEBIAN_EXTRA_PACKAGES" | tr ':' ' ')"
+
+PROMPT="init-ubuntu"
+
+################################################################################
+############################## Tools ###########################################
+################################################################################
+
+# Possible return values:
+#   - i686
+#   - x86_64
+#   - arm
+#   - arm64
+which_arch() {
+    arch="$(uname -m | tr '[:upper:]' '[:lower:]')"
+
+    case "${arch}" in
+        amd64) arch="x86_64" ;;
+        armv*) arch="arm" ;;
+        arm64) arch="aarch64" ;;
+    esac
+
+    # `uname -m` in some cases mis-reports 32-bit OS as 64-bit, so double check
+    if [ "${arch}" = "x86_64" ] && [ "$(getconf LONG_BIT)" -eq 32 ]; then
+        arch=i686
+    elif [ "${arch}" = "aarch64" ] && [ "$(getconf LONG_BIT)" -eq 32 ]; then
+        arch=arm
+    fi
+
+    printf '%s' "${arch}"
+}
+
+int_exit_eval() {
+    ec=0
+    "$@" || ec=$?
+    if [ "$ec" -eq 130 ]; then
+        error_exit "cancelled by user"
+    else
+        return "$ec"
+    fi
+}
+
+info() {
+    printf "[$PROMPT] %s\n" "$@"
+}
+
+error_exit() {
+    error_report "$@"
+    exit 1
+}
+error_report() {
+    printf "[$PROMPT] %s\n" "$@" >&2
+}
+
+alter_apt_sources() {
+    arch=$(which_arch)
+
+    case "$arch" in
+        aarch64 )
+            sudo sed -i 's@ports.ubuntu.com@mirror.sjtu.edu.cn@g' /etc/apt/sources.list
+            ;;
+        x86_64 )
+            # TODO: more robust, like using a regexp, in case that the prefix would change.
+            sudo sed -i 's@cn.archive.ubuntu.com@mirror.sjtu.edu.cn@g' /etc/apt/sources.list
+            sudo sed -i 's@us.archive.ubuntu.com@mirror.sjtu.edu.cn@g' /etc/apt/sources.list
+            sudo sed -i 's@archive.ubuntu.com@mirror.sjtu.edu.cn@g' /etc/apt/sources.list
+            ;;
+        * )
+            error_report "Unsupported arch: %s\n" "$arch" >&2
+            return 1
+    esac
+}
+
+alter_nix_source() {
+    if [ -f "/etc/nix/nix.conf" ]; then
+        sudo sed -i '/substituters/d' /etc/nix/nix.conf
+        printf "\nsubstituters = https://mirror.sjtu.edu.cn/nix-channels/store https://cache.nixos.org\n" |\
+            sudo tee -a /etc/nix/nix.conf
+        sudo systemctl restart nix-daemon.service
+    else
+        error_report "Nix is probably not installed!"
+    fi
+}
+
+################################################################################
+############################## Tools ###########################################
+################################################################################
+
+info "Note: This installing script needs root permission to be executed."
+if ! sudo -v; then
+    error_exit "Not granted, abort."
+fi
+
+# The needrestart(1) prompts are annoying.
+# Simply export NEEDRESTART_MODE=a or NEEDRESTART_SUSPEND=1
+# or DEBIAN_FRONTEND=noninteractive is useless,
+# because sudo doesn't perserve the environment varibles (unless w/ -E option)
+if [ -f "/etc/needrestart/needrestart.conf" ]; then
+    # disable kernel checks && restart_mode = (a)utomatically
+    printf "%s\n" "\$nrconf{kernelhints} = 0;" "\$nrconf{restart} = 'a';" | \
+        sudo tee -a /etc/needrestart/needrestart.conf >/dev/null
+fi
+
+# Remove the poorly-designed auto-upgrade software, which always holds on the
+# dpkg lock forever.
+sudo apt-get remove unattended-upgrades -y
+
+if [ "${INSTALL_DEBIAN_NO_SJTU_SOURCES}" -ne 1 ]; then
+    alter_apt_sources || error_exit "failed to alter apt sources!"
+    alter_nix_source || error_exit "failed to alter Nix sources!"
+fi
+
+info "update apt index"
+if [ "${INSTALL_DEBIAN_TRACE}" -eq 1 ]; then
+    sudo apt-get update -y
+else
+    sudo apt-get update -y >/dev/null 2>&1
+fi
+
+IFS=" "
+for package in $PACKAGES; do
+    info "installing package: $package..."
+    if [ "${INSTALL_DEBIAN_TRACE}" -eq 1 ]; then
+        int_exit_eval sudo apt-get install "$package" -y \
+            || error_report "failed to install $package"
+    else
+        int_exit_eval sudo apt-get install "$package" >/dev/null 2>&1 -y \
+            || error_report "failed to install $package"
+    fi
+done

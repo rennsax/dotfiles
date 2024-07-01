@@ -1,0 +1,4 @@
+[c]
+commands = [["clang", "--version"], ["gcc", "--version"]]
+detect_extensions = ["c", "h", "cpp", "cc"]
+symbol = " "

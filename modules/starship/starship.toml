@@ -1,0 +1,161 @@
+command_timeout = 300
+format = "$all"
+right_format = "$time"
+
+[aws]
+symbol = "  "
+
+[[battery.display]]
+threshold = 20
+
+[buf]
+symbol = " "
+
+[conda]
+symbol = " "
+
+[dart]
+symbol = " "
+
+[directory]
+read_only = " 󰌾"
+
+[docker_context]
+symbol = " "
+
+[elixir]
+symbol = " "
+
+[elm]
+symbol = " "
+
+[fossil_branch]
+symbol = " "
+
+[git_branch]
+symbol = " "
+
+[git_status]
+ahead = "🚀"
+behind = "🐌"
+conflicted = "🤺"
+deleted = "🚮"
+diverged = "😵"
+modified = "📝"
+renamed = "🔧"
+staged = '[++\($count\)](green)' # single quote
+stashed = "📦"
+untracked = "❓"
+up_to_date = "✓"
+
+[golang]
+symbol = " "
+
+[guix_shell]
+symbol = " "
+
+[haskell]
+symbol = " "
+
+[haxe]
+symbol = " "
+
+[hg_branch]
+symbol = " "
+
+[hostname]
+ssh_symbol = " "
+
+[java]
+symbol = " "
+
+[julia]
+symbol = " "
+
+[lua]
+symbol = " "
+
+[memory_usage]
+symbol = "󰍛 "
+
+[meson]
+symbol = "󰔷 "
+
+[nim]
+symbol = "󰆥 "
+
+[nix_shell]
+symbol = " "
+heuristic = true
+
+[nodejs]
+symbol = " "
+
+[os]
+disabled = false
+format = "[$symbol]($style)"
+
+[os.symbols]
+Alpaquita = " "
+Alpine = " "
+Amazon = " "
+Android = " "
+Arch = " "
+Artix = " "
+CentOS = " "
+Debian = " "
+DragonFly = " "
+Emscripten = " "
+EndeavourOS = " "
+Fedora = " "
+FreeBSD = " "
+Garuda = "󰛓 "
+Gentoo = " "
+HardenedBSD = "󰞌 "
+Illumos = "󰈸 "
+Linux = " "
+Mabox = " "
+Macos = " "
+Manjaro = " "
+Mariner = " "
+MidnightBSD = " "
+Mint = " "
+NetBSD = " "
+NixOS = " "
+OpenBSD = "󰈺 "
+OracleLinux = "󰌷 "
+Pop = " "
+Raspbian = " "
+RedHatEnterprise = " "
+Redhat = " "
+Redox = "󰀘 "
+SUSE = " "
+Solus = "󰠳 "
+Ubuntu = " "
+Unknown = " "
+Windows = "󰍲 "
+openSUSE = " "
+
+[package]
+symbol = "󰏗 "
+
+[python]
+symbol = " "
+
+[ruby]
+symbol = " "
+
+[rust]
+symbol = " "
+
+[status]
+disabled = false
+format = "[$symbol$maybe_int]($style) "
+map_symbol = true
+not_found_symbol = ""
+sigint_symbol = "󰋔"
+
+[shlvl]
+disabled = false
+symbol = " "
+format = '[$symbol\($shlvl\)]($style) '

@@ -1,0 +1,36 @@
+#################### Homebrew ##############################
+
+export HOMEBREW_NO_AUTO_UPDATE=1
+
+# jd-gui (cask)
+alias jd-gui='java -jar /Applications/JD-GUI.app/Contents/Resources/Java/jd-gui-1.6.6-min.jar >& /dev/null &|'
+
+#################### Linuxify ##############################
+
+# most Linux distro has a separate utility `hd`
+# hexdump is included in util-linux
+alias hd='hexdump -C'
+
+#################### Misc. #################################
+
+# VS Code terminal shell integration
+[[ $TERM_PROGRAM == 'vscode' ]] && \. "/Applications/Visual Studio Code.app/Contents/Resources/app/out/vs/workbench/contrib/terminal/browser/media/shellIntegration-rc.zsh"
+
+# Prevent VS Code to generate duplicate icons in dock
+code() {
+    if [[ "$1" =~ '-*' ]]; then
+        command code "$@"
+    else
+        open -b 'com.microsoft.vscode' "$@"
+    fi
+}
+
+# Use skyzh/canvas_grab to download canvas files
+grabcan() {
+    zsh -c 'cd ~/codeplace/github/canvas_grab && ./canvas_grab.sh'
+}
+
+# Emacs
+[ -n "$INSIDE_EMACS" ] && alias ls='gls --color=auto'
+
+# TODO: iterm2
