@@ -90,6 +90,7 @@ in
       # Programming
       shellcheck
       emacs-lsp-booster
+      math-preview
 
     ]
     # For emacs-smart-input-source
