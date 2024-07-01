@@ -5,7 +5,6 @@
   myLib,
   ...
 }:
-# Simplified zsh module that satisfies my personal usage.
 with lib;
 let
   cfg = config.myModules.hammerspoon;
@@ -15,7 +14,7 @@ in
     enable = mkEnableOption "hammerspoon";
   };
 
-  config = {
+  config = mkIf cfg.enable {
     home.file.".hammerspoon/init.lua".source = ./config/init.lua;
     home.file.".hammerspoon/Spoons/ReloadConfiguration.spoon".source = pkgs.stdenvNoCC.mkDerivation {
       name = "ReloadConfiguration.spoon";
