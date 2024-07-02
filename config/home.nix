@@ -91,11 +91,23 @@ in
       shellcheck
       emacs-lsp-booster
       math-preview
+      ghostscript
 
     ]
     # For emacs-smart-input-source
     ++ lib.optionals myVars.isDarwin [
       libreoffice-bin
+      (
+        let
+          version = libreoffice-bin.version;
+        in
+        writeShellApplication {
+          name = "soffice-cli";
+          text = ''
+            ${libreoffice-bin}/Applications/LibreOffice.app/Contents/MacOS/soffice "$@"
+          '';
+        }
+      )
       (stdenv.mkDerivation {
         name = "macism-github-pre";
         src = fetchFromGitHub {
