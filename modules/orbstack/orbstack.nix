@@ -6,7 +6,7 @@
 }:
 with lib;
 let
-  cfg = config.myModules.cheat;
+  cfg = config.myModules.orbstack;
 in
 {
   options.myModules.orbstack = {
