@@ -91,10 +91,6 @@ heuristic = true
 [nodejs]
 symbol = " "
 
-[os]
-disabled = false
-format = "[$symbol]($style)"
-
 [os.symbols]
 Alpaquita = " "
 Alpine = " "
