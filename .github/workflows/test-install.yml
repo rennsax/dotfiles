@@ -21,7 +21,7 @@ jobs:
         INSTALL_DEBIAN_TRACE: 1
 
     - name: Patch username
-      run: ./scripts/patch-user
+      run: ./scripts/patch-vars
 
     - name: Install home configurations
       run: make init-home
