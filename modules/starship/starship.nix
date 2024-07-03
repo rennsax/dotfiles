@@ -23,14 +23,15 @@ in
     };
 
     xdg.configFile."starship.toml" = {
-      source = pkgs.writeText "starship.toml" (
-        lib.concatStringsSep "\n" (
-          [ (lib.readFile ./config/starship.toml) ]
-          ++ [
-            (lib.readFile (if myVars.isDarwin then ./config/starship-darwin.toml else ./config/starship-linux.toml))
-          ]
-        )
-      );
+      source = pkgs.writeText "starship.toml" ''
+        ${lib.readFile ./config/starship.toml}
+
+        ## Platform-dependent settings
+
+        ${lib.readFile (
+          if myVars.isDarwin then ./config/starship-darwin.toml else ./config/starship-linux.toml
+        )}
+      '';
     };
   };
 }
