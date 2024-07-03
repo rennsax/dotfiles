@@ -7,7 +7,7 @@ My personal dotfiles. Managed with Nix Flake.
 ** Installation
 
 NOTE: home-manager needs to know your username. You can run
-~./script/patch-user~ to change the username in the configurations to your own
+~./script/patch-vars~ to change the username in the configurations to your own
 username.
 
 *** Nix
