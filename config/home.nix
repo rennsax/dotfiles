@@ -125,7 +125,7 @@ in
           mv trash $out/bin/
         '';
       })
-    ];
+    ] ++ lib.optionals myVars.isLinux [ trash-cli ];
 
   home.language = {
     base = "en_US.UTF-8";
