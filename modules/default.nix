@@ -11,6 +11,7 @@
       ./tmux
       ./hammerspoon
       ./orbstack
+      ./emacs
     ];
   };
 
