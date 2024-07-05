@@ -2,6 +2,7 @@
   pkgs,
   lib,
   config,
+  myVars,
   ...
 }:
 with lib;
@@ -14,24 +15,22 @@ with lib;
     enable = mkEnableOption "emacs";
   };
   config = mkIf cfg.enable {
-    home.packages = with pkgs; [
-      emacs-lsp-booster
-      math-preview
-      ghostscript
-    ] ++ optionals stdenv.hostPlatform.isDarwin [
-      pngpaste                  # for org-download
-      libreoffice-bin
-      (
-        let
-          version = libreoffice-bin.version;
-        in
-        writeShellApplication {
+    home.packages =
+      with pkgs;
+      [
+        emacs-lsp-booster
+        math-preview
+        ghostscript
+      ]
+      ++ optionals myVars.isDarwin [
+        pngpaste # for org-download
+        libreoffice-bin
+        (writeShellApplication {
           name = "soffice-cli";
           text = ''
             ${libreoffice-bin}/Applications/LibreOffice.app/Contents/MacOS/soffice "$@"
           '';
-        }
-      )
-    ];
+        })
+      ];
   };
 }
