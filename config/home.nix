@@ -96,6 +96,7 @@ in
     ]
     # For emacs-smart-input-source
     ++ lib.optionals myVars.isDarwin [
+      pngpaste                  # for org-download
       libreoffice-bin
       (
         let
