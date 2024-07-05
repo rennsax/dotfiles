@@ -46,6 +46,7 @@ with myVars.me;
         github = {
           user = "rennsax";
         };
+        credential.helper = "store";
       };
 
       ignores = [
