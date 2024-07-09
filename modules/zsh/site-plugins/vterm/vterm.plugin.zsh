@@ -1,8 +1,5 @@
 if [[ "$INSIDE_EMACS" != 'vterm' ]]; then return; fi
 
-# zsh-autosuggestion tweaks
-ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=8,underline"
-
 # Enable the shell to send information to vterm via properly escaped sequences
 vterm_printf() {
     if [ -n "$TMUX" ] && ([ "${TERM%%-*}" = "tmux" ] || [ "${TERM%%-*}" = "screen" ]); then
