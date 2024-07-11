@@ -1,5 +1,8 @@
-# useful search pattern
+# useful search pattern in man page
 [^[:graph:]]{4,}functions
+
+# Open less at the end of the file
+less '+>'
 
 # Go to end of file:
 G
