@@ -61,6 +61,22 @@ in
         enable = true;
         package = cfg.package;
         enableCompletion = true;
+        completionInit = ''
+          () {
+            emulate -L zsh
+            setopt extendedglob
+            autoload -U compinit
+
+            # Speed up zsh compinit by only checking cache once a day.
+            # See https://gist.github.com/ctechols/ca1035271ad134841284
+            if [[ -n ''${ZDOTDIR:-$HOME}/.zcompdump(#qN.mh+24) ]]; then
+              compinit
+            else
+              # -C: omit the check for the number of completion files.
+              compinit -C
+            fi
+          }
+        '';
         initExtraBeforeCompInit =
           ''
             ############################################################
