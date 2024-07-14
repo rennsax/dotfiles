@@ -379,37 +379,8 @@ alias emacs-kill-server="emacsclient -e '(save-buffers-kill-emacs)'"
 
 #################### Routines ##############################
 
-# I recommend installing standalone pnpm (not using `npm install -g`).
-# But pnpm is still dependent on nodejs.
-# This routine set pnpm home and tab-completion.
-alias pnpm="print -u2 'Please use \`loadpnpm\` first'; false"
-loadpnpm() {
-    # pnpm tabtab completions
-    export PNPM_HOME="$XDG_DATA_HOME/pnpm"
-    export PATH="$PNPM_HOME:$PATH"
-    [[ -f "$XDG_CONFIG_HOME/tabtab/zsh/__tabtab.zsh" ]] && \
-        \. "$XDG_CONFIG_HOME/tabtab/zsh/__tabtab.zsh"
-    unalias pnpm 2>/dev/null || true
-}
-
-# setup shell environment for conda
-loadconda() {
-    local __conda_setup
-    __conda_setup="$(command conda "shell.zsh" hook 2>/dev/null)"
-    if (( $? )); then
-        echo 'cannot find `conda` executable' >&2
-    else
-        eval "$__conda_setup"
-        echo 'successfully init conda environment'
-    fi
-}
-
 curl_github() {
     curl -sSLO "https://raw.githubusercontent.com/$1"
-}
-
-editz() {
-    eval "$EDITOR" "$ZDOTDIR/.zshrc"
 }
 
 most-often-use() {
