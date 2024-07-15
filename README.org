@@ -1,4 +1,5 @@
 #+startup: show2levels
+#+html: <div><a href="https://github.com/rennsax/dotfiles/actions/workflows/test-install.yml"><img alt="GitHub Actions Workflow Status" src="https://img.shields.io/github/actions/workflow/status/rennsax/dotfiles/test-install.yml?label=Test"></a> <img alt="GitHub Release" src="https://img.shields.io/github/v/release/rennsax/dotfiles"></div>
 
 * dotfiles
 
