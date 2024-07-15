@@ -36,6 +36,11 @@ with myVars.me;
         dft = "difftool";
       };
 
+      lfs = {
+        enable = true;
+        skipSmudge = true;
+      };
+
       difftastic = {
         enable = true;
       };
