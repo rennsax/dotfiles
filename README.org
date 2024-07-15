@@ -1,0 +1,64 @@
+#+startup: show2levels
+
+* dotfiles
+
+My personal dotfiles. Managed with Nix Flake.
+
+** Installation
+
+NOTE: home-manager needs to know your username. You can run
+~./script/patch-vars~ to change the username in the configurations to your own
+username.
+
+*** Nix
+
+To use the dotfiles, first install Nix (not necessarily on NixOS). Nix is a
+powerful package manager and build system. I recommend using [[https://github.com/DeterminateSystems/nix-installer][nix-installer from
+DeterminateSystems]].
+
+#+begin_src sh
+curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix | sh -s -- install
+#+end_src
+
+Optionally, if you prefer to install Nix non-interactively:
+
+#+begin_src sh
+curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix | sh -s -- install --no-confirm
+#+end_src
+
+*** macOS
+
+#+begin_src sh
+make init-darwin
+#+end_src
+
+*** Ubuntu
+
+Nix does not manage the system-width configuration for Ubuntu, so I use a script
+to quickly bootstrap Ubuntu system environment.
+
+#+begin_src sh
+# Check the script content to see some useful options.
+./scripts/init-ubuntu
+make init-home
+#+end_src
+
+Notes:
+
+- ~make init-home~ only affects user-level configurations. Therefore, it even
+  does not require "sudo", as long as you have correctly installed Nix.
+- So it won't change the user's default shell which needs to touch the system
+  file ~/etc/passwd~. You may manually set the default with chsh(1).
+
+** See Also
+
+- [[https://github.com/rennsax/init.lua][rennsax/init.lua: My neovim configuration.]]
+
+** References
+
+- [[https://wiki.archlinux.org/title/XDG_Base_Directory][XDG Base Directory - ArchWiki]]
+- [[https://www.ecb.torontomu.ca/guides/zsh-intro.pdf][zsh-intro.pdf]]
+- [[https://thevaluable.dev/zsh-install-configure-mouseless/][Configuring Zsh Without Dependencies]]
+- [[https://zdharma-continuum.github.io/Zsh-100-Commits-Club/Zsh-Plugin-Standard.html][Zsh Plugin Standard]]
+- [[https://github.com/ryan4yin/nix-config][ryan4yin/nix-config]]
+- [[https://determinate.systems/posts/nix-direnv/][Determinate Systems: Effortless dev environments with Nix and direnv]]

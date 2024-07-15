@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+sed -i "s|rennsax|$(id -un)|" ./vars/me.nix
+git update-index --assume-unchanged ./vars/me.nix
+
+sed -i "s|/path/to/your/nix/config|$PWD|" ./vars/default.nix
+git update-index --assume-unchanged ./vars/default.nix
