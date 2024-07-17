@@ -95,16 +95,15 @@ in
     # For emacs-smart-input-source
     ++ lib.optionals myVars.isDarwin [
       (stdenvNoCC.mkDerivation {
-        name = "macos-trash-v1.2.0";
+        pname = "macos-trash";
+        version = "v1.2.0";
         src = fetchurl {
           url = "https://github.com/sindresorhus/macos-trash/releases/download/v1.2.0/trash.zip";
           hash = "sha256-hJc2rFosV+LQfXnf4ssagfpLaShFho/ths2HJ6t1tzw=";
         };
-        unpackPhase = ''
-          runHook preUnpack
-          unzip $src
-          runHook postUnpack
-        '';
+        # If not specified, unpackPhase tries to move cwd to the single
+        # directory, which leads to error.
+        sourceRoot = ".";
         nativeBuildInputs = [ unzip ];
         buildPhase = ''
           mkdir -p $out/bin
