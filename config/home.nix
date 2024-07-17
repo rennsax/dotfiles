@@ -94,20 +94,6 @@ in
     ]
     # For emacs-smart-input-source
     ++ lib.optionals myVars.isDarwin [
-      (stdenv.mkDerivation {
-        name = "macism-github-pre";
-        src = fetchFromGitHub {
-          owner = "laishulu";
-          repo = "macism";
-          rev = "092feeaea02fc79d60ee636e3d5c0d777df00162";
-          hash = "sha256-CejRlhZj/2x/e3C6JMNf7ALGaJUuMqOfcpBP2aAYZAw=";
-        };
-        buildPhase = ''
-          mkdir -p $out/bin
-          # Impure, but it's a compromise.
-          /usr/bin/swiftc macism.swift -o $out/bin/macism
-        '';
-      })
       (stdenvNoCC.mkDerivation {
         name = "macos-trash-v1.2.0";
         src = fetchurl {
