@@ -1,6 +1,4 @@
 { ... }:
 {
-  imports = [
-    ./hammerspoon.nix
-  ];
+  imports = [ ./hammerspoon.nix ];
 }

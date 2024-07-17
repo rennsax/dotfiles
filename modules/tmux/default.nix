@@ -1,6 +1,4 @@
 { ... }:
 {
-  imports = [
-    ./tmux.nix
-  ];
+  imports = [ ./tmux.nix ];
 }

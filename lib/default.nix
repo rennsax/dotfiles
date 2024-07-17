@@ -1,4 +1,8 @@
-{ pkgs, lib, myVars }:
+{
+  pkgs,
+  lib,
+  myVars,
+}:
 {
   # A simple wrapper for mkDerivation to combine multiple files into one directory.
   mkCombinedDir =

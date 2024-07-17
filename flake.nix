@@ -30,23 +30,28 @@
       lib = nixpkgs.lib;
 
       # System types to support.
-      supportedSystems = [ "x86_64-linux" "x86_64-darwin" "aarch64-linux" "aarch64-darwin" ];
+      supportedSystems = [
+        "x86_64-linux"
+        "x86_64-darwin"
+        "aarch64-linux"
+        "aarch64-darwin"
+      ];
 
       # Helper function to generate an attrset '{ x86_64-linux = f "x86_64-linux"; ... }'.
       forAllSystems = nixpkgs.lib.genAttrs supportedSystems;
       varsFor = system: import ./vars { inherit system; };
-      libFor = system: import ./lib {
-        pkgs = nixpkgs.legacyPackages.${system};
-        myVars = varsFor system;
-        inherit lib;
-      };
+      libFor =
+        system:
+        import ./lib {
+          pkgs = nixpkgs.legacyPackages.${system};
+          myVars = varsFor system;
+          inherit lib;
+        };
 
       myModules = import ./modules { };
 
       myOverlays = {
-        nixpkgs.overlays = [
-          emacs-lsp-booster.overlays.default
-        ];
+        nixpkgs.overlays = [ emacs-lsp-booster.overlays.default ];
       };
     in
     {

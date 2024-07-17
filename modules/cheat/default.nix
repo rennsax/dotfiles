@@ -1,6 +1,4 @@
 { ... }:
 {
-  imports = [
-    ./cheat.nix
-  ];
+  imports = [ ./cheat.nix ];
 }

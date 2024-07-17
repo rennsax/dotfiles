@@ -6,6 +6,16 @@
   nixConfigDir = "/path/to/your/nix/config";
 
   inherit system;
-  isDarwin = (builtins.elem system [ "aarch64-darwin" "x86_64-darwin" ]);
-  isLinux = (builtins.elem system [ "aarch64-linux" "x86_64-linux" ]);
+  isDarwin = (
+    builtins.elem system [
+      "aarch64-darwin"
+      "x86_64-darwin"
+    ]
+  );
+  isLinux = (
+    builtins.elem system [
+      "aarch64-linux"
+      "x86_64-linux"
+    ]
+  );
 }

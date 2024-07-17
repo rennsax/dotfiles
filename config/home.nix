@@ -16,37 +16,39 @@ in
     ./scripts.nix
     ./dotfiles.nix
   ];
-  myModules = {
-    starship.enable = true;
-    cheat.enable = true;
-    git.enable = true;
-    zsh = {
-      enable = true;
-      dotDir = ".config/zsh";
-      _personalConfigs.enable = true;
-      defer.enable = true;
-      extraPlugins = [
-        "vterm"
-        "nnn-quitcd"
-      ];
-      plugins = [
-        "zsh-syntax-highlighting"
-        "zsh-autosuggestions"
-        "zsh-completions"
-        "z.lua"
-        "tmux"
-        "git"
-        "orb"
-      ];
+  myModules =
+    {
+      starship.enable = true;
+      cheat.enable = true;
+      git.enable = true;
+      zsh = {
+        enable = true;
+        dotDir = ".config/zsh";
+        _personalConfigs.enable = true;
+        defer.enable = true;
+        extraPlugins = [
+          "vterm"
+          "nnn-quitcd"
+        ];
+        plugins = [
+          "zsh-syntax-highlighting"
+          "zsh-autosuggestions"
+          "zsh-completions"
+          "z.lua"
+          "tmux"
+          "git"
+          "orb"
+        ];
+      };
+      fzf.enable = true;
+      tmux.enable = true;
+    }
+    // lib.optionalAttrs myVars.isDarwin {
+      hammerspoon.enable = true;
+      orbstack.enable = true;
+      # FIXME: currently I distinguish my workstation PC and servers with the OS type.
+      emacs.enable = true;
     };
-    fzf.enable = true;
-    tmux.enable = true;
-  } // lib.optionalAttrs myVars.isDarwin {
-    hammerspoon.enable = true;
-    orbstack.enable = true;
-    # FIXME: currently I distinguish my workstation PC and servers with the OS type.
-    emacs.enable = true;
-  };
 
   nix.registry = {
     nixpkgs.flake = inputs.nixpkgs;
@@ -57,8 +59,7 @@ in
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
   home.username = username;
-  home.homeDirectory =
-    if myVars.isDarwin then "/Users/${username}" else "/home/${username}";
+  home.homeDirectory = if myVars.isDarwin then "/Users/${username}" else "/home/${username}";
 
   # This value determines the Home Manager release that your configuration is
   # compatible with. This helps avoid breakage when a new Home Manager release
@@ -110,23 +111,26 @@ in
           mv trash $out/bin/
         '';
       })
-    ] ++ lib.optionals myVars.isLinux [ trash-cli ];
+    ]
+    ++ lib.optionals myVars.isLinux [ trash-cli ];
 
   home.language = {
     base = "en_US.UTF-8";
   };
-  home.sessionVariables = {
-    # macOS: `systemsetup -listtimezones`
-    TZ = "Asia/Shanghai";
-    # REVIEW: purely manage npm config
-    NPM_CONFIG_USERCONFIG = "${config.xdg.configHome}/npm/npmrc";
-    GOPATH = "${config.xdg.dataHome}/go";
-    GOMODCACHE = "${config.xdg.cacheHome}/go/mod";
+  home.sessionVariables =
+    {
+      # macOS: `systemsetup -listtimezones`
+      TZ = "Asia/Shanghai";
+      # REVIEW: purely manage npm config
+      NPM_CONFIG_USERCONFIG = "${config.xdg.configHome}/npm/npmrc";
+      GOPATH = "${config.xdg.dataHome}/go";
+      GOMODCACHE = "${config.xdg.cacheHome}/go/mod";
 
-  } // lib.optionalAttrs myVars.isDarwin {
-    http_proxy = myVars.network.proxy.clash;
-    https_proxy = myVars.network.proxy.clash;
-  };
+    }
+    // lib.optionalAttrs myVars.isDarwin {
+      http_proxy = myVars.network.proxy.clash;
+      https_proxy = myVars.network.proxy.clash;
+    };
 
   # Will pollute `home.sessionVariables`
   xdg.enable = true;

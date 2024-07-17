@@ -1,4 +1,9 @@
-{ pkgs, inputs, myVars, ... }:
+{
+  pkgs,
+  inputs,
+  myVars,
+  ...
+}:
 {
   # The platform the configuration will be used on.
   nixpkgs.hostPlatform = "aarch64-darwin";
@@ -25,11 +30,7 @@
     flake-utils.flake = inputs.flake-utils;
   };
 
-  nix.nixPath = [
-    {
-      nixpkgs = "${pkgs.path}";
-    }
-  ];
+  nix.nixPath = [ { nixpkgs = "${pkgs.path}"; } ];
 
   # Used for backwards compatibility, please read the changelog before changing.
   # $ darwin-rebuild changelog
@@ -39,20 +40,20 @@
 
   system.defaults.finder = {
     AppleShowAllExtensions = true;
-    AppleShowAllFiles = false;       # Do not always show hidden files
+    AppleShowAllFiles = false; # Do not always show hidden files
 
     FXPreferredViewStyle = "Nlsv";
     ShowStatusBar = false;
 
-    FXDefaultSearchScope = "SCcf";   # default to current folder
+    FXDefaultSearchScope = "SCcf"; # default to current folder
 
-    ShowPathbar = true;              # path breadcrumbs
+    ShowPathbar = true; # path breadcrumbs
     _FXShowPosixPathInTitle = false; # fullpath in the title
   };
 
   environment.systemPackages = with pkgs; [
 
-    gnumake                          # darwin's make is old
+    gnumake # darwin's make is old
 
     gnugrep
     gnused
@@ -64,7 +65,12 @@
   ];
 
   fonts.packages = with pkgs; [
-    (nerdfonts.override { fonts = [ "Monaspace" "FiraCode" ]; })
+    (nerdfonts.override {
+      fonts = [
+        "Monaspace"
+        "FiraCode"
+      ];
+    })
     lxgw-wenkai
     source-han-serif
     source-han-sans
