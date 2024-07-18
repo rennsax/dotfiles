@@ -94,6 +94,7 @@ end)
 
 
 hs.hotkey.bind({"cmd", "alt"}, "E", function()
-  local output = hs.execute("/opt/homebrew/bin/emacsclient -e '(emacs-everywhere)'")
+  -- with_user_env: if true, executes the command in the users login shell.
+  local output = hs.execute("emacsclient -e '(emacs-everywhere)'", true)
   print("Emacs everywhere: " .. output)
 end)
