@@ -1,7 +1,7 @@
 # Fix https://github.com/LnL7/nix-darwin/issues/984#issuecomment-2193798885
 # Nix-darwin uses dscl(1) to change the default shell, e.g.
 #
-#   sudo dscl . /Users/<name> UserShell <shellpath>.
+#   sudo dscl . -create /Users/<name> UserShell <shellpath>.
 #
 # However, nix-darwin won't try to update the user shell until you list the user
 # in `users.knownUsers`. To change the user shell, nix-darwin uses (though
@@ -12,7 +12,8 @@
 # you also list the user in `users.knownUsers`, make sure its uid is specified
 # (and you may not need this module), or nix-darwin will throw errors.
 #
-# NOTE: chsh(1) is OK for changing the login shell too. They are equivalent.
+# NOTE: chsh(1) is OK for changing the login shell too. But it only accepts a
+# shell that is listed in /etc/shells (standard shell, terminologically).
 {
   config,
   lib,
