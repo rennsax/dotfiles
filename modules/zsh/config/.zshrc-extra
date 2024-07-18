@@ -123,12 +123,14 @@ if (( ${+terminfo[smkx]} )) && (( ${+terminfo[rmkx]} )); then
   zle -N zle-line-finish
 fi
 
-# select-word-style is a use-defined function that wraps word-chars and other
+# BEGIN Duplicate the readline(3) and Emacs behavior. 8<
+
+# select-word-style is a user-defined function that wraps word-chars and other
 # settings to provide an easier interface to customize the ZLE word style.
 autoload -U select-word-style
 select-word-style bash
 
-# bind emacs keymapping to main
+# Link `emacs' to `main' so that it's selected by default the next time ZLE starts.
 bindkey -e
 
 # precede the current command with `#` and then accept
@@ -138,15 +140,10 @@ bindkey -M emacs '^[#' pound-insert # M-#
 # create a widget with the same name so it can be invoke by ZLE
 autoload -U edit-command-line
 zle -N edit-command-line
-bindkey '^X^E' edit-command-line
-if [[ "$EDITOR" = *vi* ]]; then
-    zstyle ':zle:edit-command-line' editor "$EDITOR" -c 'set ft=zsh'
-else
-    zstyle ':zle:edit-command-line' editor "$EDITOR"
-fi
+bindkey -M emacs '^X^E' edit-command-line
 
 # magic-space: perform history expansion and insert a space
-bindkey ' ' magic-space
+bindkey -M emacs ' ' magic-space
 
 # list-choices: list possible completions for the current word.
 bindkey -M emacs '^[?' list-choices
@@ -157,7 +154,11 @@ revert-line() {
     zle .end-of-line
 }
 zle -N revert-line
-bindkey '^[r' revert-line
+bindkey -M emacs '^[r' revert-line
+
+bindkey -M emacs '^w' kill-region
+
+# >8 END Duplicate the readline(3) and Emacs behavior.
 
 # https://github.com/ohmyzsh/ohmyzsh/blob/fff073b55defed72a0a1aac4e853b165f208735b/lib/key-bindings.zsh#L34-L51
 # Start typing + [Up-Arrow] - fuzzy find history forward
@@ -179,6 +180,12 @@ if [[ -n "${terminfo[kcud1]}" ]]; then
   bindkey -M emacs "${terminfo[kcud1]}" down-line-or-beginning-search
   bindkey -M viins "${terminfo[kcud1]}" down-line-or-beginning-search
   bindkey -M vicmd "${terminfo[kcud1]}" down-line-or-beginning-search
+fi
+
+if [[ "$EDITOR" = *vi* ]]; then
+    zstyle ':zle:edit-command-line' editor "$EDITOR" -c 'set ft=zsh'
+else
+    zstyle ':zle:edit-command-line' editor "$EDITOR"
 fi
 
 ################### ZSH Completions #######################
