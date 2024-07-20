@@ -2,9 +2,6 @@
 
 export HOMEBREW_NO_AUTO_UPDATE=1
 
-# jd-gui (cask)
-alias jd-gui='java -jar /Applications/JD-GUI.app/Contents/Resources/Java/jd-gui-1.6.6-min.jar >& /dev/null &|'
-
 #################### Linuxify ##############################
 
 # most Linux distro has a separate utility `hd`
@@ -30,7 +27,9 @@ grabcan() {
     zsh -c 'cd ~/codeplace/github/canvas_grab && ./canvas_grab.sh'
 }
 
-# Emacs
-[ -n "$INSIDE_EMACS" ] && alias ls='gls --color=auto'
+# Fix: in Emacs vterm, darwin ls cannot correctly display colors. This is
+# because that the environment variable COLORTERM isn't set correctly.
+# Reference: neovim/libvterm:vterm.c, ls(1).
+[ -n "$INSIDE_EMACS" ] && export COLORTERM="truecolor"
 
 # TODO: iterm2
