@@ -35,8 +35,16 @@ with lib;
           ghostscript
           pandoc
 
+          aspellDicts.en
+
           myEmacs
         ];
+
+      # So that enchant-2 and aspell can find installed dictionaries.
+      # REVIEW: why this patch does not take effects? https://github.com/NixOS/nixpkgs/blob/ad0b5eed1b6031efaed382844806550c3dcb4206/pkgs/development/libraries/aspell/default.nix#L30
+      home.file.".aspell.conf".text = ''
+        dict-dir ${config.home.profileDirectory}/lib/aspell
+      '';
     }
 
     # macOS dependencies.
