@@ -42,7 +42,7 @@ with pkgs;
           name = "tmux.plugin.zsh";
           src = pkgs.fetchurl {
             url = "https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/plugins/tmux/tmux.plugin.zsh";
-            sha256 = "sha256-3CUUE4Db9oY6vy6bO3lGu24SI4iYfM3pqjDuHERNUHE=";
+            sha256 = "sha256-Y3Mp0rS9LkYCfaigD67Tuu2T6VcRcrajBGoKG5ihfo8=";
           };
         }
       ];
