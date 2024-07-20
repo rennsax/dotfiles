@@ -30,6 +30,12 @@ disabled = false
 symbol = " "
 format = '[$symbol\($shlvl\)]($style) '
 
+[directory.substitutions]
+"Documents" = "󰈙 "
+"Downloads" = " "
+"Music" = " "
+"Pictures" = " "
+
 ################################################################################
 ###### https://starship.rs/presets/nerd-font#nerd-font-symbols-preset ##########
 ################################################################################
