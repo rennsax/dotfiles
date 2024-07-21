@@ -29,7 +29,7 @@ with lib;
           ripgrep
           fd
 
-          emacs-lsp-booster # This should be borrowed from an overlay.
+          emacs-lsp-booster
 
           math-preview
           ghostscript
