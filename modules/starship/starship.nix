@@ -18,8 +18,8 @@ in
 
     programs.starship = with lib; {
       enable = true;
-      enableZshIntegration = mkForce false;
-      enableBashIntegration = mkForce false;
+      enableZshIntegration = true;
+      enableBashIntegration = true;
     };
 
     xdg.configFile."starship.toml" = {
