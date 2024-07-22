@@ -116,6 +116,7 @@ in
 
   home.language = {
     base = "en_US.UTF-8";
+    ctype = "C.UTF-8";
   };
   home.sessionVariables =
     {
