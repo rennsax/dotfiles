@@ -46,6 +46,7 @@ in
     // lib.optionalAttrs myVars.isDarwin {
       hammerspoon.enable = true;
       orbstack.enable = true;
+      iterm2.enable = true;
       # FIXME: currently I distinguish my workstation PC and servers with the OS type.
       emacs.enable = true;
     };

@@ -12,6 +12,7 @@
       ./hammerspoon
       ./orbstack
       ./emacs
+      ./iTerm2
     ];
   };
 

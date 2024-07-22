@@ -26,4 +26,3 @@ code() {
 grabcan() {
     zsh -c 'cd ~/codeplace/github/canvas_grab && ./canvas_grab.sh'
 }
-# TODO: iterm2
