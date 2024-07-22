@@ -100,7 +100,6 @@ in
           path = "${zshDataDir}/zsh_history";
           size = 1000000;
           save = 1000000;
-          ignorePatterns = [ "*${myVars.me.username}*" ];
           extended = true;
           ignoreDups = true;
           ignoreAllDups = false;
