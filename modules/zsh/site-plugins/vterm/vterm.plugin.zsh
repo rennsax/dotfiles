@@ -1,4 +1,4 @@
-if [[ "$INSIDE_EMACS" != 'vterm' ]]; then return; fi
+if [[ "$INSIDE_EMACS" != vterm* ]]; then return; fi
 
 # Enable the shell to send information to vterm via properly escaped sequences
 vterm_printf() {
