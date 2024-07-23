@@ -31,8 +31,8 @@ all: $(kernel) home
 test:
 	@echo $(NIX_ARGS)
 
-nix-darwin := github:LnL7/nix-darwin/50581970f37f06a4719001735828519925ef8310
-home-manager := github:nix-community/home-manager/1a4f12ae0bda877ec4099b429cf439aad897d7e9
+nix-darwin := github:LnL7/nix-darwin/ec12b88104d6c117871fad55e931addac4626756
+home-manager := github:nix-community/home-manager/0a30138c694ab3b048ac300794c2eb599dc40266
 
 init-darwin:
 	nix $(NIX_ARGS) run $(nix-darwin) -- switch --flake .#$(RLS)
