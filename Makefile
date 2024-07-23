@@ -5,15 +5,17 @@ NIX_ARGS := --extra-experimental-features 'nix-command flakes'
 uname_m := $(shell uname -m)
 uname_s := $(shell uname -s)
 
-ifeq "$(uname_m)" "arm64"
+ifeq ($(uname_m),arm64)
 arch := aarch64
-else
+else ifeq ($(uname_m),aarch64)
+arch := aarch64
+else ifeq ($(uname_m),x86_64)
 arch := x86_64
 endif
 
-ifeq "$(uname_s)" "Darwin"
+ifeq ($(uname_s),Darwin)
 kernel := darwin
-else
+else ifeq ($(uname_s),Linux)
 kernel := linux
 endif
 
