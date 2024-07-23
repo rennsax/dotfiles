@@ -85,7 +85,7 @@ in
 
           ''
           + (concatStringsSep "\n" (
-            [ (readFile ./config/.zshrc-extra) ] ++ optional myVars.isDarwin (readFile ./config/.zshrc-darwin)
+            [ (readFile ./config/zshrc-extra) ] ++ optional myVars.isDarwin (readFile ./config/zshrc-darwin)
           ))
           + ''
 
