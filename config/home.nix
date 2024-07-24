@@ -41,6 +41,7 @@ in
       };
       fzf.enable = true;
       tmux.enable = true;
+      z-lua.enable = true;
     }
     // lib.optionalAttrs myVars.isDarwin {
       hammerspoon.enable = true;
