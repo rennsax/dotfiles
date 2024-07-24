@@ -9,7 +9,7 @@ set -e
 # extra packages, separated with colons
 : "${DEBIAN_EXTRA_PACKAGES:=}"
 
-PACKAGES="man zsh git curl openssh-server make vim"
+PACKAGES="man git curl openssh-server make vim"
 PACKAGES="${PACKAGES} $(printf "%s" "$DEBIAN_EXTRA_PACKAGES" | tr ':' ' ')"
 
 PROMPT="init-ubuntu"
