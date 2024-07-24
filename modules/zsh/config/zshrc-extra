@@ -301,10 +301,6 @@ alias rsync-move="rsync -avz --progress -h --remove-source-files"
 alias rsync-update="rsync -avzu --progress -h"
 alias rsync-synchronize="rsync -avzu --delete --progress -h"
 
-# z.lua
-alias zb='z -b'
-alias zi='z -I'
-
 # prefer Inter syntax disassemble
 alias objdumpi='objdump -M intel'
 
@@ -376,9 +372,6 @@ if [[ $options[zle] = on && -n "$FZF_SCRIPT_BASE" ]]; then
     __try_defer __fzf_setup "$FZF_SCRIPT_BASE"
 fi
 
-# z.lua data
-export _ZL_DATA="${XDG_STATE_HOME:-$HOME}/zlua-data"
-
 # GNU Emacs
 export PATH="$PATH:$XDG_CONFIG_HOME/emacs/bin"
 alias emacs-client='tmux new-session -s "emacs-client" -d emacsclient -c -a emacs'
@@ -416,7 +409,6 @@ __plugin_dep=(
     tmux tmux
     orb orb
     nnn-quitcd nnn
-    z.lua lua
     cheat cheat
 )
 
@@ -427,7 +419,6 @@ __plugin_dep=(
     ZSH_TMUX_AUTOCONNECT=false # never try to connect to previous session
     ZSH_TMUX_FIXTERM=false
     ZSH_TMUX_CONFIG="$XDG_CONFIG_HOME/tmux/tmux.conf"
-    _ZL_NO_ALIASES=1
 
     for plugin ($plugins); do
         __load_plugin "$plugin"

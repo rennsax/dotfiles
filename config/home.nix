@@ -34,7 +34,6 @@ in
           "zsh-syntax-highlighting"
           "zsh-autosuggestions"
           "zsh-completions"
-          "z.lua"
           "tmux"
           "git"
           "orb"
@@ -81,7 +80,6 @@ in
       dust
       fd
       jq
-      lua
       gh
       ripgrep
       nixfmt-rfc-style
