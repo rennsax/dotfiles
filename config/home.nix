@@ -34,7 +34,6 @@ in
           "zsh-syntax-highlighting"
           "zsh-autosuggestions"
           "zsh-completions"
-          "z.lua"
           "tmux"
           "git"
           "orb"
@@ -42,6 +41,7 @@ in
       };
       fzf.enable = true;
       tmux.enable = true;
+      z-lua.enable = true;
     }
     // lib.optionalAttrs myVars.isDarwin {
       hammerspoon.enable = true;
@@ -81,7 +81,6 @@ in
       dust
       fd
       jq
-      lua
       gh
       ripgrep
       nixfmt-rfc-style

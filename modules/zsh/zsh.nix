@@ -111,6 +111,14 @@ in
       myModules.zsh.plugins = optional cfg.defer.enable "zsh-defer";
     }
 
+    (mkIf config.programs.z-lua.enable {
+
+      programs.zsh.initExtra = ''
+        ${pkgs.z-lua}/bin/z.lua --add "$PWD"
+      '';
+
+    })
+
     # Link plugins to config directory.
     (mkIf (cfg.plugins != [ ]) {
       home.file = foldl' (a: b: a // b) { } (
