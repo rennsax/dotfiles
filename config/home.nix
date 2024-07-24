@@ -77,13 +77,11 @@ in
     with pkgs;
     [
       bat
-      btop
+      curl
       dust
       fd
-      jq
-      gh
+      htop
       ripgrep
-      nixfmt-rfc-style
       tree
       rlwrap # Readline wrapper
       p7zip
@@ -91,7 +89,10 @@ in
       wget
 
       # Programming
+      gh
+      jq
       shellcheck
+      nixfmt-rfc-style
     ]
     # For emacs-smart-input-source
     ++ lib.optionals myVars.isDarwin [
