@@ -377,7 +377,7 @@ if [[ $options[zle] = on && -n "$FZF_SCRIPT_BASE" ]]; then
 fi
 
 # z.lua data
-export _ZL_DATA="${XDG_CONFIG_HOME:-$HOME/.config}/zlua/.zlua"
+export _ZL_DATA="${XDG_STATE_HOME:-$HOME}/zlua-data"
 
 # GNU Emacs
 export PATH="$PATH:$XDG_CONFIG_HOME/emacs/bin"
