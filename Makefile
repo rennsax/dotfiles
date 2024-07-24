@@ -23,6 +23,8 @@ system := $(arch)-$(kernel)
 REBUILD := $(kernel)-rebuild
 
 $(info Current System = "$(system)")
+$(info Patch vars...)
+$(shell ./scripts/patch-vars)
 
 all: $(kernel) home
 
