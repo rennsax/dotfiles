@@ -63,5 +63,17 @@ with lib;
         ];
     })
 
+    {
+      programs.zsh.shellAliases =
+        {
+          emacs-kill-server = "emacsclient -e '(save-buffers-kill-emacs)'";
+        }
+        // optionalAttrs (config.myModules.tmux.enable || config.programs.tmux.enable) {
+          emacs-client = "tmux new-session -s \"emacs-client\" -d emacsclient -c -a emacs";
+        };
+
+      home.sessionPath = mkAfter [ "${config.xdg.configHome}/emacs/bin" ];
+    }
+
   ]);
 }
