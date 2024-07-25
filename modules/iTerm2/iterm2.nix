@@ -3,7 +3,6 @@
   pkgs,
   lib,
   config,
-  myLib,
   ...
 }:
 with lib;
@@ -57,7 +56,9 @@ in
 
   config = mkIf cfg.enable {
 
-    home.packages = [ cfg.package ];
+    # Do not install iTerm2 on non-darwin system.
+    home.packages = optional pkgs.stdenv.isDarwin cfg.package;
+
     programs.bash.initExtra = mkIf cfg.enableBashIntegration (shellIntegrationFor "bash");
     programs.zsh.initExtra = mkIf cfg.enableZshIntegration (shellIntegrationFor "zsh");
     programs.fish.interactiveShellInit = mkIf cfg.enableFishIntegration (shellIntegrationFor "fish");
