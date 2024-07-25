@@ -107,9 +107,9 @@ in
         # directory, which leads to error.
         sourceRoot = ".";
         nativeBuildInputs = [ unzip ];
-        buildPhase = ''
+        installPhase = ''
           mkdir -p $out/bin
-          mv trash $out/bin/
+          cp trash $out/bin/
         '';
       })
     ]

@@ -26,9 +26,9 @@ in
         url = "https://github.com/Hammerspoon/Spoons/raw/master/Spoons/ReloadConfiguration.spoon.zip";
         hash = "sha256-w8Dyzt/xtGbC3SvNMAAJMUPUt7ElgeTBf5WuPjfgGiI=";
       };
-      buildPhase = ''
-        mkdir -p "$out"
-        cp init.lua docs.json "$out/"
+      installPhase = ''
+        mkdir -p $out
+        cp init.lua docs.json $out/
       '';
     };
   };
