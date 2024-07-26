@@ -51,8 +51,6 @@ in
     defer = {
       enable = mkEnableOption "zsh-defer";
     };
-    _personalConfigs.enable = mkEnableOption "my personal zsh configs";
-
   };
 
   config = mkIf cfg.enable (mkMerge [
@@ -113,7 +111,7 @@ in
 
     (mkIf config.programs.z-lua.enable {
 
-      programs.zsh.initExtra = ''
+      programs.zsh.initExtra = mkAfter ''
         ${pkgs.z-lua}/bin/z.lua --add "$PWD"
       '';
 

@@ -24,7 +24,6 @@ in
       zsh = {
         enable = true;
         dotDir = ".config/zsh";
-        _personalConfigs.enable = true;
         defer.enable = true;
         extraPlugins = [
           "vterm"

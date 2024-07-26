@@ -36,7 +36,7 @@ with lib;
       source = pkgs.fetchFromGitHub {
         owner = "cheat";
         repo = "cheatsheets";
-        rev = "HEAD";
+        rev = "36bdb99";
         sha256 = "sha256-Afv0rPlYTCsyWvYx8UObKs6Me8IOH5Cv5u4fO38J8ns=";
       };
       recursive = false;
@@ -47,7 +47,7 @@ with lib;
         colorize: false
         style: monokai
         formatter: terminal256
-        pager: bat -lbash
+        pager: ${pkgs.bat}/bin/bat -lbash
         cheatpaths:
           - name: community
             path: ${config.xdg.configHome}/cheat/cheatsheets/community
