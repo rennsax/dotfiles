@@ -32,14 +32,16 @@
       }
     );
 
-  # Make symbolic link towards the flake with a path or string. Impure.
+  # Make symbolic link towards the flake with a path or string.
+  # Caveat: this function returns a derivation that may import impurity!
   _mkRelSymLink =
     fileSubPathStr:
     let
-      # FIXME: nixConfigDir must be an absolute path in the FS. Envs won't be expanded!
       pathStr = myVars.nixConfigDir + "/" + fileSubPathStr;
     in
-    pkgs.runCommandLocal "nix-config-${builtins.baseNameOf fileSubPathStr}" { } ''
-      ln -s "${lib.escapeShellArg pathStr}" $out
-    '';
+    pkgs.runCommandLocal "nix-config-${builtins.replaceStrings [ "/" ] [ "_" ] fileSubPathStr}-symlink"
+      { }
+      ''
+        ln -s ${lib.escapeShellArg pathStr} $out
+      '';
 }
