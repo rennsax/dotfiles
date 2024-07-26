@@ -53,7 +53,9 @@ Notes:
 
 ** See Also
 
-- [[https://github.com/rennsax/init.lua][rennsax/init.lua: My neovim configuration.]]
+- [[https://github.com/rennsax/init.lua][rennsax/init.lua: My neovim configuration.]] (I do not use Neovim anymore, hence
+  it may be obsolete.)
+- [[https://github.com/rennsax/.emacs.d][rennsax/.emacs.d: My Emacs configuration. 🍓]]
 
 ** References
 
