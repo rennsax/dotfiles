@@ -45,7 +45,7 @@
       myModules = import ./modules { };
 
       myOverlays = {
-        nixpkgs.overlays = [ ];
+        nixpkgs.overlays = import ./overlays { };
       };
     in
     {
@@ -54,6 +54,7 @@
         "sonoma" = nix-darwin.lib.darwinSystem {
           modules = [
             myModules.darwin
+            myOverlays
             ./config/darwin.nix
           ];
           specialArgs = {

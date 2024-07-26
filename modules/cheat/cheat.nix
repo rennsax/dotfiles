@@ -60,7 +60,5 @@ with lib;
             readonly: false
       '';
     };
-
-    myModules.zsh.plugins = optional cfg.enableZshIntegration "cheat";
   };
 }

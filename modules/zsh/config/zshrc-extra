@@ -427,7 +427,6 @@ __plugin_dep=(
     tmux tmux
     orb orb
     nnn-quitcd nnn
-    cheat cheat
 )
 
 () {
