@@ -41,7 +41,10 @@ in
       };
       fzf.enable = true;
       tmux.enable = true;
-      z-lua.enable = true;
+      z-lua = {
+        enable = true;
+        enableAliases = true;
+      };
       iterm2.enable = true;
     }
     // lib.optionalAttrs myVars.isDarwin {
