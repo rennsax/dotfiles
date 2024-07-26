@@ -30,10 +30,15 @@ let
     source ${shellIntegrationScriptFor shell}
   '';
 
+  utilities = pkgs.callPackage ./iterm2-utilities.nix { };
+
 in
 {
   options.myModules.iterm2 = {
     enable = mkEnableOption "iterm2";
+    enableUtilities = mkEnableOption "iterm2 utilities" // {
+      default = true;
+    };
     package = mkOption {
       type = types.package;
       default = pkgs.iterm2;
@@ -54,14 +59,25 @@ in
     };
   };
 
-  config = mkIf cfg.enable {
+  config = mkIf cfg.enable (mkMerge [
+    {
 
-    # Do not install iTerm2 on non-darwin system.
-    home.packages = optional pkgs.stdenv.isDarwin cfg.package;
+      # Do not install iTerm2 on non-darwin system.
+      home.packages = optional pkgs.stdenv.isDarwin cfg.package;
 
-    programs.bash.initExtra = mkIf cfg.enableBashIntegration (shellIntegrationFor "bash");
-    programs.zsh.initExtra = mkIf cfg.enableZshIntegration (shellIntegrationFor "zsh");
-    programs.fish.interactiveShellInit = mkIf cfg.enableFishIntegration (shellIntegrationFor "fish");
+      programs.bash.initExtra = mkIf cfg.enableBashIntegration (shellIntegrationFor "bash");
+      programs.zsh.initExtra = mkIf cfg.enableZshIntegration (shellIntegrationFor "zsh");
+      programs.fish.interactiveShellInit = mkIf cfg.enableFishIntegration (shellIntegrationFor "fish");
 
-  };
+    }
+
+    (mkIf cfg.enableUtilities {
+      home.packages = [ utilities ];
+
+      # initExtra is called after compinit
+      programs.zsh.initExtra = optionalString cfg.enableZshIntegration ''
+        compdef _ssh it2ssh=ssh
+      '';
+    })
+  ]);
 }
