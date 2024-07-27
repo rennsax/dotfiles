@@ -22,13 +22,22 @@ with lib;
     enableZshIntegration = mkEnableOption "Zsh integration" // {
       default = true;
     };
+    _enableEditableCheatsheets = mkEnableOption ''
+      Whether the user cheatsheets is editable.
+      Caveat: enable this option imports impurity!
+    '';
   };
 
   config = mkIf cfg.enable {
     home.packages = [ cfg.package ];
 
     xdg.configFile."cheat/cheatsheets/personal" = {
-      source = ./cheatsheets/personal;
+      source =
+        if cfg._enableEditableCheatsheets then
+          myLib._mkRelSymLink "modules/cheat/cheatsheets/personal"
+        else
+          ./cheatsheets/personal;
+
       recursive = false;
     };
 
