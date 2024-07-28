@@ -1,3 +1,6 @@
+---
+tags: [ node ]
+---
 # Add new dependencies.
 # default: dependencies
 # -D: devDependencies
@@ -10,7 +13,10 @@ pnpm rm|un|uninstall|remove
 # Install project dependencies according to `package.json` and `pnpm-lock.yaml`.
 # --offline: Install offline from the store only
 # --frozen-lockfile: pnpm-lock.yaml is not updated
-pnpm i 
+pnpm i
 
 # Remove unnecessary packages.
 pnpm prune
+
+# Upgrade all dependencies to the latest version.
+pnpm up -L
