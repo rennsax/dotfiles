@@ -23,16 +23,6 @@
     let
       lib = nixpkgs.lib;
 
-      # System types to support.
-      supportedSystems = [
-        "x86_64-linux"
-        "x86_64-darwin"
-        "aarch64-linux"
-        "aarch64-darwin"
-      ];
-
-      # Helper function to generate an attrset '{ x86_64-linux = f "x86_64-linux"; ... }'.
-      forAllSystems = nixpkgs.lib.genAttrs supportedSystems;
       varsFor = system: import ./vars { inherit system; };
       libFor =
         system:
@@ -48,50 +38,49 @@
         nixpkgs.overlays = import ./overlays { };
       };
     in
-    {
-      # Build darwin flake using:
-      darwinConfigurations = {
-        "sonoma" = nix-darwin.lib.darwinSystem {
-          modules = [
-            myModules.darwin
-            myOverlays
-            ./config/darwin.nix
-          ];
-          specialArgs = {
-            inherit inputs;
-            myLib = libFor "aarch64-darwin";
-            myVars = varsFor "aarch64-darwin";
+    flake-utils.lib.eachDefaultSystem (
+      system:
+      let
+        pkgs = nixpkgs.legacyPackages.${system};
+        specialArgs = {
+          inherit inputs;
+          myLib = libFor system;
+          myVars = varsFor system;
+        };
+      in
+
+      {
+        darwinConfigurations = {
+          "sonoma" = nix-darwin.lib.darwinSystem {
+            modules = [
+              myModules.darwin
+              myOverlays
+              ./config/darwin.nix
+            ];
+            inherit system specialArgs;
           };
         };
-      };
 
-      # Expose the package set, including overlays, for convenience.
-      darwinPackages = self.darwinConfigurations."sonoma".pkgs;
+        nixosConfigurations = {
+          "nixos" = nixpkgs.lib.nixosSystem {
+            modules = [
+              myOverlays
+              ./config/nixos.nix
+            ];
+            inherit system specialArgs;
+          };
+        };
 
-      homeConfigurations = forAllSystems (
-        system:
-        home-manager.lib.homeManagerConfiguration {
-          pkgs = nixpkgs.legacyPackages.${system};
+        homeConfigurations = home-manager.lib.homeManagerConfiguration {
+          inherit pkgs;
           modules = [
             myModules.home
             myOverlays
             ./config/home.nix
           ];
-          extraSpecialArgs = {
-            inherit inputs;
-            myVars = varsFor system;
-            myLib = libFor system;
-          };
-        }
-      );
+          extraSpecialArgs = specialArgs;
+        };
 
-    }
-    // flake-utils.lib.eachDefaultSystem (
-      system:
-      let
-        pkgs = nixpkgs.legacyPackages.${system};
-      in
-      {
         devShells.default = pkgs.mkShell {
           packages = with pkgs; [
             nil
@@ -99,5 +88,10 @@
           ];
         };
       }
-    );
+    )
+    // {
+      # Expose the package set, including overlays, for convenience.
+      darwinPackages = self.darwinConfigurations.${builtins.currentSystem}."sonoma".pkgs;
+      nixosPackages = self.nixosConfigurations.${builtins.currentSystem}."nixos".pkgs;
+    };
 }
