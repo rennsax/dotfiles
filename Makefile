@@ -53,6 +53,8 @@ init-home:
 darwin:
 	$(REBUILD) switch --flake .#sonoma
 
+init-nixos:	nixos init-home
+
 nixos:
 	@echo "Generating NixOS configuration..."
 	@nixos-generate-config --dir ./config
