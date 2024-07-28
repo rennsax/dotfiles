@@ -27,6 +27,12 @@ Optionally, if you prefer to install Nix non-interactively:
 curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix | sh -s -- install --no-confirm
 #+end_src
 
+*** NixOS
+
+#+begin_src sh
+make init-nixos
+#+end_src
+
 *** macOS
 
 #+begin_src sh
