@@ -1,4 +1,9 @@
-{ config, pkgs, ... }:
+{
+  config,
+  pkgs,
+  myVars,
+  ...
+}:
 
 {
   imports = [
@@ -78,16 +83,14 @@
   # services.xserver.libinput.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.test = {
+  users.users.${myVars.me.username} = {
     isNormalUser = true;
-    description = "test";
     extraGroups = [
       "networkmanager"
+      # https://en.wikipedia.org/wiki/Wheel_(computing)
       "wheel"
     ];
-    packages = with pkgs; [
-      #  thunderbird
-    ];
+    shell = pkgs.zsh;
   };
 
   # Install firefox.

@@ -26,8 +26,6 @@
     flake-utils.flake = inputs.flake-utils;
   };
 
-  nix.nixPath = [ { nixpkgs = "${pkgs.path}"; } ];
-
   # Allow unfree packages
   nixpkgs.config.allowUnfree = false;
 
@@ -61,7 +59,6 @@
   };
 
   programs.bash = {
-    enable = true;
     # So the bash history does not corrupt the zsh history, if it's invoked as subshell.
     interactiveShellInit = ''
       export HISTFILE="$HOME/.bash_history"

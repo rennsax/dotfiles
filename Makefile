@@ -21,13 +21,11 @@ endif
 ifeq ($(kernel),linux)
 
 REBUILD := sudo nixos-rebuild
-RLS	:= nixos
 all: nixos home
 
 else ifeq ($(kernel),darwin)
 
 REBUILD := darwin-rebuild
-RLS	:= sonoma
 all: darwin home
 
 endif
@@ -53,12 +51,12 @@ init-home:
 	nix $(NIX_ARGS) run $(HOME-MANAGER) -- switch --flake .#$(SYSTEM)
 
 darwin:
-	$(REBUILD) switch --flake .#$(RLS)
+	$(REBUILD) switch --flake .#sonoma
 
 nixos:
 	@echo "Generating NixOS configuration..."
 	@nixos-generate-config --dir ./config
-	$(REBUILD) switch --flake .#$(RLS)
+	$(REBUILD) switch --flake .#nixos
 
 list:
 	$(REBUILD) switch --list-generations
