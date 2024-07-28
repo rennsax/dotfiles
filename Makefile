@@ -53,12 +53,12 @@ init-home:
 	nix $(NIX_ARGS) run $(HOME-MANAGER) -- switch --flake .#$(SYSTEM)
 
 darwin:
-	$(REBUILD) switch --flake .#$(SYSTEM).$(RLS)
+	$(REBUILD) switch --flake .#$(RLS)
 
 nixos:
 	@echo "Generating NixOS configuration..."
 	@nixos-generate-config --dir ./config
-	$(REBUILD) switch --flake .#$(SYSTEM).$(RLS)
+	$(REBUILD) switch --flake .#$(RLS)
 
 list:
 	$(REBUILD) switch --list-generations

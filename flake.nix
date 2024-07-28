@@ -37,40 +37,44 @@
       myOverlays = {
         nixpkgs.overlays = import ./overlays { };
       };
+
+      specialArgsFor = system: {
+        inherit inputs;
+        myLib = libFor system;
+        myVars = varsFor system;
+      };
     in
-    flake-utils.lib.eachDefaultSystem (
+    {
+      darwinConfigurations = {
+        "sonoma" = nix-darwin.lib.darwinSystem {
+          system = "aarch64-darwin";
+          modules = [
+            myModules.darwin
+            myOverlays
+            ./config/darwin.nix
+          ];
+          specialArgs = specialArgsFor "aarch64-darwin";
+        };
+      };
+
+      nixosConfigurations = {
+        "nixos" = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          modules = [
+            myOverlays
+            ./config/nixos.nix
+          ];
+          specialArgs = specialArgsFor "x86_64-linux";
+        };
+      };
+    }
+    // flake-utils.lib.eachDefaultSystem (
       system:
       let
         pkgs = nixpkgs.legacyPackages.${system};
-        specialArgs = {
-          inherit inputs;
-          myLib = libFor system;
-          myVars = varsFor system;
-        };
+        specialArgs = specialArgsFor system;
       in
-
       {
-        darwinConfigurations = {
-          "sonoma" = nix-darwin.lib.darwinSystem {
-            modules = [
-              myModules.darwin
-              myOverlays
-              ./config/darwin.nix
-            ];
-            inherit system specialArgs;
-          };
-        };
-
-        nixosConfigurations = {
-          "nixos" = nixpkgs.lib.nixosSystem {
-            modules = [
-              myOverlays
-              ./config/nixos.nix
-            ];
-            inherit system specialArgs;
-          };
-        };
-
         homeConfigurations = home-manager.lib.homeManagerConfiguration {
           inherit pkgs;
           modules = [
@@ -91,7 +95,7 @@
     )
     // {
       # Expose the package set, including overlays, for convenience.
-      darwinPackages = self.darwinConfigurations.${builtins.currentSystem}."sonoma".pkgs;
-      nixosPackages = self.nixosConfigurations.${builtins.currentSystem}."nixos".pkgs;
+      darwinPackages = self.darwinConfigurations."sonoma".pkgs;
+      nixosPackages = self.nixosConfigurations."nixos".pkgs;
     };
 }
