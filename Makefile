@@ -58,6 +58,7 @@ init-nixos:	nixos init-home
 nixos:
 	@echo "Generating NixOS configuration..."
 	@nixos-generate-config --dir ./config
+	@git add --intent-to-add ./config/hardware-configuration.nix
 	$(REBUILD) switch --flake .#nixos
 
 list:
