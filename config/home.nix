@@ -20,6 +20,7 @@ in
     {
       starship.enable = true;
       cheat.enable = true;
+      cheat._enableEditableCheatsheets = true;
       git.enable = true;
       zsh = {
         enable = true;
