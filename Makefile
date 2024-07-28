@@ -56,8 +56,8 @@ darwin:
 init-nixos:	nixos init-home
 
 nixos:
-	@echo "Generating NixOS configuration..."
-	@nixos-generate-config --dir ./config
+	@echo "Generating NixOS hardware configuration..."
+	@nixos-generate-config --show-hardware-config > ./config/hardware-configuration.nix
 	@git add --intent-to-add ./config/hardware-configuration.nix
 	$(REBUILD) switch --flake .#nixos
 
