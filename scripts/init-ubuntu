@@ -117,6 +117,9 @@ fi
 # dpkg lock forever.
 sudo apt-get remove unattended-upgrades -y
 
+# Update Manager popup is annoying...
+sudo apt-get remove update-notifier update-manager -y
+
 if [ "${INSTALL_DEBIAN_NO_SJTU_SOURCES}" -ne 1 ]; then
     alter_apt_sources || error_exit "failed to alter apt sources!"
     alter_nix_source || error_exit "failed to alter Nix sources!"
