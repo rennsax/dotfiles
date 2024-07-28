@@ -17,7 +17,9 @@
       "https://mirror.sjtu.edu.cn/nix-channels/store"
       # "https://mirrors.ustc.edu.cn/nix-channels/store"
       # "https://nix-community.cachix.org"
-      "https://cache.nixos.org"
+
+      # It's added by default.
+      # "https://cache.nixos.org"
     ];
   };
 
