@@ -35,6 +35,8 @@ with lib;
           ghostscript
           pandoc
 
+          imagemagick
+
           aspellDicts.en
 
           myEmacs
