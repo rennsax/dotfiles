@@ -1,4 +1,3 @@
-RLS	:= sonoma					# the default release name
 T :=
 NIX_ARGS := --extra-experimental-features 'nix-command flakes'
 
@@ -19,30 +18,48 @@ else ifeq ($(uname_s),Linux)
 kernel := linux
 endif
 
-system := $(arch)-$(kernel)
-REBUILD := $(kernel)-rebuild
+ifeq ($(kernel),linux)
 
-$(info Current System = "$(system)")
+REBUILD := sudo nixos-rebuild
+all: nixos home
+
+else ifeq ($(kernel),darwin)
+
+REBUILD := darwin-rebuild
+all: darwin home
+
+endif
+
+SYSTEM := $(arch)-$(kernel)
+
+$(info Current system = "$(SYSTEM)")
 $(info Patch vars...)
 $(shell ./scripts/patch-vars)
-
-all: $(kernel) home
+$(info Initialization done.)
 
 test:
-	@echo $(NIX_ARGS)
+	@echo Rebuild command: $(REBUILD)
 
-nix-darwin := github:LnL7/nix-darwin/ec12b88104d6c117871fad55e931addac4626756
-home-manager := github:nix-community/home-manager/0a30138c694ab3b048ac300794c2eb599dc40266
+NIX-DARWIN := github:LnL7/nix-darwin/ec12b88104d6c117871fad55e931addac4626756
+HOME-MANAGER := github:nix-community/home-manager/0a30138c694ab3b048ac300794c2eb599dc40266
 
 init-darwin:
-	nix $(NIX_ARGS) run $(nix-darwin) -- switch --flake .#$(RLS)
-	nix $(NIX_ARGS) run 'flake:nixpkgs#home-manager' -- switch --flake .#$(system)
+	nix $(NIX_ARGS) run $(NIX-DARWIN) -- switch --flake .#$(RLS)
+	nix $(NIX_ARGS) run 'flake:nixpkgs#home-manager' -- switch --flake .#$(SYSTEM)
 
 init-home:
-	nix $(NIX_ARGS) run $(home-manager) -- switch --flake .#$(system)
+	nix $(NIX_ARGS) run $(HOME-MANAGER) -- switch --flake .#$(SYSTEM)
 
 darwin:
-	$(REBUILD) switch --flake .#$(RLS)
+	$(REBUILD) switch --flake .#sonoma
+
+init-nixos:	nixos init-home
+
+nixos:
+	@echo "Generating NixOS hardware configuration..."
+	@nixos-generate-config --show-hardware-config > ./config/hardware-configuration.nix
+	@git add --intent-to-add ./config/hardware-configuration.nix
+	$(REBUILD) switch --flake .#nixos
 
 list:
 	$(REBUILD) switch --list-generations
@@ -59,6 +76,6 @@ clean:
 	sudo nix-collect-garbage --delete-older-than 14d
 
 home:
-	home-manager switch --flake	.#$(system)
+	home-manager switch --flake	.#$(SYSTEM)
 
 .PHONY:	all init-darwin	darwin list gen size clean home
