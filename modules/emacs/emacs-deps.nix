@@ -47,6 +47,26 @@ with lib;
       home.file.".aspell.conf".text = ''
         dict-dir ${config.home.profileDirectory}/lib/aspell
       '';
+
+    }
+
+    {
+      xdg.configFile."emacs-modules".source =
+        with pkgs;
+        let
+          jinx-mod = callPackage ./jinx-mod.nix { };
+          emacs-libvterm = callPackage ./vterm-module.nix { };
+
+          emacs-modules = buildEnv {
+            name = "emacs-modules";
+            paths = [
+              jinx-mod
+              emacs-libvterm
+            ];
+            pathsToLink = [ "/lib" ];
+          };
+        in
+        emacs-modules;
     }
 
     # macOS dependencies.
