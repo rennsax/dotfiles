@@ -72,6 +72,7 @@ with myVars.me;
         "*.rar"
         "*.tar"
         "*.zip"
+        ".direnv"
       ];
     };
   };
