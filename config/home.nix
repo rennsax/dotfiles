@@ -54,8 +54,6 @@ in
     // lib.optionalAttrs myVars.isDarwin {
       hammerspoon.enable = true;
       orbstack.enable = true;
-      # FIXME: currently I distinguish my workstation PC and servers with the OS type.
-      emacs.enable = true;
     };
 
   nix.registry = {
@@ -68,15 +66,6 @@ in
   # manage.
   home.username = username;
   home.homeDirectory = if myVars.isDarwin then "/Users/${username}" else "/home/${username}";
-
-  # This value determines the Home Manager release that your configuration is
-  # compatible with. This helps avoid breakage when a new Home Manager release
-  # introduces backwards incompatible changes.
-  #
-  # You should not change this value, even if you update Home Manager. If you do
-  # want to update the value, then make sure to first check the Home Manager
-  # release notes.
-  home.stateVersion = "24.05"; # Please read the comment before changing.
 
   # The home.packages option allows you to install Nix packages into your
   # environment.
@@ -125,20 +114,10 @@ in
   home.language = {
     base = "en_US.UTF-8";
   };
-  home.sessionVariables =
-    {
-      # macOS: `systemsetup -listtimezones`
-      TZ = "Asia/Shanghai";
-      # REVIEW: purely manage npm config
-      NPM_CONFIG_USERCONFIG = "${config.xdg.configHome}/npm/npmrc";
-      GOPATH = "${config.xdg.dataHome}/go";
-      GOMODCACHE = "${config.xdg.cacheHome}/go/mod";
-
-    }
-    // lib.optionalAttrs myVars.isDarwin {
-      http_proxy = myVars.network.proxy.clash;
-      https_proxy = myVars.network.proxy.clash;
-    };
+  home.sessionVariables = lib.optionalAttrs myVars.isDarwin {
+    http_proxy = myVars.network.proxy.clash;
+    https_proxy = myVars.network.proxy.clash;
+  };
 
   # Will pollute `home.sessionVariables`
   xdg.enable = true;
@@ -160,4 +139,13 @@ in
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
+
+  # This value determines the Home Manager release that your configuration is
+  # compatible with. This helps avoid breakage when a new Home Manager release
+  # introduces backwards incompatible changes.
+  #
+  # You should not change this value, even if you update Home Manager. If you do
+  # want to update the value, then make sure to first check the Home Manager
+  # release notes.
+  home.stateVersion = "24.05"; # Please read the comment before changing.
 }

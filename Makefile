@@ -1,5 +1,6 @@
 T :=
 NIX_ARGS := --extra-experimental-features 'nix-command flakes'
+HOME_VARIANT := worker
 
 uname_m := $(shell uname -m)
 uname_s := $(shell uname -s)
@@ -45,10 +46,10 @@ HOME-MANAGER := github:nix-community/home-manager/0a30138c694ab3b048ac300794c2eb
 
 init-darwin:
 	nix $(NIX_ARGS) run $(NIX-DARWIN) -- switch --flake .#$(RLS)
-	nix $(NIX_ARGS) run 'flake:nixpkgs#home-manager' -- switch --flake .#$(SYSTEM)
+	nix $(NIX_ARGS) run 'flake:nixpkgs#home-manager' -- switch --flake .#$(HOME_VARIANT)-$(SYSTEM)
 
 init-home:
-	nix $(NIX_ARGS) run $(HOME-MANAGER) -- switch --flake .#$(SYSTEM)
+	nix $(NIX_ARGS) run $(HOME-MANAGER) -- switch --flake .#$(HOME_VARIANT)-$(SYSTEM)
 
 darwin:
 	$(REBUILD) switch --flake .#sonoma
@@ -60,6 +61,9 @@ nixos:
 	@nixos-generate-config --show-hardware-config > ./config/hardware-configuration.nix
 	@git add --intent-to-add ./config/hardware-configuration.nix
 	$(REBUILD) switch --flake .#nixos
+
+home:
+	home-manager switch --flake	.#$(HOME_VARIANT)-$(SYSTEM)
 
 list:
 	$(REBUILD) switch --list-generations
@@ -75,7 +79,4 @@ clean:
 	nix-collect-garbage --delete-older-than 14d
 	sudo nix-collect-garbage --delete-older-than 14d
 
-home:
-	home-manager switch --flake	.#$(SYSTEM)
-
-.PHONY:	all init-darwin	darwin list gen size clean home
+.PHONY:	all init-darwin	darwin list gen size clean home init-nixos nixos test

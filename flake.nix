@@ -43,6 +43,14 @@
         myLib = libFor system;
         myVars = varsFor system;
       };
+
+      # Workaround found at https://github.com/nix-community/home-manager/issues/3075#issuecomment-1593969080.
+      systemAttrs =
+        systems: prefix: f:
+        with lib;
+        listToAttrs (flip builtins.map systems (system: nameValuePair "${prefix}-${system}" (f system)));
+
+      defaultSystemAttrs = systemAttrs flake-utils.lib.defaultSystems;
     in
     {
       darwinConfigurations = {
@@ -67,24 +75,30 @@
           specialArgs = specialArgsFor "x86_64-linux";
         };
       };
+
+    }
+    // {
+      homeConfigurations = defaultSystemAttrs "worker" (
+        system:
+        home-manager.lib.homeManagerConfiguration {
+          pkgs = nixpkgs.legacyPackages.${system};
+          modules = [
+            myModules.home
+            myOverlays
+            ./config/home.nix
+            ./config/home-worker.nix
+          ];
+          extraSpecialArgs = specialArgsFor system;
+        }
+      );
+
     }
     // flake-utils.lib.eachDefaultSystem (
       system:
       let
         pkgs = nixpkgs.legacyPackages.${system};
-        specialArgs = specialArgsFor system;
       in
       {
-        homeConfigurations = home-manager.lib.homeManagerConfiguration {
-          inherit pkgs;
-          modules = [
-            myModules.home
-            myOverlays
-            ./config/home.nix
-          ];
-          extraSpecialArgs = specialArgs;
-        };
-
         devShells.default = pkgs.mkShell {
           packages = with pkgs; [
             nil

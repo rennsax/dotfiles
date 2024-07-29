@@ -1,0 +1,6 @@
+{ ... }:
+{
+  myModules = {
+    emacs.enable = true;
+  };
+}

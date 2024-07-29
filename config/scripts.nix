@@ -17,6 +17,13 @@
         '';
       })
 
+      (writeShellApplication {
+        name = "nhs-m"; # nix home switch (minimal)
+        text = ''
+          cd "${myVars.nixConfigDir}" || ( printf "Error cd to the Nix config directory!" >&2; exit 1)
+          make home HOME_VARIANT=minimal
+        '';
+      })
     ]
     ++ lib.optionals myVars.isDarwin [
 
