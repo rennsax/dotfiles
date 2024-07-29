@@ -46,6 +46,10 @@ in
         enableAliases = true;
       };
       iterm2.enable = true;
+      xdg = {
+        npm.enable = true;
+        go.enable = true;
+      };
     }
     // lib.optionalAttrs myVars.isDarwin {
       hammerspoon.enable = true;
