@@ -32,6 +32,8 @@
     _FXShowPosixPathInTitle = false; # fullpath in the title
   };
 
+  system.defaults.uikit.redesigned_text_cursor = false;
+
   environment.systemPackages = with pkgs; [
     gawk
 
