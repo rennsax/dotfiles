@@ -73,12 +73,6 @@ imeWatcher = hs.application.watcher.new(function(appName, eventType, appObject)
 
   end
 
-  -- TODO: currently I don't know how to persist the IME of an APP.
-  -- That's because the event `deactivate` happens **after** `activate`, which is weird.
-  -- if eventType == hs.application.watcher.deactivated then
-  --   print(appName)
-  --   print(hs.keycodes.currentSourceID())
-  -- end
 end)
 imeWatcher:start()
 

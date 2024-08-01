@@ -57,7 +57,7 @@ __load_plugin() {
             __try_defer source "$ZDOTDIR/.zsh-plugins/$plugin/$plugin.plugin.zsh"
         fi
     else
-        echo "zsh: cannnot load plugin $plugin"
+        echo "zsh: cannot load plugin $plugin"
     fi
 }
 
@@ -421,12 +421,10 @@ plugins=(
 
 # plugins that are installed only when the deps are available
 # [key, value] = [plugin, dep]
-# TODO: multiple deps
 typeset -A __plugin_dep
 __plugin_dep=(
     tmux tmux
     orb orb
-    nnn-quitcd nnn
 )
 
 () {

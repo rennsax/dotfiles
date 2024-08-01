@@ -28,7 +28,6 @@ in
         defer.enable = true;
         extraPlugins = [
           "vterm"
-          "nnn-quitcd"
         ];
         plugins = [
           "zsh-syntax-highlighting"
