@@ -28,8 +28,6 @@ let
 
   zdotDir = "$HOME/" + escapeShellArg cfg.dotDir;
 
-  zshDataDir = "${config.xdg.dataHome}/zsh";
-
 in
 {
   options.myModules.zsh = {
@@ -95,7 +93,7 @@ in
 
         # Regrettably, I cannot disable home-manager from modifying my history settings.
         history = {
-          path = "${zshDataDir}/zsh_history";
+          path = "${config.xdg.stateHome}/zsh/zsh_history";
           size = 1000000;
           save = 1000000;
           extended = true;
