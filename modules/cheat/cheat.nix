@@ -2,7 +2,7 @@
   pkgs,
   lib,
   config,
-  myLib,
+  myVars,
   ...
 }:
 
@@ -28,46 +28,53 @@ with lib;
     '';
   };
 
-  config = mkIf cfg.enable {
-    home.packages = [ cfg.package ];
+  config = mkIf cfg.enable (mkMerge [
+    {
+      home.packages = [ cfg.package ];
 
-    xdg.configFile."cheat/cheatsheets/personal" = {
-      source =
-        if cfg._enableEditableCheatsheets then
-          myLib._mkRelSymLink "modules/cheat/cheatsheets/personal"
-        else
-          ./cheatsheets/personal;
+      xdg.configFile."cheat/conf.yml" =
+        let
+          communityCheatsheets = pkgs.fetchFromGitHub {
+            owner = "cheat";
+            repo = "cheatsheets";
+            rev = "36bdb99";
+            sha256 = "sha256-Afv0rPlYTCsyWvYx8UObKs6Me8IOH5Cv5u4fO38J8ns=";
+          };
 
-      recursive = false;
-    };
+          personalCheatsheets = (
+            if cfg._enableEditableCheatsheets then
+              "${myVars.nixConfigDir}/modules/cheat/cheatsheets/personal"
+            else
+              "${config.xdg.configHome}/cheat/cheatsheets/personal"
+          );
 
-    xdg.configFile."cheat/cheatsheets/community" = {
-      source = pkgs.fetchFromGitHub {
-        owner = "cheat";
-        repo = "cheatsheets";
-        rev = "36bdb99";
-        sha256 = "sha256-Afv0rPlYTCsyWvYx8UObKs6Me8IOH5Cv5u4fO38J8ns=";
+        in
+        {
+          text = ''
+            colorize: false
+            style: monokai
+            formatter: terminal256
+            pager: ${pkgs.bat}/bin/bat -lbash
+            cheatpaths:
+              - name: community
+                path: ${communityCheatsheets}
+                tags: [ community ]
+                readonly: true
+
+              - name: personal
+                path: ${personalCheatsheets}
+                tags: [ personal ]
+                readonly: ${if cfg._enableEditableCheatsheets then "false" else "true"}
+          '';
+        };
+    }
+
+    (mkIf (!cfg._enableEditableCheatsheets) {
+      xdg.configFile."cheat/cheatsheets/personal" = {
+        source = ./cheatsheets/personal;
+        recursive = false;
       };
-      recursive = false;
-    };
+    })
 
-    xdg.configFile."cheat/conf.yml" = {
-      text = ''
-        colorize: false
-        style: monokai
-        formatter: terminal256
-        pager: ${pkgs.bat}/bin/bat -lbash
-        cheatpaths:
-          - name: community
-            path: ${config.xdg.configHome}/cheat/cheatsheets/community
-            tags: [ community ]
-            readonly: true
-
-          - name: personal
-            path: ${config.xdg.configHome}/cheat/cheatsheets/personal
-            tags: [ personal ]
-            readonly: false
-      '';
-    };
-  };
+  ]);
 }
