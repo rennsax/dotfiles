@@ -402,11 +402,31 @@ function take() {
 }
 
 most-often-use() {
+    : ${1:=10}
     fc -l 1 | \
-    awk '{CMD[$2]++;count++;}END { for (a in CMD)print CMD[a] " " CMD[a]/count*100 "% " a;}' | \
-    grep -vE '( \.)|/|\\' | \
-    column -c3 -s " " -t | \
-    sort -nr | nl |  head -n "$1"
+        awk '
+{
+    for (i = 2; i <= NF; i++) {
+        # If the current field is the form of A=B, then skip
+        where = match($i, /(^[a-zA-Z0-9_]+=.*$)|[()]/)
+        if (where == 0) {
+            cmd = $i
+            if (match(cmd, /([#])|(^-)/) != 0)
+                break
+            # Remove the leading backslash.
+            cmd = substr(cmd,match(cmd, /[^\\]*$/))
+            total++
+            count[cmd]++
+            break
+        }
+    }
+}
+END {
+    print "<ALL>", total, "100%"
+    for (cmd in count)
+        printf "%s %d %f%%\n", cmd, count[cmd], count[cmd]/total*100
+}
+' | sort -nr -k2,2 | head -n $(( "$1"+1 )) | column -t | nl -b p'^[^<]'
 }
 
 #################### ZSH plugins ###########################
