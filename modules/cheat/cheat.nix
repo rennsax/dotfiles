@@ -54,7 +54,7 @@ with lib;
             colorize: false
             style: monokai
             formatter: terminal256
-            pager: ${pkgs.bat}/bin/bat -lbash
+            pager: ${pkgs.bat}/bin/bat -lbash -p
             cheatpaths:
               - name: community
                 path: ${communityCheatsheets}
