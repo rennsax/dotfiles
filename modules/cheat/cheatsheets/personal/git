@@ -2,8 +2,6 @@
 tags: [ vcs, git ]
 ---
 
-# working tree{{{
-
 # Record the fact the "untracked" files will be added later.
 # The effect: the file will be annotated as "added", and `git diff` will show its content.
 git add --intent-to-add <file>
@@ -13,7 +11,6 @@ git reset HEAD <file>
 
 # After unstaging the file, to revert the file back to the state it was in before the changes:
 git checkout -- <file>
-# }}}
 
 # To show the changes in the index (staged changed) against the current HEAD
 git diff --cached|--staged

@@ -1,0 +1,22 @@
+# To see the location of the man page:
+man -w bash
+
+# Specify the alternative manpath to use:
+man -M <manpath> bash
+
+# Env "MANPATH": the default search path is added according to where the colon is.
+/path: -> /path:<default_path>
+:/path -> <default_path>:/path
+/path1::/path2 -> /path1:<default_path>:/path2
+
+# To convert a man page to pdf:
+man -t bash | ps2pdf - bash.pdf
+
+# To view the ascii chart:
+man 7 ascii
+
+# To see config:
+cat /private/etc/man.conf
+
+# To check the existence of a keyword in all of man pages:
+man -k <keyword>

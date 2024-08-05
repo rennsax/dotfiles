@@ -1,3 +1,13 @@
+---
+tags: [ binary ]
+---
+# Displays the contents of the file's relocation section.
+readelf --relocs test.o
+
+# Display the section as hexadecimal bytes / printable strings.
+readelf -x .rodata compilation_example.o
+readelf -p .interp a.out
+
 # read the ELF [h]eader
 readelf -h test.o
 

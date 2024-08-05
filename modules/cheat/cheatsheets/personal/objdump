@@ -1,2 +1,17 @@
+---
+tags: [ binary ]
+---
+# At least one of the following switches must be specified:
+-s|--full-contents
+-d|--disassemble
+...
+
+# To show the content of .rodata section
+objdump -sj .rodata a.out
+
+# To display assembler contents of executable sections, with intel syntax.
+# Executable sections typically include .init, .fini, .text, .plt.
+objdump -M intel -d a.out
+
 # disassemble in 16-bit mode (usually for MBR)
 objdump -D -bbinary -mi8086 example.img
