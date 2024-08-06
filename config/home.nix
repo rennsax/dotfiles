@@ -66,6 +66,10 @@ in
   home.username = username;
   home.homeDirectory = if myVars.isDarwin then "/Users/${username}" else "/home/${username}";
 
+  home.extraOutputsToInstall = [
+    "info"
+    "man"
+  ];
   # The home.packages option allows you to install Nix packages into your
   # environment.
   home.packages =
