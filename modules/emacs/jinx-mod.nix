@@ -8,6 +8,7 @@
 let
   moduleName = "jinx-mod";
   moduleFileName = moduleName + ".so";
+  installPrefix = "share/emacs/site-lisp/${moduleName}";
 in
 stdenv.mkDerivation rec {
   pname = moduleName;
@@ -24,11 +25,11 @@ stdenv.mkDerivation rec {
     $CC -I. -O2 -Wall -Wextra -fPIC -shared -o ${moduleFileName} jinx-mod.c $($PKG_CONFIG --cflags --libs enchant-2)
   '';
   installPhase = ''
-    mkdir -p $out/lib
-    cp ${moduleFileName} $out/lib/
+    mkdir -p $out/${installPrefix}
+    cp ${moduleFileName} $out/${installPrefix}/
   '';
 
   postFixup = ''
-    ln -s ${moduleFileName} $out/lib/${moduleName}.dylib
+    ln -s ${moduleFileName} $out/${installPrefix}/${moduleName}.dylib
   '';
 }

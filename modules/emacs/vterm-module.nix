@@ -6,6 +6,9 @@
   ...
 }:
 
+let
+  installPrefix = "share/emacs/site-lisp/vterm-module";
+in
 stdenv.mkDerivation rec {
   pname = "emacs-libvterm-module";
   version = "d9ea29f";
@@ -18,7 +21,7 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ cmake ];
   buildInputs = [ libvterm-neovim ];
   installPhase = ''
-    mkdir -p $out/lib
-    cp ../vterm-module.so $out/lib/
+    mkdir -p $out/${installPrefix}
+    cp ../vterm-module.so $out/${installPrefix}/
   '';
 }

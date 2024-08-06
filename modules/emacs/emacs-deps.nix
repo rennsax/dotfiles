@@ -50,23 +50,18 @@ with lib;
 
     }
 
+    # Dynamic modules
     {
-      xdg.configFile."emacs-modules".source =
+      home.packages =
         with pkgs;
         let
           jinx-mod = callPackage ./jinx-mod.nix { };
-          emacs-libvterm = callPackage ./vterm-module.nix { };
-
-          emacs-modules = buildEnv {
-            name = "emacs-modules";
-            paths = [
-              jinx-mod
-              emacs-libvterm
-            ];
-            pathsToLink = [ "/lib" ];
-          };
+          vterm-module = callPackage ./vterm-module.nix { };
         in
-        emacs-modules;
+        [
+          jinx-mod
+          vterm-module
+        ];
     }
 
     # macOS dependencies.
