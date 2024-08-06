@@ -375,13 +375,17 @@ function mkcd takedir() {
 
 
 function takeurl() {
-  local data thedir
-  data="$(mktemp)"
-  curl -L "$1" > "$data"
-  tar xf "$data"
-  thedir="$(tar tf "$data" | head -n 1)"
-  rm "$data"
-  cd "$thedir"
+    emulate -L zsh
+    local data thedir
+    data="$(mktemp)"
+    curl -L "$1" > "$data"
+    tar xf "$data"
+    thedir="$(tar tf "$data" | head -n 1)"
+    # NOTE: Aliases are expanded when a function definition is read, not when
+    # the function is executed, because a function definition is itself a
+    # compound command.
+    \rm "$data"
+    cd "$thedir"
 }
 
 
