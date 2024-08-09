@@ -52,6 +52,7 @@ with myVars.me;
           user = "rennsax";
         };
         credential.helper = "store";
+        init.defaultBranch = "main";
       };
 
       ignores = [
