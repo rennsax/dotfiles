@@ -3,4 +3,5 @@
   (final: prev: {
     sarasa-term-sc-nerd = prev.callPackage ./sarasa-term-sc-nerd.nix { };
   })
+  (import ./gn-install-emacs-lisp.nix)
 ]
