@@ -57,10 +57,13 @@ with lib;
         let
           jinx-mod = callPackage ./jinx-mod.nix { };
           vterm-module = callPackage ./vterm-module.nix { };
+          emacs-clang-tools = callPackage ./emacs-clang-tools.nix { };
         in
         [
           jinx-mod
           vterm-module
+
+          emacs-clang-tools
         ];
     }
 
