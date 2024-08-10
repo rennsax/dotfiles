@@ -33,6 +33,8 @@
   };
 
   environment.systemPackages = with pkgs; [
+    # On Darwin, nano is the alias of pico.
+    nano
     gawk
 
     gnugrep
