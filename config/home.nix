@@ -117,10 +117,15 @@ in
   home.language = {
     base = "en_US.UTF-8";
   };
-  home.sessionVariables = lib.optionalAttrs myVars.isDarwin {
-    http_proxy = myVars.network.proxy.clash;
-    https_proxy = myVars.network.proxy.clash;
-  };
+  home.sessionVariables =
+    {
+      EDITOR = lib.mkDefault "\${EDITOR:-nano}";
+      PAGER = lib.mkDefault "\${PAGER:-less -iR}";
+    }
+    // lib.optionalAttrs myVars.isDarwin {
+      http_proxy = myVars.network.proxy.clash;
+      https_proxy = myVars.network.proxy.clash;
+    };
 
   # Will pollute `home.sessionVariables`
   xdg.enable = true;

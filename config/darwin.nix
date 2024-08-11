@@ -47,6 +47,13 @@
     openssh
   ];
 
+  environment.variables = {
+    # I hate these two defaults ‐ they override my envs that are set before a shell is spawned.
+    # https://github.com/LnL7/nix-darwin/blob/91010a5613ffd7ee23ee9263213157a1c422b705/modules/environment/default.nix#L184-L185
+    EDITOR = "$EDITOR";
+    PAGER = "$PAGER";
+  };
+
   users.users.${myVars.me.username}.shell = pkgs.zsh;
 
   # GNU Bash is preinstalled on NixOS, so this option is only meaningful for Darwin.

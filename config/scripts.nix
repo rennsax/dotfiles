@@ -45,31 +45,4 @@
       })
     ];
 
-  home.sessionVariables = {
-    EDITOR =
-      let
-        name = "editor-wrapper";
-      in
-      pkgs.writeShellApplication {
-        inherit name;
-        text = ''
-          if command -v nvim >/dev/null 2>&1; then
-              VIM="nvim"
-          elif command -v vim >/dev/null 2>&1; then
-              VIM="vim"
-          else
-              VIM="vi"
-          fi
-          if ! command -v emacsclient >/dev/null 2>&1; then
-              # cannot find Emacs
-              "$VIM" "$@"
-          else
-              # Try Emacs, if not found, use vim.
-              emacsclient -c -q -a "$VIM" "$@"
-          fi
-        '';
-      }
-      + "/bin/${name}";
-  };
-
 }

@@ -76,7 +76,9 @@ setopt noflowcontrol
 setopt hist_verify            # show command with history expansion to user before running it
 alias history='fc -i -l 1'    # -i = timestamp
 
-alias e="$EDITOR"
+function e {
+    eval "$EDITOR" "\"$1\""
+}
 
 #################### Directory #############################
 
@@ -180,12 +182,6 @@ if [[ -n "${terminfo[kcud1]}" ]]; then
   bindkey -M emacs "${terminfo[kcud1]}" down-line-or-beginning-search
   bindkey -M viins "${terminfo[kcud1]}" down-line-or-beginning-search
   bindkey -M vicmd "${terminfo[kcud1]}" down-line-or-beginning-search
-fi
-
-if [[ "$EDITOR" = *vi* ]]; then
-    zstyle ':zle:edit-command-line' editor "$EDITOR" -c 'set ft=zsh'
-else
-    zstyle ':zle:edit-command-line' editor "$EDITOR"
 fi
 
 ################### ZSH Completions #######################
