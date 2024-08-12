@@ -7,55 +7,43 @@ My personal dotfiles. Managed with Nix Flake.
 
 ** Installation
 
-NOTE: home-manager needs to know your username. You can run
-~./script/patch-vars~ to change the username in the configurations to your own
-username.
+Currently my dotfiles are adapted for three kinds of OSes: NixOS, macOS and
+Ubuntu. The configurations are divided into two parts: system-wide and
+user-wide. You can install these two parts individually.
 
-*** Nix
+Before installation, at least make sure you've installed =git=, =curl= and
+=make=. If you are on Ubunut, =./scripts/init-ubuntu= can help you do that.
 
-To use the dotfiles, first install Nix (not necessarily on NixOS). Nix is a
-powerful package manager and build system. I recommend using [[https://github.com/DeterminateSystems/nix-installer][nix-installer from
-DeterminateSystems]].
-
-#+begin_src sh
-curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix | sh -s -- install
-#+end_src
-
-Optionally, if you prefer to install Nix non-interactively:
+Install system-wide configuration:
 
 #+begin_src sh
-curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix | sh -s -- install --no-confirm
-#+end_src
-
-*** NixOS
-
-#+begin_src sh
+# Depending on which OS you are on.
 make init-nixos
-#+end_src
-
-*** macOS
-
-#+begin_src sh
 make init-darwin
+make init-ubuntu
 #+end_src
 
-*** Ubuntu
-
-Nix does not manage the system-width configuration for Ubuntu, so I use a script
-to quickly bootstrap Ubuntu system environment.
+Install user-wide configuration:
 
 #+begin_src sh
-# Check the script content to see some useful options.
-./scripts/init-ubuntu
 make init-home
 #+end_src
 
-Notes:
+Or, if you only want to install Nix as a package manager:
+
+#+begin_src sh
+make install-nix
+#+end_src
+
+which utilizes the [[https://github.com/DeterminateSystems/nix-installer][nix-installer from DeterminateSystems]].
+
+NOTE:
 
 - ~make init-home~ only affects user-level configurations. Therefore, it even
-  does not require "sudo", as long as you have correctly installed Nix.
-- So it won't change the user's default shell which needs to touch the system
-  file ~/etc/passwd~. You may manually set the default with chsh(1).
+  does not require "sudo", as long as you have correctly installed Nix. As a
+  result, it won't change the user's default shell which needs to touch the
+  system file ~/etc/passwd~. You may manually set the default with chsh(1). This
+  fact matters when you want to install my dotfiles on Ubuntu.
 
 ** See Also
 
