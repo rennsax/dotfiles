@@ -22,11 +22,15 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ pkg-config ];
   buildInputs = [ enchant ];
   buildPhase = ''
+    runHook preBuild
     $CC -I. -O2 -Wall -Wextra -fPIC -shared -o ${moduleFileName} jinx-mod.c $($PKG_CONFIG --cflags --libs enchant-2)
+    runHook postBuild
   '';
   installPhase = ''
+    runHook preInstall
     mkdir -p $out/${installPrefix}
     cp ${moduleFileName} $out/${installPrefix}/
+    runHook postInstall
   '';
 
   postFixup = ''

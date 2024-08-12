@@ -5,7 +5,9 @@ stdenvNoCC.mkDerivation {
   dontUnpack = true;
 
   installPhase = ''
+    runHook preInstall
     mkdir -p $out/share/emacs/site-lisp
     cp ${clang.cc}/share/clang/clang-{format,rename,include-fixer}.el $out/share/emacs/site-lisp/
+    runHook postInstall
   '';
 }

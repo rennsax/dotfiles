@@ -7,6 +7,8 @@ stdenvNoCC.mkDerivation rec {
   };
   sourceRoot = ".";
   installPhase = ''
+    runHook preInstall
     install -vDt $out/share/info standards.info
+    runHook postInstall
   '';
 }

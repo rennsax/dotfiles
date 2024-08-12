@@ -27,8 +27,10 @@ in
         hash = "sha256-w8Dyzt/xtGbC3SvNMAAJMUPUt7ElgeTBf5WuPjfgGiI=";
       };
       installPhase = ''
+        runHook preInstall
         mkdir -p $out
         cp init.lua docs.json $out/
+        runHook postInstall
       '';
     };
   };

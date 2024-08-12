@@ -17,8 +17,10 @@ stdenvNoCC.mkDerivation {
     runHook postUnpack
   '';
   installPhase = ''
+    runHook preInstall
     chmod +x macism
     mkdir -p $out/bin
     cp macism $out/bin/
+    runHook postInstall
   '';
 }

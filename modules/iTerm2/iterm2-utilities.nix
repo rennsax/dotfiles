@@ -17,7 +17,9 @@ stdenvNoCC.mkDerivation rec {
   dontFixup = true;
 
   installPhase = ''
+    runHook preInstall
     mkdir -p $out/bin
     cp -r utilities/. $out/bin/
+    runHook postInstall
   '';
 }

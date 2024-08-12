@@ -107,8 +107,10 @@ in
         sourceRoot = ".";
         nativeBuildInputs = [ unzip ];
         installPhase = ''
+          runHook preInstall
           mkdir -p $out/bin
           cp trash $out/bin/
+          runHook postInstall
         '';
       })
     ]

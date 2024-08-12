@@ -8,9 +8,13 @@ stdenvNoCC.mkDerivation rec {
   };
   sourceRoot = ".";
   buildPhase = ''
+    runHook preBuild
     ls *.ttf
+    runHook postBuild
   '';
   installPhase = ''
+    runHook preInstall
     find -name \*.ttf -exec mkdir -p $out/share/fonts/truetype/ScNerd \; -exec mv {} $out/share/fonts/truetype/ScNerd \;
+    runHook postInstall
   '';
 }

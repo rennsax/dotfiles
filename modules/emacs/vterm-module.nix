@@ -21,7 +21,9 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ cmake ];
   buildInputs = [ libvterm-neovim ];
   installPhase = ''
+    runHook preInstall
     mkdir -p $out/${installPrefix}
     cp ../vterm-module.so $out/${installPrefix}/
+    runHook postInstall
   '';
 }
