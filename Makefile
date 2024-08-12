@@ -34,9 +34,6 @@ endif
 SYSTEM := $(arch)-$(kernel)
 
 $(info Current system = "$(SYSTEM)")
-$(info Patch vars...)
-$(shell ./scripts/patch-vars)
-$(info Initialization done.)
 
 test:
 	@echo Rebuild command: $(REBUILD)
@@ -44,17 +41,27 @@ test:
 NIX-DARWIN := github:LnL7/nix-darwin/ec12b88104d6c117871fad55e931addac4626756
 HOME-MANAGER := github:nix-community/home-manager/0a30138c694ab3b048ac300794c2eb599dc40266
 
-init-darwin:
-	nix $(NIX_ARGS) run $(NIX-DARWIN) -- switch --flake .#$(RLS)
-	nix $(NIX_ARGS) run 'flake:nixpkgs#home-manager' -- switch --flake .#$(HOME_VARIANT)-$(SYSTEM)
+init-ubuntu: patch-vars install-nix
+	./scripts/init-ubuntu
 
-init-home:
+init-nixos: patch-vars nixos
+
+init-darwin: patch-vars
+	nix $(NIX_ARGS) run $(NIX-DARWIN) -- switch --flake .#$(RLS)
+
+init-home: patch-vars
 	nix $(NIX_ARGS) run $(HOME-MANAGER) -- switch --flake .#$(HOME_VARIANT)-$(SYSTEM)
+
+patch-vars:
+	@echo "Patch vars..."
+	@./scripts/patch-vars
+	@echo "Initialization done."
 
 darwin:
 	$(REBUILD) switch --flake .#sonoma
 
-init-nixos:	nixos init-home
+install-nix:
+	@command -v nix >/dev/null 2>&1 || curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix | sh -s -- install --no-confirm
 
 nixos:
 	@echo "Generating NixOS hardware configuration..."
@@ -72,11 +79,11 @@ gen:
 	$(REBUILD) switch --switch-generation $(T)
 
 size:
-	@du -sh /nix
+	@sudo du -sh /nix
 
 # Why sudo again? See https://github.com/LnL7/nix-darwin/issues/237#issuecomment-716021555
 clean:
 	nix-collect-garbage --delete-older-than 14d
 	sudo nix-collect-garbage --delete-older-than 14d
 
-.PHONY:	all init-darwin	darwin list gen size clean home init-nixos nixos test
+.PHONY:	all init-darwin	darwin list gen size clean home init-nixos nixos test init-ubuntu patch-vars
