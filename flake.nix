@@ -51,6 +51,27 @@
         listToAttrs (flip builtins.map systems (system: nameValuePair "${prefix}-${system}" (f system)));
 
       defaultSystemAttrs = systemAttrs flake-utils.lib.defaultSystems;
+
+      /**
+        Generate an attribute list for homeConfigurations:
+        { "${name}-x86_64-linux": ..., "${name}-aarch64-darwin": ..., ... }
+      */
+      combinedHome =
+        name: modules:
+        defaultSystemAttrs name (
+          system:
+          home-manager.lib.homeManagerConfiguration {
+            pkgs = nixpkgs.legacyPackages.${system};
+            modules = lib.unique (
+              modules
+              ++ [
+                myModules.home
+                myOverlays
+              ]
+            );
+            extraSpecialArgs = specialArgsFor system;
+          }
+        );
     in
     {
       darwinConfigurations = {
@@ -78,20 +99,12 @@
 
     }
     // {
-      homeConfigurations = defaultSystemAttrs "worker" (
-        system:
-        home-manager.lib.homeManagerConfiguration {
-          pkgs = nixpkgs.legacyPackages.${system};
-          modules = [
-            myModules.home
-            myOverlays
-            ./config/home.nix
-            ./config/home-worker.nix
-          ];
-          extraSpecialArgs = specialArgsFor system;
-        }
-      );
-
+      homeConfigurations =
+        combinedHome "worker" [
+          ./config/home.nix
+          ./config/home-worker.nix
+        ]
+        // combinedHome "minimal" [ ./config/home.nix ];
     }
     // flake-utils.lib.eachDefaultSystem (
       system:
