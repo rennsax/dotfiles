@@ -24,6 +24,7 @@ format = "[$symbol$maybe_int]($style) "
 map_symbol = true
 not_found_symbol = ""
 sigint_symbol = "󰋔"
+symbol = " "
 
 [shlvl]
 disabled = false
