@@ -1,0 +1,5 @@
+# To process the input file and output to stdout.
+m4 FILE
+
+# Define NAME as having VALUE before processing.
+m4 -DNAME=VALUE FILE

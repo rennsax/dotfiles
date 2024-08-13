@@ -1,0 +1,12 @@
+# To search the current directory recursively.
+# Hidden files and git-ignored files are excluded.
+rg PATTERN
+
+# To include/exclude files that match the given glob.
+rg PATTERN -g GLOB
+
+# Only list file names.
+rg -l PATTERN
+
+# Do not ignore files
+rg --no-ignore PATTERN
