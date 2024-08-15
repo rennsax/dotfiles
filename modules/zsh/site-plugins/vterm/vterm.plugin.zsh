@@ -29,7 +29,7 @@ vterm_cmd() {
 
 vterm_prompt_end() {
     # Use `VTERM_HOSTNAME` to override the hostname.
-    vterm_printf "51;A$(whoami)@${VTERM_HOSTNAME:-$(hostname)}:$(pwd)"
+    vterm_printf "51;A${VTERM_OVERRIDE_HOST:-$(whoami)@${VTERM_HOSTNAME:-$(hostname)}}:$(pwd)"
 }
 
 setopt PROMPT_SUBST
