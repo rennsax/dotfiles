@@ -10,9 +10,6 @@ let
 in
 with lib;
 {
-  options.myModules.emacs = {
-    enable = mkEnableOption "emacs";
-  };
   config = mkIf cfg.enable (mkMerge [
     # Generic dependencies.
     {
