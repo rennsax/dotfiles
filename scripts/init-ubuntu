@@ -83,10 +83,11 @@ alter_apt_sources() {
 }
 
 alter_nix_source() {
-    if [ -f "/etc/nix/nix.conf" ]; then
-        sudo sed -i '/substituters/d' /etc/nix/nix.conf
+    nix_conf_file="${NIX_CONF_DIR:-/etc/nix}/nix.conf"
+    if [ -f "$nix_conf_file" ]; then
+        sudo sed -i '/substituters/d' "$nix_conf_file"
         printf "\nsubstituters = https://mirror.sjtu.edu.cn/nix-channels/store https://cache.nixos.org\n" |\
-            sudo tee -a /etc/nix/nix.conf
+            sudo tee -a "$nix_conf_file"
         sudo systemctl restart nix-daemon.service
     else
         error_report "Nix is probably not installed!"
