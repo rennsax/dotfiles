@@ -28,8 +28,9 @@ vterm_cmd() {
 }
 
 vterm_prompt_end() {
-    # Use `VTERM_HOSTNAME` to override the hostname.
-    vterm_printf "51;A${VTERM_OVERRIDE_HOST:-$(whoami)@${VTERM_HOSTNAME:-$(hostname)}}:$(pwd)"
+    # VTERM_FULL_HOST: override the whole user@host string.
+    # VTERM_HOST: override the returned value of hostname(1).
+    vterm_printf "51;A${VTERM_FULL_HOST:-$(whoami)@${VTERM_HOST:-$(hostname)}}:$(pwd)"
 }
 
 setopt PROMPT_SUBST
