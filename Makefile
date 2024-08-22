@@ -1,6 +1,6 @@
 T :=
 NIX_ARGS := --extra-experimental-features 'nix-command flakes'
-HOME_VARIANT := worker
+HOME_VARIANT := minimal
 
 uname_m := $(shell uname -m)
 uname_s := $(shell uname -s)
