@@ -69,7 +69,9 @@
                 myOverlays
               ]
             );
-            extraSpecialArgs = specialArgsFor system;
+            extraSpecialArgs = specialArgsFor system // {
+              homeVariant = name;
+            };
           }
         );
     in
