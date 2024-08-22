@@ -286,8 +286,9 @@ _comp_options+=(globdots)
 
 alias :q="exit"
 
-# pip3 install ... from_tuna
-alias -g from_tuna="-i https://pypi.tuna.tsinghua.edu.cn/simple"
+_PYPI_INDEX_URL="https://pypi.tuna.tsinghua.edu.cn/simple"
+alias pip="pip -i ${_PYPI_INDEX_URL}"
+alias pip3="pip3 -i ${_PYPI_INDEX_URL}"
 
 alias cmake-clean='cmake --build build --target clean'
 
