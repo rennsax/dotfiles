@@ -26,7 +26,7 @@ let
       src = ./site-plugins/${name};
     }) cfg.extraPlugins;
 
-  zdotDir = "$HOME/" + escapeShellArg cfg.dotDir;
+  zdotDir = "$HOME/" + cfg.dotDir;
 
 in
 {
@@ -103,6 +103,10 @@ in
           expireDuplicatesFirst = true;
           share = true;
         };
+
+        initExtra = ''
+          [ -f "${zdotDir}/.zshrc-temp" ] && source "${zdotDir}/.zshrc-temp"
+        '';
       };
       myModules.zsh.plugins = optional cfg.defer.enable "zsh-defer";
     }
