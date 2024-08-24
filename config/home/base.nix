@@ -1,6 +1,8 @@
 # Basic home configurations. Satisfy my daily workflow.
 # Type: slot.
 {
+  lib,
+  config,
   pkgs,
   myVars,
   ...
@@ -22,7 +24,8 @@
         "zsh-completions"
         "tmux"
         "git"
-        "orb"
+        # Provides completions for docker and kubectl.
+        (lib.mkIf config.myModules.orbstack.enable "orb")
       ];
     };
     fzf.enable = true;

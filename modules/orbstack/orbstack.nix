@@ -19,6 +19,7 @@ let
   cfg = config.myModules.orbstack;
 
   # Orbstack only provides completion for zsh.
+  # It provides completion functions for orb/orbctl.
   shellInitFor = shell: ''
     source ~/.orbstack/shell/init.${shell} 2>/dev/null || :
   '';
