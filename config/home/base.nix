@@ -57,26 +57,7 @@
       wget
       jq
     ]
-    ++ lib.optionals myVars.isDarwin [
-      (stdenvNoCC.mkDerivation {
-        pname = "macos-trash";
-        version = "v1.2.0";
-        src = fetchurl {
-          url = "https://github.com/sindresorhus/macos-trash/releases/download/v1.2.0/trash.zip";
-          hash = "sha256-hJc2rFosV+LQfXnf4ssagfpLaShFho/ths2HJ6t1tzw=";
-        };
-        # If not specified, unpackPhase tries to move cwd to the single
-        # directory, which leads to error.
-        sourceRoot = ".";
-        nativeBuildInputs = [ unzip ];
-        installPhase = ''
-          runHook preInstall
-          mkdir -p $out/bin
-          cp trash $out/bin/
-          runHook postInstall
-        '';
-      })
-    ]
+    ++ lib.optionals myVars.isDarwin [ macos-trash ]
     ++ lib.optionals myVars.isLinux [ trash-cli ];
 
   home.extraOutputsToInstall = [
