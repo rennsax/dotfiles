@@ -99,6 +99,16 @@
   # The default system packages: https://github.com/NixOS/nixpkgs/blob/5ad6a14c6bf098e98800b091668718c336effc95/nixos/modules/config/system-path.nix#L10-L42.
   environment.systemPackages = with pkgs; [ vim ];
 
+  programs.nix-ld = {
+    enable = true;
+    libraries = with pkgs; [
+      stdenv.cc.cc
+      curl
+      openssl
+      zlib
+    ];
+  };
+
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   # programs.mtr.enable = true;
