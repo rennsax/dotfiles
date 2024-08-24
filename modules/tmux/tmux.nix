@@ -12,13 +12,13 @@ in
 {
   options.myModules.tmux = {
     enable = mkEnableOption "tmux";
-    package = mkPackageOption pkgs "zsh" { };
+    package = mkPackageOption pkgs "tmux" { };
 
   };
 
   config = mkIf cfg.enable {
     programs.tmux.enable = mkForce false;
-    home.packages = [ pkgs.tmux ];
+    home.packages = [ cfg.package ];
     xdg.configFile = foldl' (a: b: a // b) { } (
       map (filename: { "tmux/${filename}".source = ./config/${filename}; }) (
         builtins.attrNames (builtins.readDir ./config)

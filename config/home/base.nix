@@ -22,8 +22,8 @@
         "zsh-syntax-highlighting"
         "zsh-autosuggestions"
         "zsh-completions"
-        "tmux"
         "git"
+        (lib.mkIf config.myModules.tmux.enable "tmux")
         # Provides completions for docker and kubectl.
         (lib.mkIf config.myModules.orbstack.enable "orb")
       ];
