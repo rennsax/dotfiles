@@ -2,35 +2,20 @@
 # Type: slot.
 {
   pkgs,
+  lib,
   ...
 }:
 {
   myModules = {
     starship.enable = true;
-    git.enable = true;
-    zsh = {
-      enable = true;
-      dotDir = ".config/zsh";
-      defer.enable = true;
-      extraPlugins = [ "vterm" ];
-      plugins = [
-        "zsh-syntax-highlighting"
-        "zsh-autosuggestions"
-        "zsh-completions"
-        "tmux"
-        "git"
-      ];
-    };
     fzf.enable = true;
-    tmux.enable = true;
     z-lua = {
       enable = true;
       enableAliases = true;
     };
-    iterm2.enable = true;
-    xdg = {
-      npm.enable = true;
-      go.enable = true;
+    iterm2 = {
+      enable = true;
+      enableInstall = lib.mkDefault false;
     };
   };
 

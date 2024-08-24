@@ -12,22 +12,6 @@
     starship.enable = true;
     cheat.enable = true;
     cheat._enableEditableCheatsheets = true;
-    git.enable = true;
-    zsh = {
-      enable = true;
-      dotDir = ".config/zsh";
-      defer.enable = true;
-      extraPlugins = [ "vterm" ];
-      plugins = [
-        "zsh-syntax-highlighting"
-        "zsh-autosuggestions"
-        "zsh-completions"
-        "git"
-        (lib.mkIf config.myModules.tmux.enable "tmux")
-        # Provides completions for docker and kubectl.
-        (lib.mkIf config.myModules.orbstack.enable "orb")
-      ];
-    };
     fzf.enable = true;
     tmux.enable = true;
     z-lua = {

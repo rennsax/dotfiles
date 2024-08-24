@@ -3,6 +3,7 @@
 # Type: plugin (but necessary!).
 {
   inputs, # Flake input
+  config,
   pkgs,
   lib,
   myVars,
@@ -13,6 +14,25 @@ let
   username = myVars.me.username;
 in
 {
+  myModules = {
+    git.enable = true;
+    zsh = {
+      enable = true;
+      dotDir = ".config/zsh";
+      defer.enable = true;
+      extraPlugins = [ "vterm" ];
+      plugins = [
+        "zsh-syntax-highlighting"
+        "zsh-autosuggestions"
+        "zsh-completions"
+        "git"
+        (lib.mkIf config.myModules.tmux.enable "tmux")
+        # Provides completions for docker and kubectl.
+        (lib.mkIf config.myModules.orbstack.enable "orb")
+      ];
+    };
+  };
+
   nix.registry = {
     nixpkgs.flake = inputs.nixpkgs;
     flake-utils.flake = inputs.flake-utils;

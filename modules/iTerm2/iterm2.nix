@@ -45,6 +45,9 @@ in
       defaultText = literalExpression "pkgs.iterm2";
       description = "The package to use for the iterm2 cask.";
     };
+    enableInstall = mkEnableOption "whether to install iTerm2" // {
+      default = pkgs.stdenv.isDarwin;
+    };
     enableBashIntegration = mkEnableOption "Bash integration" // {
       default = true;
     };
@@ -63,7 +66,7 @@ in
     {
 
       # Do not install iTerm2 on non-darwin system.
-      home.packages = optional pkgs.stdenv.isDarwin cfg.package;
+      home.packages = mkIf cfg.enableInstall [ cfg.package ];
 
       programs.bash.initExtra = mkIf cfg.enableBashIntegration (shellIntegrationFor "bash");
       programs.zsh.initExtra = mkIf cfg.enableZshIntegration (shellIntegrationFor "zsh");
