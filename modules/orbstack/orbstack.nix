@@ -18,10 +18,11 @@ with lib;
 let
   cfg = config.myModules.orbstack;
 
-  # Orbstack only provides completion for zsh.
-  # It provides completion functions for orb/orbctl.
+  # TODO: bash and fish
+  # Modify PATH and provides completion functions for docker/kubectl.
+  # Must be sourced before compinit.
   shellInitFor = shell: ''
-    source ~/.orbstack/shell/init.${shell} 2>/dev/null || :
+    source ~/.orbstack/shell/init.${shell}
   '';
 in
 {
@@ -30,11 +31,22 @@ in
     enableZshIntegration = mkEnableOption "Zsh integration" // {
       default = true;
     };
+    # NOTE: Orbstack is installed by Homebrew.
   };
 
   config = mkIf cfg.enable {
     # Put this before my personal configuration, so the orb.plugin.zsh can be correctly loaded.
-    programs.zsh.initExtraBeforeCompInit = mkIf cfg.enableZshIntegration (shellInitFor "zsh");
+    programs.zsh = mkIf cfg.enableZshIntegration {
+      initExtraBeforeCompInit = shellInitFor "zsh";
+      # Setup orb/orbctl completion. Must be after compinit.
+      initExtra = ''
+        # From https://raw.githubusercontent.com/orbstack/orbstack/main/orb.plugin.zsh
+        # make sure you execute this *after* asdf or other version managers are loaded
+        eval "$(orbctl completion zsh)"
+        compdef _orb orbctl
+        compdef _orb orb
+      '';
+    };
   };
 
 }

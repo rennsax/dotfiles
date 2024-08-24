@@ -12,52 +12,20 @@
 # - Do not override commands via aliasing unless you want to abandon the previous version.
 #   It prevent the nesting of aliasing, and is not what you expect at most of the time.
 # - Use `#` as the leading character of descriptions, and `##` of commented codes.
-# - Any UI-related scripts should be loaded immediately; other scripts can be deferred with __try_defer.
 #
 
 # See https://www.emacswiki.org/emacs/TrampMode Tramp hangs #3
 [[ "$TERM" == "dumb" ]] && unsetopt zle && PS1="$ " && return
 
-#################### Function Utils ########################
-
-if [[ -s "$ZDOTDIR/.zsh-plugins/zsh-defer/zsh-defer" ]]; then
-    autoload -Uz $ZDOTDIR/.zsh-plugins/zsh-defer/zsh-defer
-    __try_defer() {
-        zsh-defer "$@"
-    }
-else
-    print -u2 "zsh: cannot autoload zsh-defer function, the shell setup may be incomplete"
-    __try_defer() {
-        builtin eval "$@"
-    }
-fi
-
 __load_plugin() {
     emulate -L zsh
 
-    local plugin
-    local defer=1
-
-    while (( $# )); do
-        case $1 in
-            --no-defer)
-                defer=0
-                ;;
-            *)
-                plugin="$1"; break
-                ;;
-        esac
-        shift
-    done
+    local plugin="$1"
 
     if [[ -s "$ZDOTDIR/.zsh-plugins/$plugin/$plugin.plugin.zsh" ]]; then
-        if [[ $defer -eq 0 ]]; then
-            source "$ZDOTDIR/.zsh-plugins/$plugin/$plugin.plugin.zsh"
-        else
-            __try_defer source "$ZDOTDIR/.zsh-plugins/$plugin/$plugin.plugin.zsh"
-        fi
+        source "$ZDOTDIR/.zsh-plugins/$plugin/$plugin.plugin.zsh"
     else
-        echo "zsh: cannot load plugin $plugin"
+        echo "zsh: fail to load plugin $plugin!"
     fi
 }
 
@@ -276,9 +244,6 @@ fi
 # scoll down one line
 bindkey -M listscroll '^n' down-line-or-history
 
-# zsh-users/zsh-completions: additional completions
-__load_plugin --no-defer zsh-completions
-
 # also show hidden files
 _comp_options+=(globdots)
 
@@ -327,7 +292,6 @@ alias rm='echo "This is not the command you are looking for."; false'
 
 # fzf
 # Setup completion, keybindings for fzf.
-# The funtion is defered until completion system is inited.
 # PARAMS: FZF_SCRIPT_BASE
 __fzf_setup() {
     local script_base="$1"
@@ -354,10 +318,9 @@ __fzf_setup() {
     }
 }
 
-# fzf rebind TAB (^I), so it must be inited after `compinit` (defer it).
-# zsh-defer can even defer the task when __fzf_setup isn't defined.
+# TODO: fzf rebind TAB (^I), inited after `compinit`?
 if [[ $options[zle] = on && -n "$FZF_SCRIPT_BASE" ]]; then
-    __try_defer __fzf_setup "$FZF_SCRIPT_BASE"
+    __fzf_setup "$FZF_SCRIPT_BASE"
 fi
 
 #################### Routines ##############################
@@ -432,32 +395,14 @@ END {
 
 #################### ZSH plugins ###########################
 
-# plugins that have no deps
-plugins=(
-    git
-    zsh-syntax-highlighting
-    zsh-autosuggestions
-    vterm                       # vterm.plugin.zsh checks $INSIDE_EMACS
-)
-
-# plugins that are installed only when the deps are available
-# [key, value] = [plugin, dep]
-typeset -A __plugin_dep
-__plugin_dep=(
-    tmux tmux
-    orb orb
-)
-
-() {
-    for plugin ("${(k)__plugin_dep[@]}"); do
-        (( $+commands[${__plugin_dep[$plugin]}] )) && plugins=($plugin $plugins)
-    done
+# See (zsh) Array Parameters, Subscript Flags
+if (( $plugins[(I)tmux] )); then
     ZSH_TMUX_AUTOCONNECT=false # never try to connect to previous session
     ZSH_TMUX_FIXTERM=false
     ZSH_TMUX_CONFIG="$XDG_CONFIG_HOME/tmux/tmux.conf"
+fi
 
-    for plugin ($plugins); do
-        __load_plugin "$plugin"
-    done
-    unset plugin plugins
-}
+for plugin ($plugins); do
+    __load_plugin "$plugin"
+done
+unset plugin plugins
