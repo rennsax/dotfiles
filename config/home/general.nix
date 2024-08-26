@@ -19,7 +19,6 @@ in
     zsh = {
       enable = true;
       dotDir = ".config/zsh";
-      extraPlugins = [ "vterm" ];
       plugins = [
         "zsh-syntax-highlighting"
         "zsh-autosuggestions"
@@ -27,6 +26,7 @@ in
         "git"
       ];
     };
+    emacs-libvterm.enableZshIntegration = true;
   };
 
   nix.registry = {
