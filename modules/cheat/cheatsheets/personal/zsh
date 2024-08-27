@@ -35,6 +35,9 @@ echo ${(s._.)file}
 # get array size
 echo ${#array} # 4
 
+# whether "x" exists in array
+(( $array[(I)x] ))
+
 #################### bindkey ###############################
 
 # When in-string is "typed", out-string will be pushed instead.

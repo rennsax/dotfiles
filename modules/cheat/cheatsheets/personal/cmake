@@ -1,0 +1,2 @@
+# Current directory as source, "build" as build path, Ninja generator.
+cmake -S . -B build -G 'Ninja'

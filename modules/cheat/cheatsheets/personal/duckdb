@@ -1,2 +1,7 @@
 # To increase the row limit (default: 40) for display output
 duckdb -c '.maxrows 100' -c ...
+
+# List all available generators for CMake.
+cmake -E capabilities | duckdb -c "
+select unnest(generators)->>'name' as generators
+from read_json('/dev/stdin')"
