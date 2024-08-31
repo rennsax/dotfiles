@@ -77,7 +77,7 @@ setopt hist_verify            # show command with history expansion to user befo
 alias history='fc -i -l 1'    # -i = timestamp
 
 function e {
-    eval "$EDITOR" "\"$1\""
+    eval "$EDITOR $@"
 }
 
 #################### Directory #############################
