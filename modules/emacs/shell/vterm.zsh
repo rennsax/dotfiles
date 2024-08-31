@@ -33,5 +33,7 @@ vterm_prompt_end() {
     vterm_printf "51;A${VTERM_FULL_HOST:-$(whoami)@${VTERM_HOST:-$(hostname)}}:$(pwd)"
 }
 
-setopt PROMPT_SUBST
-PROMPT=$PROMPT'%{$(vterm_prompt_end)%}'
+if [[ $options[zle] = on ]]; then
+    setopt PROMPT_SUBST
+    PROMPT=$PROMPT'%{$(vterm_prompt_end)%}'
+fi

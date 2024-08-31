@@ -103,10 +103,20 @@
     // {
       homeConfigurations =
         combinedHome "worker" [
-          ./config/home.nix
-          ./config/home-worker.nix
+          ./config/home/general.nix
+          ./config/home/base.nix
+          ./config/home/nix-scripts.nix
+          ./config/home/develop.nix
         ]
-        // combinedHome "minimal" [ ./config/home.nix ];
+        // combinedHome "minimal" [
+          ./config/home/general.nix
+          ./config/home/mini.nix
+        ]
+        // combinedHome "typical" [
+          ./config/home/general.nix
+          ./config/home/base.nix
+          ./config/home/nix-scripts.nix
+        ];
     }
     // flake-utils.lib.eachDefaultSystem (
       system:

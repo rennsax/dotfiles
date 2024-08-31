@@ -46,6 +46,7 @@ in
       type = types.listOf types.str;
       description = "Extra Zsh plugins, most of which are created by myself. See modules/zsh/site-plugins.";
     };
+    # TODO: deprecate?
     defer = {
       enable = mkEnableOption "zsh-defer";
     };
@@ -106,6 +107,10 @@ in
 
         initExtra = ''
           [ -f "${zdotDir}/.zshrc-temp" ] && source "${zdotDir}/.zshrc-temp"
+        '';
+
+        initExtraFirst = ''
+          plugins=(${concatStringsSep " " cfg.plugins})
         '';
       };
       myModules.zsh.plugins = optional cfg.defer.enable "zsh-defer";

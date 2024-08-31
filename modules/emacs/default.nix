@@ -9,7 +9,10 @@ let
 in
 with lib;
 {
-  imports = [ ./emacs-deps.nix ];
+  imports = [
+    ./emacs-deps.nix
+    ./emacs-libvterm.nix
+  ];
 
   options.myModules.emacs = {
     enable = mkEnableOption "emacs";
