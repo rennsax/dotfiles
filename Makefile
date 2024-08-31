@@ -38,8 +38,8 @@ $(info Current system = "$(SYSTEM)")
 test:
 	@echo Rebuild command: $(REBUILD)
 
-NIX-DARWIN := github:LnL7/nix-darwin/ec12b88104d6c117871fad55e931addac4626756
-HOME-MANAGER := github:nix-community/home-manager/0a30138c694ab3b048ac300794c2eb599dc40266
+NIX-DARWIN := github:LnL7/nix-darwin/c8d3157d1f768e382de5526bb38e74d2245cad04
+HOME-MANAGER := github:nix-community/home-manager/c2cd2a52e02f1dfa1c88f95abeb89298d46023be
 
 init-ubuntu: patch-vars install-nix
 	./scripts/init-ubuntu
