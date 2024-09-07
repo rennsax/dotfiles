@@ -57,11 +57,11 @@ patch-vars:
 	@./scripts/patch-vars
 	@echo "Initialization done."
 
-darwin:
-	$(REBUILD) switch --flake .#sonoma
-
 install-nix:
 	@command -v nix >/dev/null 2>&1 || curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix | sh -s -- install --no-confirm
+
+darwin:
+	$(REBUILD) switch --flake .#sonoma
 
 nixos:
 	@echo "Generating NixOS hardware configuration..."
@@ -70,7 +70,7 @@ nixos:
 	$(REBUILD) switch --flake .#nixos
 
 home:
-	home-manager switch --flake	.#$(HOME_VARIANT)-$(SYSTEM)
+	home-manager switch --flake .#$(HOME_VARIANT)-$(SYSTEM)
 
 list:
 	$(REBUILD) switch --list-generations
@@ -81,9 +81,7 @@ gen:
 size:
 	@sudo du -sh /nix
 
-# Why sudo again? See https://github.com/LnL7/nix-darwin/issues/237#issuecomment-716021555
 clean:
-	nix-collect-garbage --delete-older-than 14d
 	sudo nix-collect-garbage --delete-older-than 14d
 
-.PHONY:	all init-darwin	darwin list gen size clean home init-nixos nixos test init-ubuntu patch-vars
+.PHONY: all test init-ubuntu init-nixos init-darwin init-home patch-vars install-nix nixos darwin nixos home list gen size clean
