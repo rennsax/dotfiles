@@ -7,37 +7,33 @@
 }:
 let
   cfg = config.myModules.emacs;
+  myEmacs = pkgs.emacs29.override {
+    # Already default to true.
+    # withNativeCompile = true;
+    # withImageMagick = true;
+  };
 in
 with lib;
 {
   config = mkIf cfg.enable (mkMerge [
     # Generic dependencies.
     {
-      home.packages =
-        with pkgs;
-        let
-          myEmacs = emacs29.override {
-            # Already default to true.
-            # withNativeCompile = true;
-            # withImageMagick = true;
-          };
-        in
-        [
-          ripgrep
-          fd
+      home.packages = with pkgs; [
+        ripgrep
+        fd
 
-          emacs-lsp-booster
+        emacs-lsp-booster
 
-          math-preview
-          ghostscript
-          pandoc
+        math-preview
+        ghostscript
+        pandoc
 
-          imagemagick
+        imagemagick
 
-          aspellDicts.en
+        aspellDicts.en
 
-          myEmacs
-        ];
+        myEmacs
+      ];
 
       # So that enchant-2 and aspell can find installed dictionaries.
       # REVIEW: why this patch does not take effects? https://github.com/NixOS/nixpkgs/blob/ad0b5eed1b6031efaed382844806550c3dcb4206/pkgs/development/libraries/aspell/default.nix#L30
@@ -71,12 +67,14 @@ with lib;
         let
           macism = callPackage ./macism.nix { };
           soffice-cli = callPackage ./soffice-cli.nix { };
+          org-protocol-client = callPackage ./osx-org-protocol-client.nix { emacs = myEmacs; };
         in
         [
           pngpaste
           libreoffice-bin
           soffice-cli
           macism
+          org-protocol-client
         ];
     })
 
