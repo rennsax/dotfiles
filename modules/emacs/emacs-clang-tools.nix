@@ -1,13 +1,10 @@
-{ clang, stdenvNoCC, ... }:
-stdenvNoCC.mkDerivation {
-  pname = "emacs-clang-tools";
-  version = clang.cc.version;
-  dontUnpack = true;
-
-  installPhase = ''
-    runHook preInstall
-    mkdir -p $out/share/emacs/site-lisp
-    cp ${clang.cc}/share/clang/clang-{format,rename,include-fixer}.el $out/share/emacs/site-lisp/
-    runHook postInstall
-  '';
-}
+{
+  lib,
+  clang-unwrapped,
+  runCommandLocal,
+  ...
+}:
+runCommandLocal "emacs-clang-tools-${lib.getVersion clang-unwrapped}" { } ''
+  mkdir -p $out/share/emacs/site-lisp
+  cp ${clang-unwrapped}/share/clang/clang-{format,rename,include-fixer}.el $out/share/emacs/site-lisp/
+''
