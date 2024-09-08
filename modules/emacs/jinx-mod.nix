@@ -1,4 +1,5 @@
 {
+  lib,
   stdenv,
   pkg-config,
   enchant,
@@ -33,7 +34,7 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-  postFixup = ''
+  postFixup = lib.optionalString stdenv.isDarwin ''
     ln -s ${moduleFileName} $out/${installPrefix}/${moduleName}.dylib
   '';
 }
