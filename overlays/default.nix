@@ -5,5 +5,4 @@
     gnu-coding-standards = prev.callPackage ./gnu-coding-standards.nix { };
     macos-trash = prev.callPackage ./macos-trash.nix { };
   })
-  (import ./gn-install-emacs-lisp.nix)
 ]
