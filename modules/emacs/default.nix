@@ -9,7 +9,7 @@ let
   # Use a editor wrapper script, instead of simple "emacs -Q -nw", so some
   # programs like crontab(1) can find the file.
   editorWrapper = pkgs.writeShellScript "editor-wrapper" ''
-    emacs -Q -nw "$@"
+    emacs -nw "$@"
   '';
 in
 with lib;
@@ -24,9 +24,10 @@ with lib;
   };
 
   config = mkIf cfg.enable {
-    home.sessionVariables = {
-      # TODO: enable Emacs to startup at "simple" mode.
+    home.sessionVariables = rec {
       EDITOR = "\${EDITOR:-${editorWrapper}}";
+      # See "(web2c) Editor invocation".
+      TEXEDIT = "${EDITOR} +%d %s";
     };
   };
 
