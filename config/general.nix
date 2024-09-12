@@ -44,6 +44,7 @@
       fonts = [
         "Monaspace"
         "FiraCode"
+        "CascadiaCode"
       ];
     })
     lxgw-wenkai
