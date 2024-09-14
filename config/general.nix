@@ -51,6 +51,7 @@
     source-han-serif
     source-han-sans
     sarasa-term-sc-nerd # overlay
+    vistafonts-chs # Microsoft Yahei
   ];
 
   programs.zsh = {
