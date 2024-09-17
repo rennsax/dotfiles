@@ -12,6 +12,7 @@ in
 {
   myModules =
     {
+      git.signingConfig = true;
       emacs.enable = true;
     }
     // lib.optionalAttrs myVars.isDarwin {

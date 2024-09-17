@@ -11,8 +11,9 @@ let
 in
 with myVars.me;
 {
-  options = {
-    myModules.git.enable = lib.mkEnableOption "git";
+  options.myModules.git = {
+    enable = lib.mkEnableOption "git";
+    signingConfig = lib.mkEnableOption "default signing configurations";
   };
 
   config = lib.mkIf cfg.enable {
@@ -34,6 +35,14 @@ with myVars.me;
         lsa = "ls --all";
         mff = "!mff() { git merge --ff-only \"$1\" && git reset --hard HEAD@{1} && git merge --no-ff \"$1\"; }; mff";
         dft = "difftool";
+      };
+
+      signing = lib.mkIf cfg.signingConfig {
+        gpgPath = "${pkgs.writeShellScript "gpg-loopback-wrapper" ''
+          ${pkgs.gnupg}/bin/gpg --pinentry-mode loopback "$@"
+        ''}";
+        # Must be explicitly defined.
+        key = null;
       };
 
       lfs = {
