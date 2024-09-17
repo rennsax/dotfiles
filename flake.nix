@@ -32,11 +32,8 @@
           inherit lib;
         };
 
+      overlays = import ./overlays { };
       myModules = import ./modules { };
-
-      myOverlays = {
-        nixpkgs.overlays = import ./overlays { };
-      };
 
       specialArgsFor = system: {
         inherit inputs;
@@ -66,7 +63,11 @@
               modules
               ++ [
                 myModules.home
-                myOverlays
+                {
+                  nixpkgs = {
+                    inherit overlays;
+                  };
+                }
               ]
             );
             extraSpecialArgs = specialArgsFor system // {
@@ -81,7 +82,11 @@
           system = "aarch64-darwin";
           modules = [
             myModules.darwin
-            myOverlays
+            {
+              nixpkgs = {
+                inherit overlays;
+              };
+            }
             ./config/darwin.nix
           ];
           specialArgs = specialArgsFor "aarch64-darwin";
@@ -92,7 +97,11 @@
         "nixos" = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
           modules = [
-            myOverlays
+            {
+              nixpkgs = {
+                inherit overlays;
+              };
+            }
             ./config/nixos.nix
           ];
           specialArgs = specialArgsFor "x86_64-linux";
@@ -121,7 +130,9 @@
     // flake-utils.lib.eachDefaultSystem (
       system:
       let
-        pkgs = nixpkgs.legacyPackages.${system};
+        pkgs = import nixpkgs {
+          inherit system overlays;
+        };
       in
       {
         devShells.default = pkgs.mkShell {
