@@ -59,6 +59,11 @@
   # GNU Bash is preinstalled on NixOS, so this option is only meaningful for Darwin.
   programs.bash.enable = true;
 
+  programs.gnupg.agent = {
+    enable = true;
+    enableSSHSupport = true;
+  };
+
   # Used for backwards compatibility, please read the changelog before changing.
   # $ darwin-rebuild changelog
   system.stateVersion = 4;
