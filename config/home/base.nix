@@ -38,6 +38,7 @@
       fd
       htop
       ripgrep
+      rsync
       tree
       rlwrap # Readline wrapper
       p7zip
