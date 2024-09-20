@@ -1,0 +1,3 @@
+# To process the tex file named TEXNAME.tex
+tex TEXNAME.tex
+tex TEXNAME
