@@ -23,7 +23,6 @@ in
         "zsh-syntax-highlighting"
         "zsh-autosuggestions"
         "zsh-completions"
-        "git"
       ];
     };
     emacs-libvterm.enableZshIntegration = true;
