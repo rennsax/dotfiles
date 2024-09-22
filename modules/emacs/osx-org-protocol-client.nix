@@ -8,6 +8,7 @@
 let
   appName = "OrgProtocolClient.app";
   plistName = "${appName}/Contents/Info.plist";
+  # REVIEW: PlistBuddy is available in xcbuild, but it seems to be broken.
   plistBuddyCmd = cmd: "/usr/libexec/PlistBuddy -c ${lib.escapeShellArg cmd} ${plistName}";
 in
 stdenvNoCC.mkDerivation rec {

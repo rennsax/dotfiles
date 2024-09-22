@@ -17,6 +17,7 @@ in
     }
     // lib.optionalAttrs myVars.isDarwin {
       hammerspoon.enable = true;
+      # NOTE: install Orbstack manually with DMG image.
       orbstack.enable = true;
     };
 
