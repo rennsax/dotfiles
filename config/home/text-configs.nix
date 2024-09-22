@@ -1,4 +1,4 @@
-# Extra piecemeal dotfiles.
+# Extra piecemeal plain-text configuration files.
 # Type: plugin.
 { ... }:
 {
