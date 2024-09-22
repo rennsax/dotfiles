@@ -20,11 +20,15 @@ in
       orbstack.enable = true;
     };
 
+  programs.gh = {
+    enable = true;
+    gitCredentialHelper.enable = true;
+  };
+
   programs.kitty.enable = isLinux;
 
   home.packages = with pkgs; [
     # Programming
-    gh
     shellcheck
     nixfmt-rfc-style
 
