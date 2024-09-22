@@ -74,12 +74,33 @@
         "type": "github"
       }
     },
+    "nur-rennsax": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1726909044,
+        "narHash": "sha256-+y1+pMtsyI4yWSR62DUD39trhwYAe2eYJTPK+GmVJKQ=",
+        "ref": "refs/heads/master",
+        "rev": "b59686e152cdfc024bce42d29f14ad723f4ad0f5",
+        "revCount": 8,
+        "type": "git",
+        "url": "ssh://git@github.com/rennsax/nur-packages"
+      },
+      "original": {
+        "type": "git",
+        "url": "ssh://git@github.com/rennsax/nur-packages"
+      }
+    },
     "root": {
       "inputs": {
         "flake-utils": "flake-utils",
         "home-manager": "home-manager",
         "nix-darwin": "nix-darwin",
-        "nixpkgs": "nixpkgs"
+        "nixpkgs": "nixpkgs",
+        "nur-rennsax": "nur-rennsax"
       }
     },
     "systems": {

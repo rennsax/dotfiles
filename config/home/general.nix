@@ -32,6 +32,7 @@ in
     nixpkgs.flake = inputs.nixpkgs;
     flake-utils.flake = inputs.flake-utils;
     home-manager.flake = inputs.home-manager;
+    nur-rennsax.flake = inputs.nur-rennsax;
   };
 
   # Home Manager needs a bit of information about you and the paths it should

@@ -9,6 +9,11 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
     flake-utils.url = "github:numtide/flake-utils";
+
+    nur-rennsax = {
+      url = "git+ssh://git@github.com/rennsax/nur-packages";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -18,6 +23,7 @@
       nix-darwin,
       home-manager,
       flake-utils,
+      nur-rennsax,
       ...
     }:
     let
@@ -39,6 +45,7 @@
         inherit inputs;
         myLib = libFor system;
         myVars = varsFor system;
+        nur-rennsax-pkgs = nur-rennsax.packages.${system};
       };
 
       # Workaround found at https://github.com/nix-community/home-manager/issues/3075#issuecomment-1593969080.
