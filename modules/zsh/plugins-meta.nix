@@ -1,4 +1,4 @@
-{ myLib, pkgs }:
+{ pkgs }:
 with pkgs;
 {
   "zsh-syntax-highlighting" = {
@@ -32,62 +32,6 @@ with pkgs;
       repo = "z.lua";
       rev = "7c890c3645081014eab4be2ab45e8640f86f62d7";
       sha256 = "sha256-XhkwS6qQJUwS5yHh3KDnpkWK6uekpM2fysx1rsiLtAc=";
-    };
-  };
-  "tmux" = {
-    src = myLib.mkCombinedDir {
-      name = "ohmyzsh-tmux";
-      files = [
-        {
-          name = "tmux.plugin.zsh";
-          src = pkgs.fetchurl {
-            url = "https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/plugins/tmux/tmux.plugin.zsh";
-            sha256 = "sha256-Y3Mp0rS9LkYCfaigD67Tuu2T6VcRcrajBGoKG5ihfo8=";
-          };
-        }
-      ];
-    };
-  };
-  "git" = {
-    src = myLib.mkCombinedDir {
-      name = "ohmyzsh-git";
-      files = [
-        {
-          name = "git.plugin.zsh";
-          src = pkgs.fetchurl {
-            url = "https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/lib/git.zsh";
-            sha256 = "sha256-K+XfERH3+4yCZ43M8gBnid22jVyoItNwStukn5y5aYk=";
-          };
-        }
-      ];
-    };
-  };
-  "orb" = {
-    src = myLib.mkCombinedDir {
-      name = "orb-zsh";
-      files = [
-        {
-          name = "orb.plugin.zsh";
-          src = pkgs.fetchurl {
-            url = "https://raw.githubusercontent.com/orbstack/orbstack/main/orb.plugin.zsh";
-            sha256 = "sha256-NuAIlCVOfzpaURbTvdbrRdAzaNpL2RDkrhZ8bkrrR44=";
-          };
-        }
-      ];
-    };
-  };
-  "cheat" = {
-    src = myLib.mkCombinedDir {
-      name = "zsh-cheat-completion";
-      files = [
-        {
-          name = "cheat.plugin.zsh";
-          src = pkgs.fetchurl {
-            url = "https://raw.githubusercontent.com/cheat/cheat/master/scripts/cheat.zsh";
-            sha256 = "sha256-eCEHQoL925PSH4pUTAWOqMuwy2jO6e8QSdaTqnbkOBE=";
-          };
-        }
-      ];
     };
   };
   "zsh-defer" = {

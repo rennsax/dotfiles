@@ -13,7 +13,7 @@ let
 
   pluginsDir = cfg.dotDir + "/.zsh-plugins";
 
-  pluginsMeta = import ./plugins-meta.nix { inherit myLib pkgs; };
+  pluginsMeta = import ./plugins-meta.nix { inherit pkgs; };
 
   installedPlugins =
     map (
@@ -45,10 +45,6 @@ in
       default = [ ];
       type = types.listOf types.str;
       description = "Extra Zsh plugins, most of which are created by myself. See modules/zsh/site-plugins.";
-    };
-    # TODO: deprecate?
-    defer = {
-      enable = mkEnableOption "zsh-defer";
     };
   };
 
@@ -113,7 +109,6 @@ in
           plugins=(${concatStringsSep " " cfg.plugins})
         '';
       };
-      myModules.zsh.plugins = optional cfg.defer.enable "zsh-defer";
     }
 
     (mkIf config.programs.z-lua.enable {
