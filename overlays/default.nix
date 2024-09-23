@@ -14,5 +14,15 @@
         sha256 = "1qwm30b8aq9piyqv07hv8b5bac9ms40rsdf8pwix5dyk8020i8xi";
       };
     });
+    # REVIEW: remove this until new version (>0.46.1) is released.
+    rlwrap = prev.rlwrap.overrideAttrs (old: {
+      version = "66052c1";
+      src = prev.fetchFromGitHub {
+        owner = "hanslub42";
+        repo = "rlwrap";
+        rev = "66052c118ad0aee7db483689487901bc9f536fbc";
+        sha256 = "sha256-wUjREVa8Mxe3PVZDAjO25upXfPlGE+UaLPI6a8DqazY=";
+      };
+    });
   })
 ]
