@@ -18,7 +18,6 @@ with lib;
 let
   cfg = config.myModules.orbstack;
 
-  # TODO: bash and fish
   # Modify PATH and provides completion functions for docker/kubectl.
   # Must be sourced before compinit.
   shellInitFor = shell: ''
