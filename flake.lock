@@ -81,17 +81,17 @@
         ]
       },
       "locked": {
-        "lastModified": 1726909044,
-        "narHash": "sha256-+y1+pMtsyI4yWSR62DUD39trhwYAe2eYJTPK+GmVJKQ=",
-        "ref": "refs/heads/master",
-        "rev": "b59686e152cdfc024bce42d29f14ad723f4ad0f5",
-        "revCount": 8,
-        "type": "git",
-        "url": "ssh://git@github.com/rennsax/nur-packages"
+        "lastModified": 1727537842,
+        "narHash": "sha256-KxStUlYCwvE4qTK7Wec5ZPQnwkIe09vPLXuvQJAbZd8=",
+        "owner": "rennsax",
+        "repo": "nur-packages",
+        "rev": "aa1885d28a6392c6acd18854a98fe58569e2cf3e",
+        "type": "github"
       },
       "original": {
-        "type": "git",
-        "url": "ssh://git@github.com/rennsax/nur-packages"
+        "owner": "rennsax",
+        "repo": "nur-packages",
+        "type": "github"
       }
     },
     "root": {
