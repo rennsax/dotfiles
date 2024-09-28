@@ -11,7 +11,7 @@
     flake-utils.url = "github:numtide/flake-utils";
 
     nur-rennsax = {
-      url = "git+ssh://git@github.com/rennsax/nur-packages";
+      url = "github:rennsax/nur-packages";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
