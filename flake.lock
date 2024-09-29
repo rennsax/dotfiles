@@ -81,11 +81,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1727537842,
-        "narHash": "sha256-KxStUlYCwvE4qTK7Wec5ZPQnwkIe09vPLXuvQJAbZd8=",
+        "lastModified": 1727588515,
+        "narHash": "sha256-5ON7WGPLODJZS8jLUV1bJlBTh6L+MiviHAz75Z9jHHM=",
         "owner": "rennsax",
         "repo": "nur-packages",
-        "rev": "aa1885d28a6392c6acd18854a98fe58569e2cf3e",
+        "rev": "ad9a6ef65f83e1c88c8ea10fcfb06c556e92c71e",
         "type": "github"
       },
       "original": {
