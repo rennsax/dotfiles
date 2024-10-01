@@ -64,6 +64,9 @@
     enableSSHSupport = true;
   };
 
+  # REVIEW: remove this after upgrading to macOS 15 Sequoia.
+  ids.uids.nixbld = 300;
+
   # Used for backwards compatibility, please read the changelog before changing.
   # $ darwin-rebuild changelog
   system.stateVersion = 4;
