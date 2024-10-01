@@ -14,34 +14,6 @@ let
     # withImageMagick = true;
   };
 
-  # Extract one file from src of DRV. FROM is a relative path for the file to extract.
-  # TO is a directory prefix to which the file should be copied to.
-  extractFileFromSrc =
-    {
-      drv,
-      from,
-      to,
-    }:
-    let
-      getBase = p: last (path.subpath.components p);
-      filename = getBase from;
-    in
-    pkgs.stdenvNoCC.mkDerivation {
-      pname = filename;
-      version = getVersion drv;
-      inherit (drv) src;
-      phases = "unpackPhase installPhase";
-      installPhase = ''
-        install -vDt $out/${to} ${from}
-      '';
-    };
-
-  mkSiteLisp =
-    drv: from:
-    (extractFileFromSrc {
-      inherit drv from;
-      to = "share/emacs/site-lisp";
-    });
 in
 {
   config = mkIf cfg.enable (mkMerge [
@@ -60,6 +32,13 @@ in
         imagemagick
 
         aspellDicts.en
+
+        nodePackages.prettier
+
+        universal-ctags
+
+        # Nix LSP
+        nil
 
         myEmacs
       ];
@@ -89,9 +68,8 @@ in
     # Lisp files extract from sources.
     {
       home.packages = with pkgs; [
-        (mkSiteLisp cmake "Auxiliary/cmake-mode.el")
-        (mkSiteLisp gn "misc/emacs/gn-mode.el")
-        (callPackage ./emacs-clang-tools.nix llvmPackages)
+        emacsPackages.gn-mode-from-sources
+        emacsPackages.cmake-mode
       ];
     }
 
@@ -101,26 +79,24 @@ in
         with pkgs;
         let
           macism = callPackage ./macism.nix { };
-          soffice-cli = callPackage ./soffice-cli.nix { };
-          org-protocol-client = callPackage ./osx-org-protocol-client.nix { emacs = myEmacs; };
+          soffice-cli = writeShellApplication {
+            name = "soffice-cli";
+            text = ''
+              ${libreoffice-bin}/Applications/LibreOffice.app/Contents/MacOS/soffice "$@"
+            '';
+          };
         in
         [
           pngpaste
-          libreoffice-bin
           soffice-cli
           macism
-          org-protocol-client
         ];
     })
 
     {
-      programs.zsh.shellAliases =
-        {
-          emacs-kill-server = "emacsclient -e '(save-buffers-kill-emacs)'";
-        }
-        // optionalAttrs (config.myModules.tmux.enable || config.programs.tmux.enable) {
-          emacs-client = "tmux new-session -s \"emacs-client\" -d emacsclient -c -a emacs";
-        };
+      programs.zsh.shellAliases = {
+        emacs-kill-server = "emacsclient -e '(save-buffers-kill-emacs)'";
+      };
 
       home.sessionPath = mkAfter [ "${config.xdg.configHome}/emacs/bin" ];
     }
