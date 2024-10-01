@@ -123,6 +123,7 @@
           ./config/home/base.nix
           ./config/home/nix-scripts.nix
           ./config/home/develop.nix
+          ./config/home/text-configs.nix
         ]
         // combinedHome "minimal" [
           ./config/home/general.nix
