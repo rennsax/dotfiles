@@ -40,10 +40,7 @@ in
   # https://github.com/GPGTools/pinentry/blob/b7195e9d4c098ea315e18ade3b4dab210492fadf/macosx/PinentryMac.m#L75
   home.activation.darwinSetup = lib.mkIf isDarwin (
     lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-      __PATH_BEFORE="$PATH"
-      export PATH="/usr/bin:/bin"
-      defaults write org.gpgtools.pinentry-mac DisableKeychain -bool yes
-      export PATH="$__PATH_BEFORE"
+      run /usr/bin/defaults write org.gpgtools.pinentry-mac DisableKeychain -bool yes
     ''
   );
 
