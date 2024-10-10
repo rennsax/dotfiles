@@ -37,6 +37,13 @@ in
     shellcheck
     nixfmt-rfc-style
 
+    (python3.withPackages (
+      ps: with ps; [
+        pip
+        ipython
+      ]
+    ))
+
     gnupg
   ];
 
