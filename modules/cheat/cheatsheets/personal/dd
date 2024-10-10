@@ -6,6 +6,9 @@ tags: [ fs ]
 # Note: At the second iteration, we read 512 Bytes.
 dd if=/dev/urandom of=/tmp/test.txt count=2 bs=512
 
+# Example: Write random ASCII characters into a file.
+dd if=/dev/urandom bs=1M count=100 | tr -dc '\x20-\x7E' > random.txt
+
 # Watch the progress of 'dd'
 dd if=/dev/zero of=/dev/null bs=4KB &; export dd_pid=`pgrep '^dd'`; while [[ -d /proc/$dd_pid ]]; do kill -USR1 $dd_pid && sleep 1 && clear; done
 

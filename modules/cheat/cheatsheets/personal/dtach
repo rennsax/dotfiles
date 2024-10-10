@@ -1,0 +1,5 @@
+# Protect the process from being killed when the connection is closed.
+dtach -A FILE CMD
+
+# Attach the session.
+dtach -a FILE
