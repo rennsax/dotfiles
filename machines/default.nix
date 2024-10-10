@@ -24,7 +24,12 @@ let
   varsFor = system: import ../vars { inherit system; };
 
   callMachine = nixpkgs.lib.callPackageWith {
-    inherit nixpkgs nix-darwin home-manager nur-rennsax;
+    inherit
+      nixpkgs
+      nix-darwin
+      home-manager
+      nur-rennsax
+      ;
     inherit nixpkgsOverlaysModule nixFlakeRegistryModule;
     darwinModule = myModules.darwin;
     homeManagerModule = myModules.home;

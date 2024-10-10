@@ -29,6 +29,7 @@ in
   user501 = home-manager.lib.homeManagerConfiguration {
     pkgs = nixpkgs.legacyPackages.${system};
     modules = [
+      nixpkgsOverlaysModule
       homeManagerModule
 
       ./home-501.nix
