@@ -14,6 +14,10 @@ in
     {
       git.signingConfig = true;
       emacs.enable = true;
+      darwinSetup.scripts = ''
+        # https://github.com/GPGTools/pinentry/blob/b7195e9d4c098ea315e18ade3b4dab210492fadf/macosx/PinentryMac.m#L75
+        run /usr/bin/defaults write org.gpgtools.pinentry-mac DisableKeychain -bool yes
+      '';
     }
     // lib.optionalAttrs myVars.isDarwin {
       hammerspoon.enable = true;
@@ -36,13 +40,6 @@ in
     gnupg
   ];
 
-  # TODO: generalize, make a new option for home.activation
-  # https://github.com/GPGTools/pinentry/blob/b7195e9d4c098ea315e18ade3b4dab210492fadf/macosx/PinentryMac.m#L75
-  home.activation.darwinSetup = lib.mkIf isDarwin (
-    lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-      run /usr/bin/defaults write org.gpgtools.pinentry-mac DisableKeychain -bool yes
-    ''
-  );
 
   home.sessionVariables = {
     http_proxy = myVars.network.proxy.clash;

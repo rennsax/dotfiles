@@ -2,6 +2,8 @@
 {
   home = {
     imports = [
+      ./hm-darwin-setup.nix
+
       ./git.nix
       ./fzf.nix
 
