@@ -2,7 +2,6 @@
   pkgs,
   lib,
   config,
-  myVars,
   ...
 }:
 
@@ -22,10 +21,14 @@ with lib;
     enableZshIntegration = mkEnableOption "Zsh integration" // {
       default = true;
     };
-    _enableEditableCheatsheets = mkEnableOption ''
-      Whether the user cheatsheets is editable.
-      Caveat: enable this option imports impurity!
-    '';
+    _personalCheatsheetsPath = mkOption {
+      type = types.str;
+      default = "";
+      description = ''
+        The absolute path of the personal cheatsheets.
+        Caveat: enable this option imports impurity!
+      '';
+    };
   };
 
   config = mkIf cfg.enable (mkMerge [
@@ -41,13 +44,6 @@ with lib;
             sha256 = "sha256-Afv0rPlYTCsyWvYx8UObKs6Me8IOH5Cv5u4fO38J8ns=";
           };
 
-          personalCheatsheets = (
-            if cfg._enableEditableCheatsheets then
-              "${myVars.nixConfigDir}/modules/cheat/cheatsheets/personal"
-            else
-              "${config.xdg.configHome}/cheat/cheatsheets/personal"
-          );
-
         in
         {
           text = ''
@@ -62,19 +58,12 @@ with lib;
                 readonly: true
 
               - name: personal
-                path: ${personalCheatsheets}
+                path: ${cfg._personalCheatsheetsPath}
                 tags: [ personal ]
-                readonly: ${if cfg._enableEditableCheatsheets then "false" else "true"}
+                readonly: false
           '';
         };
     }
-
-    (mkIf (!cfg._enableEditableCheatsheets) {
-      xdg.configFile."cheat/cheatsheets/personal" = {
-        source = ./cheatsheets/personal;
-        recursive = false;
-      };
-    })
 
   ]);
 }

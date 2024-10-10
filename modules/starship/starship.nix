@@ -2,36 +2,42 @@
   pkgs,
   lib,
   config,
-  myVars,
   ...
 }:
 
 let
   cfg = config.myModules.starship;
+  inherit (pkgs.stdenv.hostPlatform) isDarwin isLinux;
+
 in
+with lib;
 {
   options = {
     myModules.starship.enable = lib.mkEnableOption "starship";
   };
 
-  config = lib.mkIf cfg.enable {
+  config = mkIf cfg.enable (mkMerge [
+    {
+      programs.starship = with lib; {
+        enable = true;
+        enableZshIntegration = true;
+        enableBashIntegration = true;
+      };
 
-    programs.starship = with lib; {
-      enable = true;
-      enableZshIntegration = true;
-      enableBashIntegration = true;
-    };
+      xdg.configFile."starship.toml".text = readFile ./config/starship.toml;
+    }
 
-    xdg.configFile."starship.toml" = {
-      source = pkgs.writeText "starship.toml" ''
-        ${lib.readFile ./config/starship.toml}
+    {
+      xdg.configFile."starship.toml".text = mkIf isDarwin (
+        mkAfter (readFile ./config/starship-darwin.toml)
+      );
+    }
 
-        ## Platform-dependent settings
+    {
+      xdg.configFile."starship.toml".text = mkIf isLinux (
+        mkAfter (readFile ./config/starship-linux.toml)
+      );
+    }
 
-        ${lib.readFile (
-          if myVars.isDarwin then ./config/starship-darwin.toml else ./config/starship-linux.toml
-        )}
-      '';
-    };
-  };
+  ]);
 }

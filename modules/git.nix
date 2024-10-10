@@ -2,14 +2,12 @@
   pkgs,
   lib,
   config,
-  myVars,
   ...
 }:
 
 let
   cfg = config.myModules.git;
 in
-with myVars.me;
 {
   options.myModules.git = {
     enable = lib.mkEnableOption "git";
@@ -19,8 +17,6 @@ with myVars.me;
   config = lib.mkIf cfg.enable {
     programs.git = {
       enable = true;
-      userName = userFullName;
-      userEmail = userEmail;
       package = pkgs.gitAndTools.gitFull;
 
       aliases = {
