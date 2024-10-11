@@ -15,7 +15,7 @@ let
   system = "aarch64-darwin";
 in
 {
-  darwin = nix-darwin.lib.darwinSystem {
+  darwinConfigurations = nix-darwin.lib.darwinSystem {
     inherit system;
     modules = [
       nixpkgsOverlaysModule
@@ -26,7 +26,7 @@ in
     ];
   };
 
-  user501 = home-manager.lib.homeManagerConfiguration {
+  homeConfigurations.user501 = home-manager.lib.homeManagerConfiguration {
     pkgs = nixpkgs.legacyPackages.${system};
     modules = [
       nixpkgsOverlaysModule
