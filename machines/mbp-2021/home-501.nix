@@ -23,7 +23,6 @@ in
     };
     emacs.enable = true;
     emacs-libvterm.enableZshIntegration = true;
-    starship.enable = true;
     cheat.enable = true;
     cheat._personalCheatsheetsPath = "${myVars.nixConfigDir}/modules/cheat/cheatsheets/personal";
     fzf.enable = true;
@@ -123,6 +122,14 @@ in
     # Disable regular load/unload messages.
     DIRENV_LOG_FORMAT = "";
   };
+
+  programs.starship = {
+    enable = true;
+    enableZshIntegration = true;
+    enableBashIntegration = true;
+  };
+
+  xdg.configFile."starship.toml".source = ./text/starship.toml;
 
   home.file = {
     ".gdbinit".text = ''
