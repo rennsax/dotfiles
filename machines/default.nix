@@ -42,21 +42,23 @@ let
   normalizeMachineOutputsFor =
     with lib;
     attrNames: outputs:
-    flip concatMapAttrs outputs (
-      machineName: configs:
-      let
-        validConfigs = filterAttrs (n: v: intersectLists [ n ] attrNames != [ ]) configs;
-        f =
-          name: config:
-          if name == "homeConfigurations" then
-            concatMapAttrs (u: c: { "${name}"."${machineName}.${u}" = c; }) config
-          else
-            setAttrByPath [
-              name
-              machineName
-            ] config;
-      in
-      concatMapAttrs f validConfigs
+    foldl' recursiveUpdate { } (
+      flip mapAttrsToList outputs (
+        machineName: configs:
+        let
+          validConfigs = filterAttrs (n: v: intersectLists [ n ] attrNames != [ ]) configs;
+          f =
+            name: config:
+            if name == "homeConfigurations" then
+              concatMapAttrs (u: c: { "${name}"."${machineName}.${u}" = c; }) config
+            else
+              setAttrByPath [
+                name
+                machineName
+              ] config;
+        in
+        concatMapAttrs f validConfigs
+      )
     );
 
   validAttrNames = [
@@ -80,17 +82,17 @@ let
     ```nix
     normalizeMachineOutputs {
       machine1 = {
-        nixosConfigurations = foo;
-        homeConfigurations.user1 = bar;
+        nixosConfigurations = "foo";
+        homeConfigurations.user1 = "bar";
       };
       machine2 = {
-        darwinConfigurations = baz;
+        darwinConfigurations = "baz";
       };
     }
     => {
-      nixosConfigurations.machine1 = foo;
-      homeConfigurations."machine1.user1" = bar;
-      darwinConfigurations.machine2 = baz;
+      nixosConfigurations.machine1 = "foo";
+      homeConfigurations."machine1.user1" = "bar";
+      darwinConfigurations.machine2 = "baz";
     }
     ```
   */
