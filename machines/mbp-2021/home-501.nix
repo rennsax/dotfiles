@@ -44,8 +44,7 @@ in
   # home Manager needs a bit of information about you and the paths it should
   # manage.
   home.username = username;
-  home.homeDirectory =
-    if pkgs.hostPlatform.isDarwin then "/Users/${username}" else "/home/${username}";
+  home.homeDirectory = "/Users/${username}";
 
   home.sessionVariables = {
     EDITOR = lib.mkDefault "\${EDITOR:-nano}";
