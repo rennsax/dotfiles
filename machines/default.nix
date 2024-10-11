@@ -7,6 +7,8 @@
   ...
 }@inputs:
 let
+  lib = nixpkgs.lib;
+
   nixpkgsOverlaysModule = {
     nixpkgs.overlays = import ../overlays { };
   };
@@ -38,12 +40,64 @@ let
     inherit varsFor;
   };
 
+  normalizeMachineOutputsFor =
+    with lib;
+    attrNames: outputs:
+    flip concatMapAttrs outputs (
+      machineName: configs:
+      let
+        validConfigs = filterAttrs (n: v: intersectLists [ n ] attrNames != [ ]) configs;
+        f =
+          name: config:
+          if name == "homeConfigurations" then
+            concatMapAttrs (u: c: { "${name}"."${machineName}.${u}" = c; }) config
+          else
+            setAttrByPath [
+              name
+              machineName
+            ] config;
+      in
+      concatMapAttrs f validConfigs
+    );
+
+  validAttrNames = [
+    "nixosConfigurations"
+    "homeConfigurations"
+    "darwinConfigurations"
+  ];
+
+  /**
+    Normalize the outputs to flake-flavor format. The result attribute is
+    preferred by tools like `nixos-rebuild`, `home-manager`. This allows me to
+    group my configurations per-machine and keep using these convenient tools.
+
+    # type
+
+    ```
+    normalizeMnormalizeMachineOutputs :: AttrSet -> AttrSet
+    ```
+
+    # Example
+    ```nix
+    normalizeMachineOutputs {
+      machine1 = {
+        nixosConfigurations = foo;
+        homeConfigurations.user1 = bar;
+      };
+      machine2 = {
+        darwinConfigurations = baz;
+      };
+    }
+    => {
+      nixosConfigurations.machine1 = foo;
+      homeConfigurations."machine1.user1" = bar;
+      darwinConfigurations.machine2 = baz;
+    }
+    ```
+  */
+  normalizeMachineOutputs = normalizeMachineOutputsFor validAttrNames;
+
 in
-{
-  machines = {
-    # "sonoma-workstation" = import ./mbp-2021 {
-    #   inherit makeDarwin;
-    # };
-    "sonoma-workstation" = callMachine ./mbp-2021 { };
-  };
+normalizeMachineOutputs {
+  "sonoma-workstation" = callMachine ./mbp-2021 { };
 }
