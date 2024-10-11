@@ -23,7 +23,7 @@ let
   };
 
   myModules = import ../modules { };
-  varsFor = system: import ../vars { inherit system; };
+  myVars = import ../vars { inherit lib; };
 
   callMachine = nixpkgs.lib.callPackageWith {
     inherit
@@ -36,8 +36,7 @@ let
     darwinModule = myModules.darwin;
     homeManagerModule = myModules.home;
 
-    # FIXME
-    inherit varsFor;
+    inherit myVars;
   };
 
   normalizeMachineOutputsFor =

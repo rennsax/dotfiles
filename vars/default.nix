@@ -1,21 +1,24 @@
-{ system }:
+{ lib, ... }:
+with lib;
+let
+  getEnvNonEmpty =
+    env:
+    let
+      v = builtins.getEnv env;
+    in
+    assert assertMsg (v != "") ''
+      ${env} is unset!
+      Make sure you set this environment variable and evaluate in impure mode.
+    '';
+    v;
+in
 {
-  me = import ./me.nix;
-  network = import ./network.nix;
+  me = {
+    username = getEnvNonEmpty "USER";
+    userFullName = "Bojun Ren";
+    userNickname = "Rennsax";
+    userEmail = "bj.ren.coding@outlook.com";
+  };
   # Parent directory of the whole Nix flake. Must be hard-coded.
-  nixConfigDir = "/path/to/your/nix/config";
-
-  inherit system;
-  isDarwin = (
-    builtins.elem system [
-      "aarch64-darwin"
-      "x86_64-darwin"
-    ]
-  );
-  isLinux = (
-    builtins.elem system [
-      "aarch64-linux"
-      "x86_64-linux"
-    ]
-  );
+  nixConfigDir = getEnvNonEmpty "NIX_CONFIG_DIR";
 }

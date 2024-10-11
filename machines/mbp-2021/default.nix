@@ -9,7 +9,7 @@
   darwinModule,
   homeManagerModule,
 
-  varsFor,
+  myVars,
 }:
 let
   system = "aarch64-darwin";
@@ -37,7 +37,7 @@ in
 
     extraSpecialArgs = {
       nur-rennsax-pkgs = nur-rennsax.packages.${system};
-      myVars = varsFor system;
+      inherit myVars;
     };
   };
 }
