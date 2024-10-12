@@ -1,5 +1,6 @@
 # Home-manager configuration for 501 user.
 {
+  config,
   pkgs,
   lib,
   myVars,
@@ -23,8 +24,6 @@ in
     };
     emacs.enable = true;
     emacs-libvterm.enableZshIntegration = true;
-    cheat.enable = true;
-    cheat._personalCheatsheetsPath = "${myVars.nixConfigDir}/modules/cheat/cheatsheets/personal";
     fzf.enable = true;
     tmux.enable = true;
     z-lua = {
@@ -67,6 +66,7 @@ in
     wget
     jq
     macos-trash
+    cheat
 
     # Programming
     shellcheck
@@ -141,6 +141,32 @@ in
       [global]
       index-url = https://pypi.tuna.tsinghua.edu.cn/simple
     '';
+
+    "cheat/conf.yml".source =
+      with pkgs;
+      let
+        communityCheatsheets = fetchFromGitHub {
+          owner = "cheat";
+          repo = "cheatsheets";
+          rev = "36bdb99";
+          sha256 = "sha256-Afv0rPlYTCsyWvYx8UObKs6Me8IOH5Cv5u4fO38J8ns=";
+        };
+
+      in
+      substitute {
+        src = ./text/cheat-conf.yml.in;
+        substitutions = [
+          "--subst-var-by"
+          "communityCheatsheets"
+          "${communityCheatsheets}"
+          "--subst-var-by"
+          "bat"
+          "${bat}/bin/bat"
+          "--subst-var-by"
+          "personalCheatsheets"
+          "${config.xdg.configHome}/cheat/personal"
+        ];
+      };
   };
 
   # FIXME: the original home-manager is not suitable for my config structure.

@@ -1,0 +1,14 @@
+colorize: false
+style: monokai
+formatter: terminal256
+pager: @bat@ -lbash -p
+cheatpaths:
+  - name: community
+    path: @communityCheatsheets@
+    tags: [ community ]
+    readonly: true
+
+  - name: personal
+    path: @personalCheatsheets@
+    tags: [ personal ]
+    readonly: false
