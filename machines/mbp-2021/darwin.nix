@@ -19,6 +19,12 @@
     ];
   };
 
+  # For `impureEnvVars`.
+  nix.envVars = {
+    http_proxy = "http://127.0.0.1:8881";
+    https_proxy = "http://127.0.0.1:8881";
+  };
+
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
