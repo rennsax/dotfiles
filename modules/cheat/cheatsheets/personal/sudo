@@ -1,9 +1,0 @@
-# Preserve user environment when running command
-sudo -E <cmd>
-
-# To immediately invalidate all (terminal and PID) cached credentials
-sudo -K
-
-# To check whether the user needs to input password
-# Attention: If the user has no privilege to run `sudo`, the output varies
-sudo -nv 2>&1

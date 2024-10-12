@@ -1,5 +1,0 @@
-# Create a table for the output
-column -t
-
-# Specify that columns are delimited with "|"
-column -s "|"

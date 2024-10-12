@@ -1,4 +1,0 @@
-# watch(1): execute a program periodically and show output
-
-# Get the current speed of each CPU core:
-watch -n.1 'grep "^[c]pu MHz" /proc/cpuinfo'

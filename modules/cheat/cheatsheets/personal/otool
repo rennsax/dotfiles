@@ -1,5 +1,0 @@
----
-tags: [ mac ]
----
-# To see which dynamic libs are linked to the binary
-otool -L <file>

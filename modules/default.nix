@@ -7,7 +7,6 @@
       ./git.nix
       ./fzf.nix
 
-      ./cheat
       ./zsh
       ./tmux
       ./hammerspoon

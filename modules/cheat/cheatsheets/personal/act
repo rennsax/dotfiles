@@ -1,5 +1,0 @@
-# List all github actions according to `.github/workflows`
-act -l [event]
-
-# Run actions on "push" event
-act push
