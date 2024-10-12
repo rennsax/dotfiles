@@ -9,7 +9,6 @@
 
       ./zsh
       ./tmux
-      ./hammerspoon
       ./orbstack
       ./emacs
       ./iTerm2
