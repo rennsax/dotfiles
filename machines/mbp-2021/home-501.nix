@@ -178,7 +178,6 @@ in
       };
   };
 
-  # FIXME: the original home-manager is not suitable for my config structure.
   programs.home-manager.enable = true;
 
   home.stateVersion = "24.05";

@@ -24,9 +24,6 @@
         sha256 = "sha256-wUjREVa8Mxe3PVZDAjO25upXfPlGE+UaLPI6a8DqazY=";
       };
     });
-    home-manager = prev.home-manager.overrideAttrs (old: {
-      patches = (old.patches or [ ]) ++ [ ./patches/home-manager-support-flake-output.patch ];
-    });
     hammerspoon-macos = prev.callPackage ./harmmerspoon.nix { };
   })
 ]
