@@ -106,10 +106,6 @@ in
       };
     }
 
-    (mkIf isDarwin {
-      programs.zsh.initExtraBeforeCompInit = readFile ./config/zshrc-darwin;
-    })
-
     (mkIf config.programs.z-lua.enable {
 
       programs.zsh.initExtra = mkAfter ''
