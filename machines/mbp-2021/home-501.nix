@@ -10,6 +10,10 @@ let
   inherit (myVars.me) username userFullName userEmail;
 in
 {
+  imports = [
+    ./orbstack-shell.nix
+  ];
+
   myModules = {
     git.enable = true;
     git.signingConfig = true;
@@ -35,8 +39,6 @@ in
       npm.enable = true;
       go.enable = true;
     };
-    # NOTE: install Orbstack manually with DMG image.
-    orbstack.enable = true;
   };
 
   # home Manager needs a bit of information about you and the paths it should
