@@ -27,5 +27,6 @@
     home-manager = prev.home-manager.overrideAttrs (old: {
       patches = (old.patches or [ ]) ++ [ ./patches/home-manager-support-flake-output.patch ];
     });
+    hammerspoon-macos = prev.callPackage ./harmmerspoon.nix { };
   })
 ]
