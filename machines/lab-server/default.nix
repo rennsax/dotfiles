@@ -29,7 +29,6 @@ let
           ];
         };
         emacs-libvterm.enableZshIntegration = true;
-        starship.enable = true;
         fzf.enable = true;
         z-lua = {
           enable = true;
@@ -62,6 +61,14 @@ let
         enable = true;
         package = pkgs.man; # nongnu man-db
       };
+
+      programs.starship = {
+        enable = true;
+        enableZshIntegration = true;
+        enableBashIntegration = true;
+      };
+
+      xdg.configFile."starship.toml".source = ./text/starship.toml;
 
       programs.home-manager.enable = true;
 
