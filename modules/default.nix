@@ -9,7 +9,6 @@
 
       ./zsh
       ./tmux
-      ./orbstack
       ./emacs
       ./iTerm2
       ./z-lua
