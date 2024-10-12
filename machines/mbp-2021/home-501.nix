@@ -35,7 +35,6 @@ in
       npm.enable = true;
       go.enable = true;
     };
-    hammerspoon.enable = true;
     # NOTE: install Orbstack manually with DMG image.
     orbstack.enable = true;
   };
@@ -78,6 +77,8 @@ in
         ipython
       ]
     ))
+
+    hammerspoon-macos
 
     gnupg
   ];
@@ -134,6 +135,12 @@ in
     ".gdbinit".text = ''
       set disassembly-flavor intel
     '';
+
+    ".hammerspoon/init.lua".source = ./text/hammerspoon-init.lua;
+    ".hammerspoon/Spoons/ReloadConfiguration.spoon".source = pkgs.fetchzip {
+      url = "https://github.com/Hammerspoon/Spoons/raw/master/Spoons/ReloadConfiguration.spoon.zip";
+      hash = "sha256-kNyFHP3i1O4VhZQL2Ief6002TrvXzT4doZ9w8X5z6C0=";
+    };
   };
 
   xdg.configFile = {
