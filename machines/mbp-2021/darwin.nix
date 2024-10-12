@@ -105,12 +105,6 @@
   # GNU Bash is preinstalled on NixOS, so this option is only meaningful for Darwin.
   programs.bash.enable = true;
 
-  # TODO: move this logic to home-manager.
-  programs.gnupg.agent = {
-    enable = true;
-    enableSSHSupport = true;
-  };
-
   # REVIEW: remove this after upgrading to macOS 15 Sequoia.
   ids.uids.nixbld = 300;
 

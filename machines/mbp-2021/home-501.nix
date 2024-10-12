@@ -12,6 +12,7 @@ in
 {
   imports = [
     ./orbstack-shell.nix
+    ./gnupg-agent.nix
   ];
 
   myModules = {
