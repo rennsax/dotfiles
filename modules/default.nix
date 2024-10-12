@@ -8,7 +8,6 @@
       ./fzf.nix
 
       ./cheat
-      ./starship
       ./zsh
       ./tmux
       ./hammerspoon

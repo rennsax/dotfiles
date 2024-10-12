@@ -1,4 +1,0 @@
-[c]
-commands = [["gcc", "--version"], ["clang", "--version"]]
-detect_extensions = ["c", "h", "cpp", "cc"]
-symbol = " "
