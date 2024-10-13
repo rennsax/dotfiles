@@ -1,5 +1,8 @@
 {
   pkgs,
+  myVars,
+  lib,
+  config,
   ...
 }:
 
@@ -105,8 +108,22 @@
     PAGER = "$PAGER";
   };
 
-  # FIXME: this seems to reply on my personal module.
-  # users.users.${myVars.me.username}.shell = pkgs.zsh;
+  assertions = [
+    {
+      assertion = config.programs.zsh.enable;
+      message = ''
+        Options `programs.zsh.enable` must be enabled because I set Zsh as the
+        default shell. See also https://github.com/NixOS/nixpkgs/blob/bf171746655a97d46cc7a1037749d9e2f15e5889/nixos/modules/config/users-groups.nix#L926-L937.
+      '';
+    }
+  ];
+
+  # Explicitly set my default shell.
+  # Check https://github.com/NixOS/nixpkgs/blob/e495f07011d1d044f35b71c3b4eddbe4826f3534/nixos/lib/utils.nix#L113-L120
+  #   for the logic of extracting shell path.
+  system.activationScripts.users.text = ''
+    dscl . -create '/Users/${myVars.me.username}' UserShell ${lib.escapeShellArg ("/run/current-system/sw${pkgs.zsh.shellPath}")}
+  '';
 
   # GNU Bash is preinstalled on NixOS, so this option is only meaningful for Darwin.
   programs.bash.enable = true;

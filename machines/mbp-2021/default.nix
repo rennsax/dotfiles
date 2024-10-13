@@ -24,6 +24,9 @@ in
 
       ./darwin.nix
     ];
+    specialArgs = {
+      inherit myVars;
+    };
   };
 
   homeConfigurations.user501 = home-manager.lib.homeManagerConfiguration {
