@@ -83,6 +83,20 @@
     _FXShowPosixPathInTitle = false; # fullpath in the title
   };
 
+  system.defaults.NSGlobalDomain = {
+    ApplePressAndHoldEnabled = false;
+  };
+
+  # Collection of my defaults commands.
+  system.activationScripts.defaults.text = ''
+    # Fn: Change input source.
+    defaults write com.apple.HIToolbox AppleFnUsageType -int "1"
+
+    # Do not show input source switch popup.
+    # https://stackoverflow.com/questions/77248249
+    defaults write kCFPreferencesAnyApplication TSMLanguageIndicatorEnabled 0
+  '';
+
   environment.systemPackages = with pkgs; [
     vim
     gnumake
