@@ -104,6 +104,7 @@
     # On Darwin, nano is the alias of pico.
     nano
     gawk
+    less
 
     gnugrep
     gnused
