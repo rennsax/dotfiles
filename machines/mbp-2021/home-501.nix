@@ -77,6 +77,7 @@ in
     (python3.withPackages (
       ps: with ps; [
         pip
+        build
         ipython
       ]
     ))
