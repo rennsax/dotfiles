@@ -163,19 +163,10 @@ in
         };
 
       in
-      substitute {
-        src = ./text/cheat-conf.yml.in;
-        substitutions = [
-          "--subst-var-by"
-          "communityCheatsheets"
-          "${communityCheatsheets}"
-          "--subst-var-by"
-          "bat"
-          "${bat}/bin/bat"
-          "--subst-var-by"
-          "personalCheatsheets"
-          "${config.xdg.configHome}/cheat/personal"
-        ];
+      replaceVars ./text/cheat-conf.yml.in {
+        inherit communityCheatsheets;
+        personalCheatsheets = "${config.xdg.configHome}/cheat/personal";
+        bat = "${bat}/bin/bat";
       };
   };
 
