@@ -1,5 +1,0 @@
-# install LTS version
-nvm install --lts=iron # v20
-
-# upgrade LTS
-nvm install --reinstall-packages-from=current 'lts/*'

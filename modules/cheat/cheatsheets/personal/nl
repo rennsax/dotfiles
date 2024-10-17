@@ -1,8 +1,0 @@
-# Display line number for the file, or read from stdin
-nl [FILE]
-
-# Only number for lines that match the BRE
-nl -b p'<reg>'
-
-# Override the default increment value to 3
-nl -i 3

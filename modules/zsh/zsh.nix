@@ -2,12 +2,12 @@
   pkgs,
   lib,
   config,
-  myVars,
   ...
 }:
 # Simplified zsh module that satisfies my personal usage.
 with lib;
 let
+  inherit (pkgs.stdenv.hostPlatform) isDarwin;
   cfg = config.myModules.zsh;
 
   pluginsDir = cfg.dotDir + "/.zsh-plugins";
@@ -75,11 +75,7 @@ in
             #################### BEGIN my configs ######################
             ############################################################
 
-          ''
-          + (concatStringsSep "\n" (
-            [ (readFile ./config/zshrc-extra) ] ++ optional myVars.isDarwin (readFile ./config/zshrc-darwin)
-          ))
-          + ''
+            ${readFile ./config/zshrc-extra}
 
             ############################################################
             ####################  END my configs  ######################

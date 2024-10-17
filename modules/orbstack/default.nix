@@ -1,4 +1,0 @@
-{ ... }:
-{
-  imports = [ ./orbstack.nix ];
-}

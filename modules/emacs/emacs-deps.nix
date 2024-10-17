@@ -2,7 +2,6 @@
   pkgs,
   lib,
   config,
-  myVars,
   ...
 }:
 with lib;
@@ -74,8 +73,8 @@ in
     }
 
     # macOS dependencies.
-    (optionalAttrs myVars.isDarwin {
-      home.packages =
+    {
+      home.packages = mkIf pkgs.stdenv.hostPlatform.isDarwin (
         with pkgs;
         let
           macism = callPackage ./macism.nix { };
@@ -90,8 +89,9 @@ in
           pngpaste
           soffice-cli
           macism
-        ];
-    })
+        ]
+      );
+    }
 
     {
       programs.zsh.shellAliases = {

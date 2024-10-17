@@ -24,5 +24,6 @@
         sha256 = "sha256-wUjREVa8Mxe3PVZDAjO25upXfPlGE+UaLPI6a8DqazY=";
       };
     });
+    hammerspoon-macos = prev.callPackage ./harmmerspoon.nix { };
   })
 ]
