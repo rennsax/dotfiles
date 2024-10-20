@@ -171,6 +171,31 @@ in
       };
   };
 
+  targets.darwin.defaults =
+    {
+      "org.gpgtools.pinentry-mac".DisableKeychain = true;
+    }
+    //
+    # Turn off Microsoft Office Telemetry.
+    builtins.listToAttrs (
+      map
+        (
+          app:
+          lib.nameValuePair "com.microsoft.${app}" {
+            SendAllTelemetryEnabled = false;
+          }
+        )
+        [
+          "Word"
+          "Excel"
+          "Powerpoint"
+          "Outlook"
+          "autoupdate2"
+          "Office365ServiceV2"
+          "onenote.mac"
+        ]
+    );
+
   programs.home-manager.enable = true;
 
   home.stateVersion = "24.05";
