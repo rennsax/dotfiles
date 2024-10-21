@@ -15,7 +15,7 @@ jobs:
     - name: Install Nix
       uses: DeterminateSystems/nix-installer-action@main
 
-    - run: ./scripts/init-ubuntu
+    - run: make init-ubuntu
       env:
         INSTALL_DEBIAN_NO_SJTU_SOURCES: 1
         INSTALL_DEBIAN_TRACE: 1
