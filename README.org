@@ -7,43 +7,20 @@ My personal dotfiles. Managed with Nix Flake.
 
 ** Installation
 
-Currently my dotfiles are adapted for three kinds of OSes: NixOS, macOS and
-Ubuntu. The configurations are divided into two parts: system-wide and
-user-wide. You can install these two parts individually.
-
 Before installation, at least make sure you've installed =git=, =curl= and
-=make=. If you are on Ubunut, =./scripts/init-ubuntu= can help you do that.
-
-Install system-wide configuration:
+=make=.
 
 #+begin_src sh
-# Depending on which OS you are on.
-make init-nixos
-make init-darwin
-make init-ubuntu
+make install-nix # install Nix
+make init-ubuntu # bootstrap Ubuntu
+nix run nix-darwin -- switch --flake .#${DARWIN_MACHINE} # nix-darwin
+nix run home-manager -- --impure switch --flake .#${HOME_MACHINE} # home-manager
 #+end_src
 
-Install user-wide configuration:
+NOTE on Ubuntu:
 
-#+begin_src sh
-make init-home
-#+end_src
-
-Or, if you only want to install Nix as a package manager:
-
-#+begin_src sh
-make install-nix
-#+end_src
-
-which utilizes the [[https://github.com/DeterminateSystems/nix-installer][nix-installer from DeterminateSystems]].
-
-NOTE:
-
-- ~make init-home~ only affects user-level configurations. Therefore, it even
-  does not require "sudo", as long as you have correctly installed Nix. As a
-  result, it won't change the user's default shell which needs to touch the
-  system file ~/etc/passwd~. You may manually set the default with chsh(1). This
-  fact matters when you want to install my dotfiles on Ubuntu.
+Home-manager won't change the user's default shell which needs to touch the
+system file =/etc/passwd=. You may manually set the default with chsh(1).
 
 ** See Also
 
