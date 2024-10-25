@@ -81,12 +81,6 @@ spoon.ReloadConfiguration:start()
 
 -- Key bindings
 
--- ctrl + alt - n: open a new window of iTerm2
-hs.hotkey.bind({"ctrl", "alt"}, "N", function()
-  hs.applescript('tell application "iTerm2" to create window with default profile')
-end)
-
-
 hs.hotkey.bind({"cmd", "alt"}, "E", function()
   -- with_user_env: if true, executes the command in the users login shell.
   local output = hs.execute("emacsclient -e '(emacs-everywhere)'", true)
