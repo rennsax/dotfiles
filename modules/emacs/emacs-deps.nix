@@ -55,8 +55,8 @@ in
       home.packages =
         with pkgs;
         let
-          jinx-mod = callPackage ./jinx-mod.nix { };
-          vterm-module = callPackage ./vterm-module.nix { };
+          jinx-mod = callPackage ./pkgs/jinx-module { };
+          vterm-module = callPackage ./pkgs/vterm-module { };
         in
         [
           jinx-mod
