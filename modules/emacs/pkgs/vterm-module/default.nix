@@ -3,7 +3,6 @@
   cmake,
   libvterm-neovim,
   fetchFromGitHub,
-  ...
 }:
 
 let

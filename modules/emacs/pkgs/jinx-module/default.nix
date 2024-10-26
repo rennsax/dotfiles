@@ -4,7 +4,6 @@
   pkg-config,
   enchant,
   fetchFromGitHub,
-  ...
 }:
 let
   moduleName = "jinx-mod";
