@@ -69,6 +69,7 @@ in
     jq
     macos-trash
     cheat
+    openssh
 
     # Programming
     shellcheck

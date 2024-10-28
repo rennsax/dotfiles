@@ -113,7 +113,6 @@
     coreutils-prefixed
 
     darwin.iproute2mac
-    openssh
   ];
 
   environment.variables = {
