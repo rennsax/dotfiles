@@ -100,6 +100,6 @@ let
 
 in
 normalizeMachineOutputs {
-  "sonoma-workstation" = callMachine ./mbp-2021 { };
+  "sequoia-workstation" = callMachine ./mbp-2021 { };
   "ipads-server" = callMachine ./lab-server { };
 }
