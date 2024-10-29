@@ -69,6 +69,7 @@ in
       home.packages = with pkgs; [
         emacsPackages.gn-mode-from-sources
         emacsPackages.cmake-mode
+        emacsPackages.ninja-mode
       ];
     }
 
