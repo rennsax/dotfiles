@@ -3,6 +3,7 @@
   nixpkgs,
   home-manager,
   homeManagerModule,
+  nixFlakeRegistryModule,
   myVars,
 }:
 let
@@ -68,9 +69,16 @@ let
         enableBashIntegration = true;
       };
 
+      programs.direnv = {
+        enable = true;
+        nix-direnv.enable = true;
+      };
+
       xdg.configFile."starship.toml".source = ./text/starship.toml;
 
       programs.home-manager.enable = true;
+
+      systemd.user.enable = false;
 
       home.stateVersion = "24.05";
     };
@@ -79,6 +87,7 @@ in
   homeConfigurations.renbj = home-manager.lib.homeManagerConfiguration {
     pkgs = nixpkgs.legacyPackages.${system};
     modules = [
+      nixFlakeRegistryModule
       homeManagerModule
       userModule
     ];
