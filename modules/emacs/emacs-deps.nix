@@ -78,7 +78,6 @@ in
       home.packages = mkIf pkgs.stdenv.hostPlatform.isDarwin (
         with pkgs;
         let
-          macism = callPackage ./macism.nix { };
           soffice-cli = writeShellApplication {
             name = "soffice-cli";
             text = ''
@@ -89,7 +88,6 @@ in
         [
           pngpaste
           soffice-cli
-          macism
         ]
       );
     }
