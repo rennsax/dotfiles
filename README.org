@@ -28,6 +28,22 @@ system file =/etc/passwd=. You may manually set the default with chsh(1).
   it may be obsolete.)
 - [[https://github.com/rennsax/.emacs.d][rennsax/.emacs.d: My Emacs configuration. 🍓]]
 
+** Q&A
+
+#+begin_quote
+Q: Do you use Homebrew anymore?
+#+end_quote
+
+A: Yes. I use [[https://github.com/Homebrew/homebrew-cask][homebrew-cask]] to install macOS applications for which I'm not
+concerned about updates. For some applications like iTerm2, I still use Nix to
+pin its version.
+
+#+begin_quote
+Q: Why Nix?
+#+end_quote
+
+A: Because I'm foolish and dull.
+
 ** References
 
 - [[https://wiki.archlinux.org/title/XDG_Base_Directory][XDG Base Directory - ArchWiki]]
