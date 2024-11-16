@@ -1,10 +1,10 @@
-{ stdenvNoCC, fetchurl, ... }:
+{ stdenvNoCC, fetchurl }:
 stdenvNoCC.mkDerivation rec {
   pname = "sarasa-term-sc-nerd";
-  version = "v1.1.0";
+  version = "2.1.1";
   src = fetchurl {
-    url = "https://github.com/laishulu/Sarasa-Term-SC-Nerd/releases/download/${version}/sarasa-term-sc-nerd.ttf.tar.gz";
-    sha256 = "sha256-ADS5KTYQMTELd8MjAE+ugEwC5Gr8qDpN5kPirvgogAc=";
+    url = "https://github.com/laishulu/Sarasa-Term-SC-Nerd/releases/download/v${version}/SarasaTermSCNerd.ttf.tar.gz";
+    sha256 = "sha256-NExIIOQ0Xh5iMfYi8JQ9lavE9vT7CGOi09AKdiSJBLI=";
   };
   sourceRoot = ".";
   buildPhase = ''
