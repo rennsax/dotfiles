@@ -33,6 +33,7 @@ in
     pkgs = nixpkgs.legacyPackages.${system};
     modules = [
       nixpkgsOverlaysModule
+      nixFlakeRegistryModule
       homeManagerModule
 
       ./home-501.nix
