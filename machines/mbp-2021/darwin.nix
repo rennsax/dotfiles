@@ -36,13 +36,10 @@
 
   # Fonts
   fonts.packages = with pkgs; [
-    (nerdfonts.override {
-      fonts = [
-        "Monaspace"
-        "FiraCode"
-        "CascadiaCode"
-      ];
-    })
+    nerd-fonts.monaspace
+    nerd-fonts.fira-code
+    nerd-fonts.caskaydia-cove
+
     lxgw-wenkai
     source-han-serif
     source-han-sans
