@@ -31,6 +31,7 @@ let
   '';
 
   utilities = pkgs.callPackage ./iterm2-utilities.nix { };
+  AIplugin = pkgs.callPackage ./iterm2-ai.nix { };
 
 in
 {
@@ -39,6 +40,7 @@ in
     enableUtilities = mkEnableOption "iterm2 utilities" // {
       default = true;
     };
+    withAI = mkEnableOption "install AI plugin";
     package = mkOption {
       type = types.package;
       default = pkgs.iterm2;
@@ -81,6 +83,10 @@ in
       programs.zsh.initExtra = optionalString cfg.enableZshIntegration ''
         compdef _ssh it2ssh=ssh
       '';
+    })
+
+    (mkIf cfg.withAI {
+      home.packages = [ AIplugin ];
     })
   ]);
 }
