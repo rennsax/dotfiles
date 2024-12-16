@@ -4,6 +4,7 @@
   pkgs,
   lib,
   myVars,
+  nur-rennsax-pkgs,
   ...
 }:
 let
@@ -86,6 +87,8 @@ in
     hammerspoon-macos
 
     gnupg
+
+    nur-rennsax-pkgs.osx-org-protocol-client
   ];
 
   home.extraOutputsToInstall = [
