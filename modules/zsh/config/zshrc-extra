@@ -229,7 +229,7 @@ zstyle ':completion:*' cache-path "$ZDOTDIR/.zcompcache"
 
 # setup new key bindings to navigate in menu selection
 zmodload zsh/complist
-bindkey -M menuselect '^J' accept-and-infer-next-history # accept and trigger next completion
+bindkey -M menuselect '^O' accept-and-infer-next-history # accept and trigger next completion
 bindkey -M menuselect '^G' send-break
 bindkey -M menuselect '^Xu' undo
 
