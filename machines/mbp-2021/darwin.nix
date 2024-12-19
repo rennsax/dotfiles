@@ -28,24 +28,8 @@
     https_proxy = "http://127.0.0.1:8881";
   };
 
-  # Allow unfree packages
-  nixpkgs.config.allowUnfree = true;
-
   # Set your time zone.
   time.timeZone = "Asia/Shanghai";
-
-  # Fonts
-  fonts.packages = with pkgs; [
-    nerd-fonts.monaspace
-    nerd-fonts.fira-code
-    nerd-fonts.caskaydia-cove
-
-    lxgw-wenkai
-    source-han-serif
-    source-han-sans
-    sarasa-term-sc-nerd # overlay
-    vistafonts-chs # Microsoft Yahei
-  ];
 
   programs.zsh = {
     enable = true;
