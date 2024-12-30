@@ -4,6 +4,7 @@
   pkgs,
   lib,
   myVars,
+  nur-rennsax-pkgs,
   ...
 }:
 let
@@ -14,6 +15,8 @@ in
     ./orbstack-shell.nix
     ./gnupg-agent.nix
   ];
+
+  nixpkgs.config.allowUnfree = true;
 
   myModules = {
     git.enable = true;
@@ -54,39 +57,57 @@ in
   home.language = {
     base = "en_US.UTF-8";
   };
-  home.packages = with pkgs; [
-    bat
-    curl
-    dust
-    fd
-    htop
-    ripgrep
-    rsync
-    tree
-    rlwrap # Readline wrapper
-    p7zip
-    wget
-    jq
-    macos-trash
-    cheat
-    openssh
+  home.packages =
+    with pkgs;
+    let
+      fontPackages = [
+        nerd-fonts.monaspace
+        nerd-fonts.fira-code
+        nerd-fonts.caskaydia-cove
 
-    # Programming
-    shellcheck
-    nixfmt-rfc-style
+        lxgw-wenkai
+        source-han-serif
+        source-han-sans
+        sarasa-term-sc-nerd # overlay
+        vistafonts-chs # Microsoft Yahei
+      ];
+    in
+    [
+      bat
+      curl
+      dust
+      fd
+      htop
+      ripgrep
+      rsync
+      tree
+      rlwrap # Readline wrapper
+      p7zip
+      wget
+      jq
+      macos-trash
+      cheat
+      openssh
 
-    (python3.withPackages (
-      ps: with ps; [
-        pip
-        build
-        ipython
-      ]
-    ))
+      # Programming
+      shellcheck
+      nixfmt-rfc-style
 
-    hammerspoon-macos
+      (python3.withPackages (
+        ps: with ps; [
+          pip
+          build
+          ipython
+        ]
+      ))
 
-    gnupg
-  ];
+      hammerspoon-macos
+
+      gnupg
+
+      nur-rennsax-pkgs.osx-org-protocol-client
+    ]
+    ++ fontPackages;
 
   home.extraOutputsToInstall = [
     "info"

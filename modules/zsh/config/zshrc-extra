@@ -190,6 +190,9 @@ zstyle ':completion:*' select-prompt ''
 # emphasize the first ambiguous character
 zstyle ':completion:*' show-ambiguity '1;34'
 
+# Sort the file according to mtime
+zstyle ':completion:*' file-sort modification
+
 # display group descriptions
 # https://github.com/Phantas0s/.dotfiles/blob/c01b080688c5e00d7b34529fc45dd46fe581275d/zsh/completion.zsh#L80-L83
 zstyle ':completion:*:*:*:*:corrections' format '%F{yellow}!- %d (errors: %e) -!%f'
@@ -226,17 +229,10 @@ zstyle ':completion:*' cache-path "$ZDOTDIR/.zcompcache"
 
 # setup new key bindings to navigate in menu selection
 zmodload zsh/complist
-bindkey -M menuselect 'h' vi-backward-char
-bindkey -M menuselect 'l' vi-forward-char
-bindkey -M menuselect 'j' vi-down-line-or-history
-bindkey -M menuselect 'k' vi-up-line-or-history
-bindkey -M menuselect 'n' accept-and-infer-next-history # accept and trigger next completion
-bindkey -M menuselect '^xi' vi-insert # C-x i: toggle interactive mode
-# Prefixed by ".": call `zle ..`, which quits menuselect.
-bindkey -M menuselect '^a' .beginning-of-line
-bindkey -M menuselect '^e' .end-of-line
-bindkey -M menuselect '^b' .backward-char
-bindkey -M menuselect '^f' .forward-char
+bindkey -M menuselect '^O' accept-and-infer-next-history # accept and trigger next completion
+bindkey -M menuselect '^G' send-break
+bindkey -M menuselect '^Xu' undo
+
 if (( $+terminfo[kcbt] )); then
     bindkey -M menuselect "${terminfo[kcbt]}" reverse-menu-complete # back-tap: select previous
 fi
