@@ -54,6 +54,7 @@ let
         bat
         htop
         fd
+        trash-cli
         tree
         ripgrep
       ];
