@@ -17,9 +17,7 @@ in
   config = lib.mkIf cfg.enable {
     programs.git = {
       enable = true;
-      package = pkgs.git.override {
-        withSsh = true;
-      };
+      package = pkgs.git;
 
       aliases = {
         a = "add";
