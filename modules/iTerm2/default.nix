@@ -9,21 +9,7 @@ with lib;
 let
   cfg = config.myModules.iterm2;
 
-  shellIntegrationScriptFor =
-    shell:
-    let
-      hashes = {
-        zsh = "sha256-Cq8winA/tcnnVblDTW2n1k/olN3DONEfXrzYNkufZvY=";
-        bash = "sha256-gHSOANRhOVHLjFSzPZNG2GQ0xlFkLt5P277jwWYGgs8=";
-        fish = "sha256-29XvF/8KGd63NOAqWPoxODPQAMA8gNr+MIHFEqcKov4=";
-        # tcsh = "sha256-5AnLEnmobiv3GwIgXO12Jt0ugUZGb8A0KyyeFjfG1UI=";
-      };
-    in
-    pkgs.fetchurl {
-      name = "iterm2-${shell}-integration";
-      url = "https://iterm2.com/shell_integration/${shell}";
-      hash = hashes.${shell};
-    };
+  shellIntegrationScriptFor = shell: (pkgs.callPackage ./iterm2-shell-integration.nix { }).${shell};
 
   shellIntegrationFor = shell: ''
     ${optionalString cfg.enableShellIntegrationWithTmux "ITERM_ENABLE_SHELL_INTEGRATION_WITH_TMUX=1"}
