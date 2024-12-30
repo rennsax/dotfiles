@@ -88,6 +88,7 @@ in
       macos-trash
       cheat
       openssh
+      iproute2mac
 
       # Programming
       shellcheck

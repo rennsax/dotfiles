@@ -92,8 +92,6 @@
     findutils
     diffutils
     coreutils-prefixed
-
-    darwin.iproute2mac
   ];
 
   environment.variables = {
