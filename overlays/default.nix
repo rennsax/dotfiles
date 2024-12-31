@@ -1,4 +1,8 @@
-{ ... }: [
+{
+  nix-vscode-extensions,
+  ...
+}:
+[
   (final: prev: {
     sarasa-term-sc-nerd = prev.callPackage ./sarasa-term-sc-nerd.nix { };
     gnu-coding-standards = prev.callPackage ./gnu-coding-standards.nix { };
@@ -22,5 +26,33 @@
       };
     });
     hammerspoon-macos = prev.callPackage ./harmmerspoon.nix { };
+
+    /**
+      An wrapper for vscode-with-extensions integrated with nix-vscode-extensions.
+
+      Example:
+
+      ```nix
+      my-vscode.withExtensions (exts: with exts; [
+        vscode-marketplace.cschlosser.doxdocgen
+        vscode-marketplace.usernamehw.errorlens
+        # more extensions...
+      ])
+      ```
+     */
+    my-vscode =
+      let
+        inherit (final) vscode-with-extensions;
+        vscode-extensions = nix-vscode-extensions.extensions.${final.hostPlatform.system};
+      in
+      vscode-with-extensions
+      // {
+        withExtensions =
+          f:
+          vscode-with-extensions.override {
+            vscodeExtensions = f vscode-extensions;
+          };
+      };
+
   })
 ]

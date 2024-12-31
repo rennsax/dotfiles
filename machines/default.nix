@@ -4,13 +4,16 @@
   nix-darwin,
   home-manager,
   nur-rennsax,
+  nix-vscode-extensions,
   ...
 }@inputs:
 let
   lib = nixpkgs.lib;
 
   nixpkgsOverlaysModule = {
-    nixpkgs.overlays = import ../overlays { };
+    nixpkgs.overlays = import ../overlays {
+      inherit nix-vscode-extensions;
+    };
   };
 
   # https://github.com/NixOS/nix/issues/7026
