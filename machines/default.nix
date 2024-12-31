@@ -41,12 +41,12 @@ let
 
   normalizeMachineOutputsFor =
     with lib;
-    attrNames: outputs:
+    names: outputs:
     foldl' recursiveUpdate { } (
       flip mapAttrsToList outputs (
         machineName: configs:
         let
-          validConfigs = filterAttrs (n: v: intersectLists [ n ] attrNames != [ ]) configs;
+          validConfigs = filterAttrs (n: v: intersectLists [ n ] names != [ ]) configs;
           f =
             name: config:
             if name == "homeConfigurations" then
