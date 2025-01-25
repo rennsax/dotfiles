@@ -5,6 +5,7 @@
   home-manager,
   nur-rennsax,
   nix-vscode-extensions,
+  nixos-wsl,
   ...
 }@inputs:
 let
@@ -34,6 +35,7 @@ let
       nix-darwin
       home-manager
       nur-rennsax
+      nixos-wsl
       ;
     inherit nixpkgsOverlaysModule nixFlakeRegistryModule;
     darwinModule = myModules.darwin;
@@ -105,4 +107,5 @@ in
 normalizeMachineOutputs {
   "sequoia-workstation" = callMachine ./mbp-2021 { };
   "ipads-server" = callMachine ./lab-server { };
+  "wsl-nixos" = callMachine ./wsl-nixos { };
 }
