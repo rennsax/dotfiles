@@ -22,7 +22,10 @@
     ];
   };
 
-  # For `impureEnvVars`.
+  # This is an undocumented option of nix-darwin. The effect of this option is
+  # similar with `systemd.services.nix-daemon.environment`, except that these
+  # variables are also exposed to `environment.variables`. Note that these two
+  # variable names are already in `impureEnvs` so stdenv can be aware of them.
   nix.envVars = {
     http_proxy = "http://127.0.0.1:8881";
     https_proxy = "http://127.0.0.1:8881";
