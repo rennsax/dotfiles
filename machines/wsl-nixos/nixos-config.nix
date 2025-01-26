@@ -50,7 +50,7 @@ let
 in
 {
   wsl.enable = true;
-  wsl.defaultUser = "nixos";
+  wsl.defaultUser = username;
 
   nix.settings = {
     experimental-features = "nix-command flakes";
@@ -76,12 +76,9 @@ in
     '';
   };
 
-  users.users = {
-    "${username}" = {
-      isNormalUser = true;
-      shell = pkgs.zsh;
-      extraGroups = [ "wheel" ];
-    };
+  users.users."${username}" = {
+    shell = pkgs.zsh;
+    uid = 1000;
   };
 
   home-manager.users."${username}" = userConfig;
