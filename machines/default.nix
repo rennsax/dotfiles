@@ -108,4 +108,31 @@ normalizeMachineOutputs {
   "sequoia-workstation" = callMachine ./mbp-2021 { };
   "ipads-server" = callMachine ./lab-server { };
   "wsl-nixos" = callMachine ./wsl-nixos { };
+
+  # Minimal NixOS in WSL with flake enabled, for tarball building.
+  "wsl-nixos-minimal" = {
+    nixosConfigurations =
+      let
+        config =
+          { pkgs, ... }:
+          {
+            wsl.enable = true;
+            wsl.defaultUser = "rbj";
+            nix.settings = {
+              experimental-features = "nix-command flakes";
+            };
+            environment.systemPackages = with pkgs; [
+              git
+            ];
+            system.stateVersion = "24.05";
+          };
+      in
+      nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        modules = [
+          nixos-wsl.nixosModules.wsl
+          config
+        ];
+      };
+  };
 }
