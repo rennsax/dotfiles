@@ -21,6 +21,12 @@ jobs:
           nix build .#nixosConfigurations."wsl-nixos-minimal".config.system.build.tarballBuilder
           sudo ./result/bin/nixos-wsl-tarball-builder nixos-wsl.tar.gz
 
+      - name: Show tarball size
+        run: du -sh nixos-wsl.tar.gz
+
+      - name: Show SHA256
+        run: sha256sum nixos-wsl.tar.gz
+
       - name: Upload
         uses: actions/upload-artifact@v4
         with:
