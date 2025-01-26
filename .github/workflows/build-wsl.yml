@@ -1,0 +1,22 @@
+name: Build nixos-wsl.tar.gz
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install Nix
+        uses: DeterminateSystems/nix-installer-action@main
+
+      - name: Build tarball builder
+        shell: bash
+        run: |
+          nix build .#nixosConfigurations."wsl-nixos".config.system.build.tarballBuilder
+          sudo ./result/bin/nixos-wsl-tarball-builder nixos-wsl.tar.gz
