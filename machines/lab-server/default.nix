@@ -18,6 +18,14 @@ let
       inherit (myVars.me) username userFullName userEmail;
     in
     {
+      nix.package = pkgs.nix;
+      nix.settings = {
+        experimental-features = "nix-command flakes";
+        substituters = [
+          "https://mirror.sjtu.edu.cn/nix-channels/store"
+          "https://cuda-maintainers.cachix.org"
+        ];
+      };
       myModules = {
         git.enable = true;
         zsh = {
