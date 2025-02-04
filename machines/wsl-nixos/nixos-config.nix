@@ -8,6 +8,8 @@
 }:
 let
   username = "rbj";
+
+  # Home-manager configuration.
   userConfig =
     { pkgs, ... }:
     {
@@ -49,8 +51,11 @@ let
     };
 in
 {
+  # WSL options.
   wsl.enable = true;
-  wsl.defaultUser = username;
+  wsl.defaultUser = username;   # This user will be created.
+
+  networking.hostName = "nixos-wsl";
 
   nix.settings = {
     experimental-features = "nix-command flakes";
