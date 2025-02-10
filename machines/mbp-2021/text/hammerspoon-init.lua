@@ -7,16 +7,16 @@ local imeName = {
   -- 搜狗拼音输入法
   ChineseDefault = "com.sogou.inputmethod.sogou.pinyin",
   -- English US
-  EnglishDefault = "com.apple.keylayout.US",
+  EnglishDefault = "com.apple.keylayout.UnicodeHexInput",
 
-  default = "com.apple.keylayout.US",
+  default = "com.apple.keylayout.UnicodeHexInput",
 }
 
 local app2Ime = {
   -- Develop
   { 'iTerm2', imeName.EnglishDefault },
   { 'kitty', imeName.EnglishDefault },
-  { 'Visual Studio Code', imeName.EnglishDefault },
+  { 'Code', imeName.EnglishDefault },
   { 'Emacs', imeName.EnglishDefault },
   { 'Xcode', imeName.EnglishDefault },
   { 'Logseq', imeName.EnglishDefault },
