@@ -88,5 +88,17 @@ in
 
   home-manager.users."${username}" = userConfig;
 
+  systemd.tmpfiles.rules =
+    let
+      channels = pkgs.runCommand "default-channels" { } ''
+        mkdir -p $out
+        ln -s ${pkgs.path} $out/nixos
+      '';
+    in
+    [
+      "L /nix/var/nix/profiles/per-user/root/channels-1-link - - - - ${channels}"
+      "L /nix/var/nix/profiles/per-user/root/channels - - - - channels-1-link"
+    ];
+
   system.stateVersion = "24.05";
 }
