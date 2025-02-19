@@ -45,6 +45,8 @@ let
         enableBashIntegration = true;
       };
 
+      xdg.configFile."starship.toml".source = ./text/starship.toml;
+
       systemd.user.enable = false;
 
       home.stateVersion = "24.05";
