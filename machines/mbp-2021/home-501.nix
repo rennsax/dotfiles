@@ -34,6 +34,7 @@ in
     emacs-libvterm.enableZshIntegration = true;
     fzf.enable = true;
     tmux.enable = true;
+    tmux.oh-my-tmux.enable = true;
     z-lua = {
       enable = true;
       enableAliases = true;
