@@ -13,7 +13,7 @@ let
     shell:
     fetchurl rec {
       pname = "iterm2-${shell}-integration";
-      version = "3.5.10";
+      version = "3.5.11";
       url = "https://gitlab.com/gnachman/iterm2/-/raw/v${version}/Resources/shell_integration/iterm2_shell_integration.${shell}";
       hash = hashes.${shell};
     };

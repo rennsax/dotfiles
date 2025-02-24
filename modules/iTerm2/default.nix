@@ -10,6 +10,7 @@ let
   cfg = config.myModules.iterm2;
 
   shellIntegrationScriptFor = shell: (pkgs.callPackage ./iterm2-shell-integration.nix { }).${shell};
+  shellIntegrationScriptVersion = (shellIntegrationScriptFor "bash").version;
 
   shellIntegrationFor = shell: ''
     ${optionalString cfg.enableShellIntegrationWithTmux "ITERM_ENABLE_SHELL_INTEGRATION_WITH_TMUX=1"}
@@ -55,6 +56,15 @@ in
 
       # Do not install iTerm2 on non-darwin system.
       home.packages = mkIf cfg.enableInstall [ cfg.package ];
+
+      assertions = [
+        {
+          assertion = cfg.package.version == shellIntegrationScriptVersion;
+          message = ''
+            The shell integration script version does not match the current iTerm2 version: iTerm2 - ${cfg.package.version}, SI - ${shellIntegrationScriptVersion}. Remember to upgrading SI scripts!
+          '';
+        }
+      ];
 
       programs.bash.initExtra = mkIf cfg.enableBashIntegration (shellIntegrationFor "bash");
       programs.zsh.initExtra = mkIf cfg.enableZshIntegration (shellIntegrationFor "zsh");
