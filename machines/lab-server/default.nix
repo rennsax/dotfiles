@@ -69,6 +69,10 @@ let
         ripgrep
       ];
 
+      # Never enable Nix-managed bash since I mainly use Bash in a plain
+      # environment (not chroot).
+      programs.bash.enable = lib.mkForce false;
+
       programs.man = {
         enable = true;
         package = pkgs.man; # nongnu man-db
