@@ -34,10 +34,12 @@ in
       };
 
       signing = lib.mkIf cfg.signingConfig {
-        gpgPath = "${pkgs.writeShellScript "gpg-loopback-wrapper" ''
+        format = "openpgp";
+        signer = "${pkgs.writeShellScript "gpg-loopback-wrapper" ''
           ${pkgs.gnupg}/bin/gpg --pinentry-mode loopback "$@"
         ''}";
-        # Must be explicitly defined.
+        # Set to `null` to let the signer decide what signing key to use
+        # depending on commit’s author.
         key = null;
       };
 
