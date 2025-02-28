@@ -42,13 +42,6 @@
     promptInit = "";
   };
 
-  programs.bash = {
-    # So the bash history does not corrupt the zsh history, if it's invoked as subshell.
-    interactiveShellInit = ''
-      export HISTFILE="$HOME/.bash_history"
-    '';
-  };
-
   # Auto upgrade nix package and the daemon service.
   services.nix-daemon.enable = true;
 
@@ -121,8 +114,8 @@
     dscl . -create '/Users/${myVars.me.username}' UserShell ${lib.escapeShellArg ("/run/current-system/sw${pkgs.zsh.shellPath}")}
   '';
 
-  # GNU Bash is preinstalled on NixOS, so this option is only meaningful for Darwin.
-  programs.bash.enable = true;
+  # Do not setup GNU Bash in system-width.
+  programs.bash.enable = false;
 
   # Used for backwards compatibility, please read the changelog before changing.
   # $ darwin-rebuild changelog
