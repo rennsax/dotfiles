@@ -7,11 +7,7 @@
 with lib;
 let
   cfg = config.myModules.emacs;
-  myEmacs = pkgs.emacs29.override {
-    # Already default to true.
-    # withNativeCompile = true;
-    # withImageMagick = true;
-  };
+  myEmacs = pkgs.emacs30;
 
 in
 {
