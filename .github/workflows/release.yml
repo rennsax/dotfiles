@@ -1,4 +1,4 @@
-name: Pack dotfiles with submodules downloaded
+name: Pack dotfiles
 on:
   push:
     tags:
@@ -8,13 +8,10 @@ permissions:
   contents: write
 
 jobs:
-  tests:
+  release:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-        with:
-          submodules: recursive
-          path: '.dotfiles'
 
       - name: Create tarball
         run: |
