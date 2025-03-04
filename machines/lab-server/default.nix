@@ -39,6 +39,8 @@ let
         };
         emacs-libvterm.enableZshIntegration = true;
         fzf.enable = true;
+        tmux.enable = true;
+        tmux.oh-my-tmux.enable = true;
         z-lua = {
           enable = true;
           enableAliases = true;
@@ -67,6 +69,10 @@ let
         ripgrep
       ];
 
+      # Never enable Nix-managed bash since I mainly use Bash in a plain
+      # environment (not chroot).
+      programs.bash.enable = lib.mkForce false;
+
       programs.man = {
         enable = true;
         package = pkgs.man; # nongnu man-db
@@ -84,6 +90,12 @@ let
       };
 
       xdg.configFile."starship.toml".source = ./text/starship.toml;
+
+      # Copied from the implementation of `programs.tmux.secureSocket`.
+      # This is necessary to use two isolated tmux server on my lab-server.
+      home.sessionVariables = {
+        TMUX_TMPDIR = ''''${XDG_RUNTIME_DIR:-"/run/user/$(id -u)"}'';
+      };
 
       programs.home-manager.enable = true;
 
