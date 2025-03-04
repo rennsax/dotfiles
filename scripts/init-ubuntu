@@ -106,7 +106,7 @@ fi
 # The needrestart(1) prompts are annoying.
 # Simply export NEEDRESTART_MODE=a or NEEDRESTART_SUSPEND=1
 # or DEBIAN_FRONTEND=noninteractive is useless,
-# because sudo doesn't perserve the environment varibles (unless w/ -E option)
+# because sudo doesn't preserve the environment varibles (unless w/ -E option)
 if [ -f "/etc/needrestart/needrestart.conf" ]; then
     # disable kernel checks && restart_mode = (a)utomatically
     printf "%s\n" "\$nrconf{kernelhints} = 0;" "\$nrconf{restart} = 'a';" | \
