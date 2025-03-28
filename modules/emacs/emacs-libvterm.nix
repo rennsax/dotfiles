@@ -14,8 +14,8 @@ with lib;
   };
 
   config = {
-    # Make it a little late so it can be loaded after starship.
-    programs.zsh.initExtra = mkIf cfg.enableZshIntegration (mkOrder 1200 ''
+    # It must have order > 1000 so it can be loaded after starship.
+    programs.zsh.initContent = mkIf cfg.enableZshIntegration (mkOrder 1100 ''
       source ${./shell/vterm.zsh}
     '');
   };
