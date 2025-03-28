@@ -28,16 +28,5 @@
     hammerspoon-macos = prev.callPackage ./harmmerspoon.nix { };
 
     nix-vscode-extensions = nix-vscode-extensions.extensions.${final.hostPlatform.system};
-
-    math-preview =
-      let
-        nodejs = final.nodejs_20;
-      in
-      prev.math-preview.override {
-        inherit nodejs;
-        buildNpmPackage = final.buildNpmPackage.override {
-          inherit nodejs;
-        };
-      };
   })
 ]
