@@ -72,6 +72,10 @@ in
         sarasa-term-sc-nerd # overlay
         vistafonts-chs # Microsoft Yahei
       ];
+      displayline = runCommandLocal "displayline" { } ''
+        mkdir -p $out/bin
+        ln -s ${skimpdf}/Applications/Skim.app/Contents/SharedSupport/displayline $out/bin/displayline
+      '';
     in
     [
       bat
@@ -90,6 +94,11 @@ in
       cheat
       openssh
       iproute2mac
+
+      # TeX tools
+      texliveFull
+      skimpdf
+      displayline
 
       # Programming
       shellcheck
