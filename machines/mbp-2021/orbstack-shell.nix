@@ -22,11 +22,10 @@ in
     initExtraBeforeCompInit = shellInitFor "zsh";
     # Setup orb/orbctl completion. Must be after compinit.
     initExtra = ''
-      # From https://raw.githubusercontent.com/orbstack/orbstack/main/orb.plugin.zsh
       # make sure you execute this *after* asdf or other version managers are loaded
-      eval "$(orbctl completion zsh)"
-      compdef _orb orbctl
-      compdef _orb orb
+      eval "$(orbctl completion zsh)" # declare `_orbctl` function
+      compdef _orbctl orbctl
+      compdef _orbctl orb
     '';
   };
 }
