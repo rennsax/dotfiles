@@ -9,6 +9,8 @@
 #
 # Since it's so impure, I do not include the orbstack package here. Recommended:
 # manually install it.
+{ lib, ... }:
+with lib;
 let
   # Modify PATH and provides completion functions for docker/kubectl.
   # Must be sourced before compinit.
@@ -18,14 +20,14 @@ let
 in
 {
   # Put this before my personal configuration, so the orb.plugin.zsh can be correctly loaded.
-  programs.zsh = {
-    initExtraBeforeCompInit = shellInitFor "zsh";
+  programs.zsh.initContent = mkMerge [
+    (mkOrder 550 (shellInitFor "zsh"))
     # Setup orb/orbctl completion. Must be after compinit.
-    initExtra = ''
+    (''
       # make sure you execute this *after* asdf or other version managers are loaded
       eval "$(orbctl completion zsh)" # declare `_orbctl` function
       compdef _orbctl orbctl
       compdef _orbctl orb
-    '';
-  };
+    '')
+  ];
 }

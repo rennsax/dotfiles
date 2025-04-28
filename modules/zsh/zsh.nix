@@ -69,18 +69,6 @@ in
             fi
           }
         '';
-        initExtraBeforeCompInit =
-          ''
-            ############################################################
-            #################### BEGIN my configs ######################
-            ############################################################
-
-            ${readFile ./config/zshrc-extra}
-
-            ############################################################
-            ####################  END my configs  ######################
-            ############################################################
-          '';
         inherit (cfg) dotDir;
 
         # Regrettably, I cannot disable home-manager from modifying my history settings.
@@ -96,14 +84,35 @@ in
           share = true;
         };
 
-        initExtra = ''
-          [ -f "${zdotDir}/.zshrc-temp" ] && source "${zdotDir}/.zshrc-temp"
-        '';
-
-        initExtraFirst = ''
-          plugins=(${concatStringsSep " " cfg.plugins})
-        '';
       };
+    }
+
+    {
+      programs.zsh.initContent = mkMerge [
+        # a.k.a. mkOrder 500.
+        (mkBefore ''
+          plugins=(${concatStringsSep " " cfg.plugins})
+        '')
+        (mkOrder 550 ''
+          ############################################################
+          #################### BEGIN my configs ######################
+          ############################################################
+
+          ${readFile ./config/zshrc-extra}
+
+          ############################################################
+          ####################  END my configs  ######################
+          ############################################################
+        '')
+        # The default priority is 1000.
+        (''
+          [ -f "${zdotDir}/.zshrc-temp" ] && source "${zdotDir}/.zshrc-temp"
+        '')
+
+        (mkIf config.programs.z-lua.enable (mkOrder 1050 ''
+          ${pkgs.z-lua}/bin/z.lua --add "$PWD"
+        ''))
+      ];
     }
 
     {
@@ -111,14 +120,6 @@ in
       # won't corrupt the zsh history when Bash is invoked as the subshell.
       programs.bash.historyFile = mkDefault "${config.home.homeDirectory}/.bash_history";
     }
-
-    (mkIf config.programs.z-lua.enable {
-
-      programs.zsh.initExtra = mkAfter ''
-        ${pkgs.z-lua}/bin/z.lua --add "$PWD"
-      '';
-
-    })
 
     # Link plugins to config directory.
     (mkIf (cfg.plugins != [ ]) {

@@ -67,7 +67,7 @@ in
       ];
 
       programs.bash.initExtra = mkIf cfg.enableBashIntegration (shellIntegrationFor "bash");
-      programs.zsh.initExtra = mkIf cfg.enableZshIntegration (shellIntegrationFor "zsh");
+      programs.zsh.initContent = mkIf cfg.enableZshIntegration (shellIntegrationFor "zsh");
       programs.fish.interactiveShellInit = mkIf cfg.enableFishIntegration (shellIntegrationFor "fish");
 
     }
@@ -75,8 +75,8 @@ in
     (mkIf cfg.enableUtilities {
       home.packages = [ utilities ];
 
-      # initExtra is called after compinit
-      programs.zsh.initExtra = optionalString cfg.enableZshIntegration ''
+      # called after compinit
+      programs.zsh.initContent = optionalString cfg.enableZshIntegration ''
         compdef _ssh it2ssh=ssh
       '';
     })

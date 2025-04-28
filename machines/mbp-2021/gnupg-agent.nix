@@ -15,7 +15,7 @@
     };
   };
 
-  programs.zsh.initExtra = ''
+  programs.zsh.initContent = ''
     # Bind gpg-agent to this TTY if gpg commands are used.
     export GPG_TTY=$(tty)
 

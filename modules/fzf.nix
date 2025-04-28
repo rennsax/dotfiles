@@ -24,7 +24,7 @@ in
       changeDirWidgetOptions = [ "--preview 'tree -C {}'" ];
     };
 
-    programs.zsh.initExtra = ''
+    programs.zsh.initContent = ''
       # Extra fzf settings. Use fd for listing path candidates.
       _fzf_compgen_dir() {
           # cd **<TAB>
