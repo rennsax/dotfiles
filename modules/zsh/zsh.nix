@@ -106,6 +106,12 @@ in
       };
     }
 
+    {
+      # Explicitly set the default value for the history file of Bash, so it
+      # won't corrupt the zsh history when Bash is invoked as the subshell.
+      programs.bash.historyFile = mkDefault "${config.home.homeDirectory}/.bash_history";
+    }
+
     (mkIf config.programs.z-lua.enable {
 
       programs.zsh.initExtra = mkAfter ''
