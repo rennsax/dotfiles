@@ -7,7 +7,9 @@
 with lib;
 let
   cfg = config.myModules.emacs;
-  myEmacs = pkgs.emacs30;
+  myEmacs = pkgs.emacs30.override {
+    withNativeCompilation = false;
+  };
 
 in
 {
