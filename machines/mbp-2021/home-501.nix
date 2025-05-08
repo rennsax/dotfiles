@@ -104,7 +104,7 @@ in
       shellcheck
       nixfmt-rfc-style
 
-      (python3.withPackages (
+      (python313.withPackages (
         ps: with ps; [
           pip
           build
