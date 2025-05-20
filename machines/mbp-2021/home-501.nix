@@ -157,6 +157,9 @@ in
 
   programs.zsh.sessionVariables = {
     # Disable regular load/unload messages.
+    # `DIRENV_LOG_FORMAT` seems to only be applied if the config file actually
+    # is found, see:
+    # https://github.com/direnv/direnv/issues/1418#issuecomment-2820125413
     DIRENV_LOG_FORMAT = "";
   };
 
@@ -202,6 +205,8 @@ in
         personalCheatsheets = "${config.xdg.configHome}/cheat/personal";
         bat = "${bat}/bin/bat";
       };
+
+    "direnv/direnv.toml".text = "";
   };
 
   targets.darwin.defaults =
