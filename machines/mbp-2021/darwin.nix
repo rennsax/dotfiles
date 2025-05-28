@@ -44,6 +44,8 @@
 
   security.pam.services.sudo_local.touchIdAuth = true;
 
+  system.primaryUser = myVars.me.username;
+
   system.defaults.finder = {
     AppleShowAllExtensions = true;
     AppleShowAllFiles = false; # Do not always show hidden files
