@@ -17,7 +17,7 @@ in
     username = getEnvNonEmpty "USER";
     userFullName = "Bojun Ren";
     userNickname = "Rennsax";
-    userEmail = "bj.ren.coding@outlook.com";
+    userEmail = "me.rennsax@gmail.com";
   };
   # Parent directory of the whole Nix flake. Must be hard-coded.
   nixConfigDir = getEnvNonEmpty "NIX_CONFIG_DIR";
