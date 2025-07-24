@@ -188,14 +188,6 @@ in
     nix-direnv.enable = true;
   };
 
-  programs.zsh.sessionVariables = {
-    # Disable regular load/unload messages.
-    # `DIRENV_LOG_FORMAT` seems to only be applied if the config file actually
-    # is found, see:
-    # https://github.com/direnv/direnv/issues/1418#issuecomment-2820125413
-    DIRENV_LOG_FORMAT = "";
-  };
-
   programs.starship = {
     enable = true;
     enableZshIntegration = true;
@@ -239,7 +231,6 @@ in
         bat = "${bat}/bin/bat";
       };
 
-    "direnv/direnv.toml".text = "";
   };
 
   targets.darwin.defaults =
