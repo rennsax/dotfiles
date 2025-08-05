@@ -94,6 +94,8 @@ in
       cheat
       openssh
       iproute2mac
+      yt-dlp-light
+      ffmpeg
 
       # TeX tools
       texliveFull
@@ -111,6 +113,13 @@ in
           ipython
         ]
       ))
+      ruff
+      basedpyright
+
+      cargo
+      rustc
+      rust-analyzer
+      rustfmt
 
       (vscode-with-extensions.override {
         vscodeExtensions =
