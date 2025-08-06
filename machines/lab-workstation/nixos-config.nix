@@ -50,7 +50,7 @@ in
     shell = pkgs.zsh;
     uid = 1000;
     openssh.authorizedKeys.keys = [
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOzlb7/RuaRMcNRaRBQ8L4l2v81DOGadNinPlq7VT7XM"
+      myVars.me.publicKey
     ];
     isNormalUser = true;
     group = username;
