@@ -13,7 +13,9 @@ let
 in
 {
   options.myModules.xdg.go = {
-    enable = mkEnableOption "go xdg";
+    enable = mkEnableOption "go xdg" // {
+      default = config.myModules.xdg.enable;
+    };
   };
 
   config = mkIf cfg.enable {

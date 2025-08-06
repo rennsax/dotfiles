@@ -14,7 +14,9 @@ let
 in
 {
   options.myModules.xdg.npm = {
-    enable = mkEnableOption "npm xdg";
+    enable = mkEnableOption "npm xdg" // {
+      default = config.myModules.xdg.enable;
+    };
   };
 
   config = mkIf cfg.enable {

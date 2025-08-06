@@ -5,5 +5,13 @@
     ./go-xdg.nix
     ./history-littering.nix
   ];
-  xdg.enable = lib.mkDefault true;
+
+  options.myModules.xdg = {
+    enable = lib.mkEnableOption "more xdg configurations" // {
+      default = true;
+    };
+  };
+  config = {
+    xdg.enable = lib.mkDefault true;
+  };
 }
