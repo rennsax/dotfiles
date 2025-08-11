@@ -6,8 +6,8 @@ on:
       - test-workflow
 
 jobs:
-  lints:
-    name: Test Installation
+  install-lab-server:
+    name: Test installation for lab server
     runs-on: ubuntu-22.04
     steps:
     - uses: actions/checkout@v4
@@ -23,3 +23,15 @@ jobs:
     - run: |
         nix shell nixpkgs#home-manager -c \
           home-manager --impure switch --flake .#ipads-server.renbj
+
+  build-workstation-iso:
+    name: Test building the ISO image for lab workstation
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Install Nix
+      uses: DeterminateSystems/nix-installer-action@main
+
+    - run: |
+        nix build .#nixosConfigurations.ipads-nixos.config.system.build.images.iso
