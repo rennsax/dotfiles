@@ -38,6 +38,7 @@ in
     curl
     wget
     htop
+    vim
   ];
 
   system.stateVersion = "25.05";
