@@ -1,5 +1,10 @@
 #+startup: show2levels
-#+html: <div><a href="https://github.com/rennsax/dotfiles/actions/workflows/test-install.yml"><img alt="GitHub Actions Workflow Status" src="https://img.shields.io/github/actions/workflow/status/rennsax/dotfiles/test-install.yml?label=Test"></a> <img alt="GitHub Release" src="https://img.shields.io/github/v/release/rennsax/dotfiles"></div>
+#+html: <div>
+#+html: <a href="https://github.com/rennsax/dotfiles/actions/workflows/ci.yml"><img alt="GitHub Actions Workflow Status" src="https://img.shields.io/github/actions/workflow/status/rennsax/dotfiles/ci.yml?label=Test"></a>
+#+html: <a href="https://github.com/rennsax/dotfiles/releases"><img alt="GitHub Release" src="https://img.shields.io/github/v/release/rennsax/dotfiles"></a>
+#+html: <img alt="macOS" src="https://img.shields.io/badge/macOS-lightgrey?logo=apple&logoColor=fff">
+#+html: <img alt="GNU/Linux" src="https://img.shields.io/badge/GNU%2FLinux-fcc624?logo=linux&logoColor=000">
+#+html: </div>
 
 * dotfiles
 
