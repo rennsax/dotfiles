@@ -44,6 +44,13 @@
     enableBashIntegration = true;
   };
 
+  programs.gpg.enable = true;
+  services.gpg-agent = {
+    enable = true;
+    pinentry.package = pkgs.pinentry-tty;
+    enableSshSupport = true;
+  };
+
   xdg.configFile."starship.toml".source = ./text/starship.toml;
 
   home.stateVersion = "25.05";

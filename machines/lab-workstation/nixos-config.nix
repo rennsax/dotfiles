@@ -37,7 +37,6 @@ in
     git
     curl
     wget
-    gnupg
     htop
   ];
 
