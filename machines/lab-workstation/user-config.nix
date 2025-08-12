@@ -51,6 +51,8 @@
     enableSshSupport = true;
   };
 
+  programs.nix-index.enable = true;
+
   xdg.configFile."starship.toml".source = ./text/starship.toml;
 
   home.stateVersion = "25.05";
