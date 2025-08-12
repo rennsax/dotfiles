@@ -38,11 +38,7 @@
     nix-direnv.enable = true;
   };
 
-  programs.starship = {
-    enable = true;
-    enableZshIntegration = true;
-    enableBashIntegration = true;
-  };
+  programs.starship.enable = true;
 
   programs.gpg.enable = true;
   services.gpg-agent = {
