@@ -39,6 +39,8 @@ in
     wget
     htop
     vim
+    gnumake
+    file
   ];
 
   system.stateVersion = "25.05";

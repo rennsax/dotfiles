@@ -30,7 +30,7 @@
     rlwrap
     p7zip
     jq
-    cheat
+    trash-cli
   ];
 
   programs.direnv = {
