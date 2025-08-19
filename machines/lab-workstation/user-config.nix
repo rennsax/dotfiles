@@ -2,6 +2,7 @@
 {
   myModules = {
     git.enable = true;
+    git.signingConfig = true;
     zsh = {
       enable = true;
       dotDir = ".config/zsh";
