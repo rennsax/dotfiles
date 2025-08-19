@@ -25,6 +25,12 @@ in
   networking.hostName = "rennsax-nixos";
   services.openssh.enable = true;
 
+  networking.firewall = {
+    enable = true;
+    allowPing = true;
+    allowedTCPPorts = [ 8000 ];
+  };
+
   programs.zsh = {
     enable = true;
     # These two tremendously slow down my shell.
