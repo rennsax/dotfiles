@@ -42,7 +42,12 @@
 
   programs.starship.enable = true;
 
-  programs.gpg.enable = true;
+  programs.gpg = {
+    enable = true;
+    settings = {
+      pinentry-mode = "loopback";
+    };
+  };
   services.gpg-agent = {
     enable = true;
     pinentry.package = pkgs.pinentry-tty;
