@@ -25,6 +25,10 @@ in
   networking.hostName = "rennsax-nixos";
   services.openssh.enable = true;
 
+  virtualisation.docker = {
+    enable = true;
+  };
+
   networking.firewall = {
     enable = true;
     allowPing = true;
@@ -62,7 +66,7 @@ in
     ];
     isNormalUser = true;
     group = username;
-    extraGroups = [ "wheel" ];
+    extraGroups = [ "wheel" "docker" ];
   };
 
   home-manager.users."${username}" = {
