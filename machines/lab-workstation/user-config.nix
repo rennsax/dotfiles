@@ -32,6 +32,7 @@
     p7zip
     jq
     trash-cli
+    nodejs
   ];
 
   programs.direnv = {
