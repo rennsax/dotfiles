@@ -66,6 +66,7 @@ in
         emacsPackages.gn-mode-from-sources
         emacsPackages.cmake-mode
         emacsPackages.ninja-mode
+        emacsPackages.llvm-mode
       ];
     }
 
