@@ -73,6 +73,11 @@
     defaults write kCFPreferencesAnyApplication TSMLanguageIndicatorEnabled 0
   '';
 
+  networking = {
+    computerName = "Rennsax's MacBook Pro";
+    hostName = "Rennsax-MacBook-Pro";
+  };
+
   environment.systemPackages = with pkgs; [
     vim
     gnumake
