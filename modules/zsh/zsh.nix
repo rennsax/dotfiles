@@ -25,14 +25,12 @@ let
       src = ./site-plugins/${name};
     }) cfg.extraPlugins;
 
-  zdotDir = "$HOME/" + cfg.dotDir;
-
 in
 {
   options.myModules.zsh = {
     enable = mkEnableOption "zsh";
     dotDir = mkOption {
-      default = ".config/zsh";
+      default = "${config.xdg.configHome}/.config/zsh";
       type = types.str;
     };
     package = mkPackageOption pkgs "zsh" { };
@@ -106,7 +104,7 @@ in
         '')
         # The default priority is 1000.
         (''
-          [ -f "${zdotDir}/.zshrc-temp" ] && source "${zdotDir}/.zshrc-temp"
+          [ -f "${cfg.dotDir}/.zshrc-temp" ] && source "${cfg.dotDir}/.zshrc-temp"
         '')
 
         (mkIf config.programs.z-lua.enable (mkOrder 1050 ''

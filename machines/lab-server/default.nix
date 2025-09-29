@@ -31,7 +31,6 @@ let
         git.enable = true;
         zsh = {
           enable = true;
-          dotDir = ".config/zsh";
           plugins = [
             "zsh-syntax-highlighting"
             "zsh-autosuggestions"
