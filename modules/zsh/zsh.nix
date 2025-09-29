@@ -30,7 +30,7 @@ in
   options.myModules.zsh = {
     enable = mkEnableOption "zsh";
     dotDir = mkOption {
-      default = "${config.xdg.configHome}/.config/zsh";
+      default = "${config.xdg.configHome}/zsh";
       type = types.str;
     };
     package = mkPackageOption pkgs "zsh" { };
