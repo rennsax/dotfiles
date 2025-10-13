@@ -43,6 +43,12 @@ in
     promptInit = "";
   };
 
+  programs.bash = {
+    interactiveShellInit = ''
+      export HISTFILE="$HOME/.bash_history"
+    '';
+  };
+
   environment.systemPackages = with pkgs; [
     git
     curl
