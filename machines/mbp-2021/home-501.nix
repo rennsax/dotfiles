@@ -69,7 +69,7 @@ in
         source-han-serif
         source-han-sans
         sarasa-term-sc-nerd # overlay
-        vistafonts-chs # Microsoft Yahei
+        vista-fonts-chs # Microsoft Yahei
       ];
       displayline = runCommandLocal "displayline" { } ''
         mkdir -p $out/bin
