@@ -19,18 +19,27 @@ in
       enable = true;
       package = pkgs.git;
 
-      aliases = {
-        a = "add";
-        co = "checkout";
-        br = "branch";
-        ci = "commit";
-        st = "status";
-        amend = "commit --amend";
-        ls = "log --graph --pretty=\"%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%ar) %C(bold blue)<%an>%Creset\"";
-        lss = "ls --stat";
-        lsa = "ls --all";
-        mff = "!mff() { git merge --ff-only \"$1\" && git reset --hard HEAD@{1} && git merge --no-ff \"$1\"; }; mff";
-        dft = "difftool";
+      settings = {
+        aliases = {
+          a = "add";
+          co = "checkout";
+          br = "branch";
+          ci = "commit";
+          st = "status";
+          amend = "commit --amend";
+          ls = "log --graph --pretty=\"%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%ar) %C(bold blue)<%an>%Creset\"";
+          lss = "ls --stat";
+          lsa = "ls --all";
+          mff = "!mff() { git merge --ff-only \"$1\" && git reset --hard HEAD@{1} && git merge --no-ff \"$1\"; }; mff";
+          dft = "difftool";
+        };
+        core = {
+          ignorecase = false;
+        };
+        github = {
+          user = "rennsax";
+        };
+        init.defaultBranch = "main";
       };
 
       signing = lib.mkIf cfg.signingConfig {
@@ -46,19 +55,6 @@ in
       lfs = {
         enable = true;
         skipSmudge = true;
-      };
-
-      difftastic = {
-        enable = true;
-      };
-      extraConfig = {
-        core = {
-          ignorecase = false;
-        };
-        github = {
-          user = "rennsax";
-        };
-        init.defaultBranch = "main";
       };
 
       ignores = [
@@ -81,6 +77,10 @@ in
         "*.zip"
         ".direnv"
       ];
+    };
+
+    programs.difftastic = {
+      enable = true;
     };
   };
 }

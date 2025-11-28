@@ -55,9 +55,9 @@ let
       home.homeDirectory = "/home/${username}";
       xdg.enable = true;
 
-      programs.git = {
-        userName = userFullName;
-        userEmail = userEmail;
+      programs.git.settings.user = {
+        name = userFullName;
+        email = userEmail;
       };
 
       home.packages = with pkgs; [
