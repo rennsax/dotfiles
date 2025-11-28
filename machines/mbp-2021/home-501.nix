@@ -181,9 +181,9 @@ in
     package = pkgs.man; # nongnu man-db
   };
 
-  programs.git = {
-    userName = userFullName;
-    userEmail = userEmail;
+  programs.git.settings.user = {
+    name = userFullName;
+    email = userEmail;
   };
 
   programs.gh = {
@@ -265,6 +265,70 @@ in
           "onenote.mac"
         ]
     );
+
+  launchd.agents."fava_service" = {
+    enable = true;
+    config = {
+      ProgramArguments = [
+        "${pkgs.fava}/bin/fava"
+        "-p"
+        "37834"
+        "/Volumes/Workspace-new/personal/ledger/main.bean"
+      ];
+      Program = "${pkgs.fava}/bin/fava";
+      StandardErrorPath = "/tmp/fava-stderr.txt";
+      StandardOutPath = "/tmp/fava-stdout.txt";
+    };
+  };
+
+  launchd.agents."rennsax_blog" =
+    let
+      ruby = pkgs.ruby_3_3;
+    in
+    {
+      enable = true;
+      config = {
+        ProgramArguments = [
+          "${ruby}/bin/bundle"
+          "exec"
+          "jekyll"
+          "s"
+          "-l"
+          "-P"
+          "52898"
+          "-d"
+          "_site-dev"
+        ];
+        WorkingDirectory = "/Volumes/Workspace-new/projects/rennsax.github.io";
+        Program = "${ruby}/bin/bundle";
+        StandardErrorPath = "/tmp/rennsax-blog-stderr.txt";
+        StandardOutPath = "/tmp/rennsax-blog-stdout.txt";
+      };
+    };
+
+  launchd.agents."jupyter-lab" =
+    let
+      venvdir = "/Volumes/Workspace-new/local-tools/jupyter-lab/.direnv/python-3.13";
+      jupyter = "${venvdir}/bin/jupyter";
+    in
+    {
+      enable = true;
+      config = {
+        ProgramArguments = [
+          jupyter
+          "lab"
+          "--notebook-dir=/Volumes/Workspace-new"
+          "--no-browser"
+          "--port=5095"
+        ];
+        Program = jupyter;
+        StandardErrorPath = "/Users/renbaijun/.local/state/launchd/jupyter-lab-stderr.txt";
+        StandardOutPath = "/Users/renbaijun/.local/state/launchd/jupyter-lab-stdout.txt";
+        EnvironmentVariables = {
+          PATH = "${venvdir}/bin:/usr/bin:/bin:/usr/sbin:/sbin";
+        };
+      };
+    };
 
   programs.home-manager.enable = true;
 

@@ -80,9 +80,9 @@ in
       ./user-config.nix
       homeManagerModule
       ({
-        programs.git = with myVars.me; {
-          userName = userFullName;
-          userEmail = userEmail;
+        programs.git.settings.user = with myVars.me; {
+          name = userFullName;
+          email = userEmail;
         };
       })
     ];

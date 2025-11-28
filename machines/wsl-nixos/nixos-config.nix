@@ -33,9 +33,9 @@ let
         };
       };
 
-      programs.git = {
-        userName = myVars.me.userFullName;
-        userEmail = myVars.me.userEmail;
+      programs.git.settings.user = {
+        name = myVars.me.userFullName;
+        email = myVars.me.userEmail;
       };
 
       programs.starship = {
