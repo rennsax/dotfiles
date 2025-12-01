@@ -20,7 +20,7 @@ in
       package = pkgs.git;
 
       settings = {
-        aliases = {
+        alias = {
           a = "add";
           co = "checkout";
           br = "branch";
