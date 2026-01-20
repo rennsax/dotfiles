@@ -103,7 +103,7 @@ in
 
       # Programming
       shellcheck
-      nixfmt-rfc-style
+      nixfmt
 
       (python313.withPackages (
         ps: with ps; [

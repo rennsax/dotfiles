@@ -9,6 +9,6 @@
     macos-trash = prev.callPackage ./macos-trash.nix { };
     hammerspoon-macos = prev.callPackage ./harmmerspoon.nix { };
 
-    nix-vscode-extensions = nix-vscode-extensions.extensions.${final.hostPlatform.system};
+    nix-vscode-extensions = nix-vscode-extensions.extensions.${final.stdenv.hostPlatform.system};
   })
 ]
