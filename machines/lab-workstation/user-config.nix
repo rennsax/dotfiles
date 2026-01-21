@@ -34,6 +34,21 @@
     nodejs
   ];
 
+  systemd.user.services = {
+    gitlab-runer = {
+      Unit = {
+        Description = "GitLab Runner";
+        After = "network.target";
+        ConditionPathExists = "/var/run/docker.sock";
+      };
+      Service = {
+        ExecStart = "${pkgs.gitlab-runner}/bin/gitlab-runner run";
+        Restart = "always";
+        RestartSec = 5;
+      };
+    };
+  };
+
   programs.direnv = {
     enable = true;
     nix-direnv.enable = true;

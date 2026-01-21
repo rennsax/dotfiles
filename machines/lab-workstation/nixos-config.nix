@@ -75,6 +75,7 @@ in
     isNormalUser = true;
     group = username;
     extraGroups = [ "wheel" "docker" ];
+    linger = true;
   };
 
   home-manager.users."${username}" = {
