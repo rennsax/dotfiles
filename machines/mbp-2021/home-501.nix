@@ -43,6 +43,7 @@ in
       npm.enable = true;
       go.enable = true;
     };
+    vscode.enable = true;
   };
 
   # home Manager needs a bit of information about you and the paths it should
@@ -119,39 +120,6 @@ in
       rustc
       rust-analyzer
       rustfmt
-
-      (vscode-with-extensions.override {
-        vscodeExtensions =
-          # Almost latest extensions, but sometimes requires VS Code with higher version.
-          (with nix-vscode-extensions; [
-            vscode-marketplace.vivaxy.vscode-conventional-commits
-            vscode-marketplace.cschlosser.doxdocgen
-          ])
-          ++
-            # Extensions managed by Nixpkgs.
-            (with vscode-extensions; [
-              tuttieee.emacs-mcx
-
-              pkief.material-icon-theme
-              gruntfuggly.todo-tree
-
-              streetsidesoftware.code-spell-checker
-              usernamehw.errorlens
-              timonwong.shellcheck
-
-              # Languages
-              jnoortheen.nix-ide
-
-              # Killer APPs of VS Code.
-              ms-vscode-remote.remote-ssh
-              ms-vscode-remote.remote-ssh-edit
-
-              ms-python.python
-              ms-toolsai.jupyter
-
-              eamodio.gitlens
-            ]);
-      })
 
       hammerspoon-macos
 

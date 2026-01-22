@@ -13,6 +13,7 @@
       ./iTerm2
       ./z-lua
       ./xdg-more
+      ./vscode
     ];
   };
 
