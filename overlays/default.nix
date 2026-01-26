@@ -8,7 +8,6 @@
     gnu-coding-standards = prev.callPackage ./gnu-coding-standards.nix { };
     macos-trash = prev.callPackage ./macos-trash.nix { };
     hammerspoon-macos = prev.callPackage ./hammerspoon.nix { };
-
-    nix-vscode-extensions = nix-vscode-extensions.extensions.${final.stdenv.hostPlatform.system};
   })
+  nix-vscode-extensions.overlays.default
 ]
