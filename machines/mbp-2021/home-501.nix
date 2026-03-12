@@ -96,6 +96,7 @@ in
       iproute2mac
       yt-dlp-light
       ffmpeg
+      mpv
 
       # TeX tools
       texliveFull
