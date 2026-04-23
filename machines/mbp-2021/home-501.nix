@@ -205,7 +205,6 @@ in
       replaceVars ./text/cheat-conf.yml.in {
         inherit communityCheatsheets;
         personalCheatsheets = "${config.xdg.configHome}/cheat/personal";
-        bat = "${bat}/bin/bat";
       };
 
   };
