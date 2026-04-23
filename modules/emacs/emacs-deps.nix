@@ -28,7 +28,7 @@ in
 
         aspellDicts.en
 
-        nodePackages.prettier
+        prettier
 
         universal-ctags
 
