@@ -17,6 +17,7 @@ in
 
   nix.settings = {
     experimental-features = "nix-command flakes";
+    trusted-users = [ username ];
   };
 
   time.timeZone = "Asia/Shanghai";

@@ -20,6 +20,7 @@
       # It's added by default.
       # "https://cache.nixos.org"
     ];
+    trusted-users = [ myVars.me.username ];
   };
 
   # This is an undocumented option of nix-darwin. The effect of this option is

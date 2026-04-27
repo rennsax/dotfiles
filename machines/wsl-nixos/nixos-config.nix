@@ -64,6 +64,7 @@ in
       "https://cache.nixos.org"
       # "https://mirror.sjtu.edu.cn/nix-channels/store"
     ];
+    trusted-users = [ username ];
   };
 
   environment.systemPackages = with pkgs; [
