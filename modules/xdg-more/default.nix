@@ -1,4 +1,4 @@
-{ lib, ... }:
+{ lib, config, ... }:
 {
   imports = [
     ./npm-xdg.nix
@@ -13,5 +13,6 @@
   };
   config = {
     xdg.enable = lib.mkDefault true;
+    home.sessionPath = lib.mkAfter [ "${config.home.homeDirectory}/.local/bin" ];
   };
 }
