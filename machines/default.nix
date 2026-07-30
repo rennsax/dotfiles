@@ -105,7 +105,7 @@ let
 
 in
 normalizeMachineOutputs {
-  "tahoe-workstation" = callMachine ./mbp-2021 { };
+  "mbp-workstation" = callMachine ./mbp-2021 { };
   "ipads-server" = callMachine ./lab-server { };
   "wsl-nixos" = callMachine ./wsl-nixos { };
   "ipads-nixos" = callMachine ./lab-workstation { };
