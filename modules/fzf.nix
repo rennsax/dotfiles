@@ -19,9 +19,13 @@ in
       enable = true;
       inherit (cfg) package;
       defaultCommand = "fd --type f --strip-cwd-prefix";
-      fileWidgetCommand = "fd --type f --strip-cwd-prefix";
-      changeDirWidgetCommand = "fd --type d --strip-cwd-prefix";
-      changeDirWidgetOptions = [ "--preview 'tree -C {}'" ];
+      fileWidget = {
+        command = "fd --type f --strip-cwd-prefix";
+      };
+      changeDirWidget = {
+        options = [ "--preview 'tree -C {}'" ];
+        command = "fd --type d --strip-cwd-prefix";
+      };
     };
 
     programs.zsh.initContent = ''
