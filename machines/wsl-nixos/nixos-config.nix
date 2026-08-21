@@ -44,6 +44,11 @@ let
         enableBashIntegration = true;
       };
 
+      programs.direnv = {
+        enable = true;
+        nix-direnv.enable = true;
+      };
+
       xdg.configFile."starship.toml".source = ./text/starship.toml;
 
       systemd.user.enable = false;
