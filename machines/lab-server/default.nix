@@ -97,6 +97,9 @@ let
         TMUX_TMPDIR = ''''${XDG_RUNTIME_DIR:-"/run/user/$(id -u)"}'';
       };
 
+      # Fix missing locale.
+      home.language.base = "C.UTF-8";
+
       programs.home-manager.enable = true;
 
       systemd.user.enable = false;
