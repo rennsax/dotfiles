@@ -87,9 +87,14 @@ in
   users.users."${username}" = {
     shell = pkgs.zsh;
     uid = 1000;
+    openssh.authorizedKeys.keys = [
+      myVars.me.publicKey
+    ];
   };
 
   home-manager.users."${username}" = userConfig;
+
+  services.openssh.enable = true;
 
   systemd.tmpfiles.rules =
     let
