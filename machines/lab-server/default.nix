@@ -67,6 +67,7 @@ let
         trash-cli
         tree
         ripgrep
+        openssh
       ];
 
       # Never enable Nix-managed bash since I mainly use Bash in a plain
