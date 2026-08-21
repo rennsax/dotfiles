@@ -102,7 +102,7 @@ in
       shellcheck
       nixfmt
 
-      (python313.withPackages (
+      (python3.withPackages (
         ps: with ps; [
           pip
           build
