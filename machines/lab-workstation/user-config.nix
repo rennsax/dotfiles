@@ -66,6 +66,10 @@
     enable = true;
     pinentry.package = pkgs.pinentry-tty;
     enableSshSupport = true;
+    maxCacheTtl = 86400;
+    maxCacheTtlSsh = 86400;
+    defaultCacheTtl = 86400;
+    defaultCacheTtlSsh = 86400;
   };
 
   programs.nix-index.enable = true;
