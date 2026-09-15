@@ -10,12 +10,12 @@ let
 in
 stdenv.mkDerivation rec {
   pname = "emacs-libvterm-module";
-  version = "54c29d1";
+  version = "cb14773";
   src = fetchFromGitHub {
-    owner = "akermu";
+    owner = "rennsax";
     repo = "emacs-libvterm";
     rev = version;
-    hash = "sha256-ZSkGvKPhX4yZ2HNeNuHI7a01kjzBNBTdsWTj7y/xi8s=";
+    hash = "sha256-zGatHwpmfWcZYIBkAghvMzcOFYMBF0MIuNb1sgZNoqg=";
   };
   nativeBuildInputs = [ cmake ];
   buildInputs = [ libvterm-neovim ];
