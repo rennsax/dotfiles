@@ -33,7 +33,7 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-  postFixup = lib.optionalString stdenv.isDarwin ''
+  postFixup = lib.optionalString stdenv.hostPlatform.isDarwin ''
     ln -s ${moduleFileName} $out/${installPrefix}/${moduleName}.dylib
   '';
 }

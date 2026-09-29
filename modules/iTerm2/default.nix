@@ -35,7 +35,7 @@ in
       description = "The package to use for the iterm2 cask.";
     };
     enableInstall = mkEnableOption "whether to install iTerm2" // {
-      default = pkgs.stdenv.isDarwin;
+      default = pkgs.stdenv.hostPlatform.isDarwin;
     };
     enableBashIntegration = mkEnableOption "Bash integration" // {
       default = true;
