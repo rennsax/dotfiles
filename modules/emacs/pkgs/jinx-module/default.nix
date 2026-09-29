@@ -12,12 +12,12 @@ let
 in
 stdenv.mkDerivation rec {
   pname = moduleName;
-  version = "1.11";
+  version = "2.11";
   src = fetchFromGitHub {
     owner = "minad";
     repo = "jinx";
     rev = version;
-    hash = "sha256-Y3h07oawqtg1PPwSyq2UqBrkHSVb1DPmFu6hu3vD1ok=";
+    hash = "sha256-yBSF/yLxmiaVKqXP+xrvniJopPM4R8edbg1GD6p6B+s=";
   };
   nativeBuildInputs = [ pkg-config ];
   buildInputs = [ enchant ];
