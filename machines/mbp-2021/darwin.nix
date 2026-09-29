@@ -10,7 +10,7 @@
   nix.package = pkgs.nix;
 
   nix.settings = {
-    experimental-features = "nix-command flakes";
+    experimental-features = [ "nix-command" "flakes" ];
     substituters = [
       # Use `--option substitute false` to disable querying from the cache server.
       # "https://mirror.sjtu.edu.cn/nix-channels/store"
