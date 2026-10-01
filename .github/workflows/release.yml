@@ -15,7 +15,11 @@ jobs:
 
       - name: Create tarball
         run: |
-          tar zcvf dotfiles-${{ github.ref_name }}.tar.gz .dotfiles
+          archive="dotfiles-${GITHUB_REF_NAME}.tar.gz"
+          git archive \
+            --format=tar.gz \
+            --output="$archive" \
+            HEAD
 
       - name: Generate SHA256 checksums
         run: |
