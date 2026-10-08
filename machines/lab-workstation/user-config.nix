@@ -56,6 +56,8 @@
 
   programs.starship.enable = true;
 
+  programs.uv.enable = true;
+
   programs.gpg = {
     enable = true;
     settings = {

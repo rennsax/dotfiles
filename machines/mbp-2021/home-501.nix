@@ -166,6 +166,10 @@ in
     enableBashIntegration = true;
   };
 
+  programs.uv = {
+    enable = true;
+  };
+
   xdg.configFile."starship.toml".source = ./text/starship.toml;
 
   home.file = {
