@@ -1,4 +1,4 @@
-{ config, ... }:
+{ config, lib, ... }:
 
 let
   stateHome = config.xdg.stateHome;
@@ -9,4 +9,7 @@ in
     NODE_REPL_HISTORY = "${stateHome}/node_repl_history";
     PYTHON_HISTORY = "${stateHome}/python/history";
   };
+  home.activation.createXdgDirectories = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+    run mkdir -p "${stateHome}/python"
+  '';
 }
