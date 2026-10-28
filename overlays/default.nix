@@ -9,6 +9,5 @@
     macos-trash = prev.callPackage ./macos-trash.nix { };
     hammerspoon-macos = prev.callPackage ./hammerspoon.nix { };
   })
-  (import ./texlive-fix-broken-minted.nix)
   nix-vscode-extensions.overlays.default
 ]
