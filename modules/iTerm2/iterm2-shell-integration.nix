@@ -4,16 +4,16 @@
 }:
 let
   hashes = {
-    zsh = "sha256-kQJ8bVIh7nEjYJ6OWqiEDqIY+YWD5RbD1CXV+KKyDno=";
-    bash = "sha256-v9G7xQtts7QDdctlwPpRbPcRvk+TYndLHDX9BbHxW5o=";
-    fish = "sha256-++OLTyOdf0yxeub0DuzIPwu1Ois/zcDal+YvzD3Sjvk=";
+    zsh = "sha256-IOkIE7oaFwPN8F33JKBC185phXJz6TPQQR/ufysg8J8=";
+    bash = "sha256-yHVNnDW8JJNL56sgc1ZRyaAZvStELr+0HZED5i6VxbA=";
+    fish = "sha256-olJrKdyVdFBx89S56+S39bLLw63zAD8ecEGsE3Rzsyc=";
   };
   shells = builtins.attrNames hashes;
   siFor =
     shell:
     fetchurl rec {
       pname = "iterm2-${shell}-integration";
-      version = "3.6.10";
+      version = "3.7.4";
       url = "https://gitlab.com/gnachman/iterm2/-/raw/v${version}/Resources/shell_integration/iterm2_shell_integration.${shell}";
       hash = hashes.${shell};
     };
