@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 {
   myModules = {
     git.enable = true;
@@ -32,6 +32,7 @@
     jq
     trash-cli
     nodejs
+    (lib.hiPrio corepack)
   ];
 
   systemd.user.services = {
