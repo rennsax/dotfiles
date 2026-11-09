@@ -109,4 +109,5 @@ normalizeMachineOutputs {
   "ipads-server" = callMachine ./lab-server { };
   "wsl-nixos" = callMachine ./wsl-nixos { };
   "ipads-nixos" = callMachine ./lab-workstation { };
+  "rpi4" = callMachine ./rpi4 { };
 }
