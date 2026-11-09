@@ -208,6 +208,9 @@ in
 
   };
 
+  targets.darwin.copyApps.enable = true;
+  targets.darwin.linkApps.enable = false;
+
   targets.darwin.defaults =
     {
       "org.gpgtools.pinentry-mac".DisableKeychain = true;
